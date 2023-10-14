@@ -30,6 +30,9 @@ module.exports = {
         NotoSans: ['var(--font-noto-sans)'],
         NotoSansJP: ['var(--font-noto-sans-jp)'],
       },
+      fontSize: {
+        base: '16px',
+      },
     },
   },
   plugins: [],

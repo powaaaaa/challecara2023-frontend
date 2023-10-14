@@ -1,7 +1,9 @@
+// TODO use 'React.ComponentPropsWithRef'
 import type { ButtonHTMLAttributes } from 'react';
 
 import { cva } from 'class-variance-authority';
 
+// TODO add type 'submit'
 type Props = {
   variant: 'base' | 'sub';
   label: string;
