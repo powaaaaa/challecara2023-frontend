@@ -9,7 +9,6 @@ import '../DateInput/index.css';
 
 import type { ReactDatePickerProps } from 'react-datepicker';
 
-type Props = ReactDatePickerProps;
 type CustomHeaderProps = {
   date: Date;
   changeYear: (year: number) => void;
@@ -20,7 +19,7 @@ type CustomHeaderProps = {
   nextMonthButtonDisabled: boolean;
 };
 
-export const DateInput: React.FC<Props> = ({ ...props }) => {
+export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
   registerLocale('ja', ja);
 
   const MinDate = new Date();
