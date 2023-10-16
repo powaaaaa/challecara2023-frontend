@@ -46,7 +46,6 @@ export const Input: React.FC<Props> = ({
         id={id}
         type={type}
         placeholder={placeholderText(type)}
-        required
         {...props}
       />
     </span>
