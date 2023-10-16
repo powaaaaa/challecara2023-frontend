@@ -16,11 +16,39 @@ export const Input: React.FC<Props> = ({
   id,
   display,
   ...props
-}) => (
-  <span className="text-base">
-    <label className={`${display} text-black font-medium pb-2`} htmlFor={id}>
-      {label}
-    </label>
-    <input className={InputStyle} id={id} type={type} required {...props} />
-  </span>
-);
+}) => {
+  const placeholderText = (type: string): string => {
+    switch (type) {
+      case 'text':
+        return '入力してください';
+      case 'number':
+        return '0';
+      case 'email':
+        return 'example@example.com';
+      case 'password':
+        return 'password';
+      case 'tel':
+        return '012-3456-7890';
+      case 'url':
+        return 'https://example.com';
+      default:
+        return '入力してください';
+    }
+  };
+
+  return (
+    <span className="text-base">
+      <label className={`${display} text-black font-medium pb-2`} htmlFor={id}>
+        {label}
+      </label>
+      <input
+        className={InputStyle}
+        id={id}
+        type={type}
+        placeholder={placeholderText(type)}
+        required
+        {...props}
+      />
+    </span>
+  );
+};

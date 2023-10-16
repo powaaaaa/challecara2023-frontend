@@ -18,7 +18,6 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   args: {
     type: 'text',
-    placeholder: '入力してください',
     display: 'hidden',
   },
 };
@@ -26,7 +25,6 @@ export const Default: Story = {
 export const NumberInput: Story = {
   args: {
     type: 'number',
-    placeholder: '0',
     display: 'block',
     label: '年齢',
   },
@@ -35,27 +33,23 @@ export const NumberInput: Story = {
 export const EmailInput: Story = {
   args: {
     type: 'email',
-    placeholder: 'example@example.com',
   },
 };
 
 export const PwdInput: Story = {
   args: {
     type: 'password',
-    placeholder: 'password',
   },
 };
 
 export const TelInput: Story = {
   args: {
     type: 'tel',
-    placeholder: '012-3456-7890',
   },
 };
 
 export const UrlInput: Story = {
   args: {
     type: 'url',
-    placeholder: 'https://example.com',
   },
 };
