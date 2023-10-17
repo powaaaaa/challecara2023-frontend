@@ -86,7 +86,6 @@
     "jest-environment-jsdom": "^29.6.4",
     "lint-staged": "^14.0.1",
     "markuplint": "^3.12.1",
-    "material-symbols": "link:@iconify/json/material-symbols",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.1",
     "storybook": "^7.2.2",

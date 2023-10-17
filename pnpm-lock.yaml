@@ -154,9 +154,6 @@ devDependencies:
   markuplint:
     specifier: ^3.12.1
     version: 3.13.0(@swc/core@1.3.92)(@types/node@20.8.6)(typescript@5.2.2)
-  material-symbols:
-    specifier: link:@iconify/json/material-symbols
-    version: link:@iconify/json/material-symbols
   npm-run-all:
     specifier: ^4.1.5
     version: 4.1.5

@@ -1,8 +1,3 @@
-const {
-  iconsPlugin,
-  getIconCollections,
-} = require('@egoist/tailwindcss-icons');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -28,6 +23,7 @@ module.exports = {
           lighten: {
             1: '#656464',
             2: '#C2C2C2',
+            3: '#E9E9E9',
           },
         },
       },
@@ -37,6 +33,9 @@ module.exports = {
       },
       fontSize: {
         base: '16px',
+      },
+      boxShadow: {
+        yb2: '0 2px 2px 0 rgba(0, 0, 0, 0.25)',
       },
     },
   },
