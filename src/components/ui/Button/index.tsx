@@ -1,13 +1,11 @@
-// TODO use 'React.ComponentPropsWithRef'
-import type { ButtonHTMLAttributes } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-// TODO add type 'submit'
 type Props = {
   variant: 'base' | 'sub';
   label: string;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ComponentPropsWithoutRef<'button'>;
 
 export const Button: React.FC<Props> = ({
   variant,

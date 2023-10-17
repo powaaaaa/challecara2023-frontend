@@ -1,3 +1,8 @@
+const {
+  iconsPlugin,
+  getIconCollections,
+} = require('@egoist/tailwindcss-icons');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -35,5 +40,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    iconsPlugin({
+      collections: getIconCollections('material-symbols'),
+    }),
+  ],
 };
