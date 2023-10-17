@@ -40,9 +40,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    iconsPlugin({
-      collections: getIconCollections('material-symbols'),
-    }),
-  ],
+  plugins: [],
 };
