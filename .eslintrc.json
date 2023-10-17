@@ -27,6 +27,8 @@
 
     "@typescript-eslint/no-unsafe-call": "warn",
 
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+
     // 必要な場合にのみアロー関数の本体を使用する
     "arrow-body-style": ["error", "as-needed"],
 

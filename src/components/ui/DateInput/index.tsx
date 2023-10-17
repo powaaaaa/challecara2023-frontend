@@ -22,10 +22,10 @@ type CustomHeaderProps = {
 export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
   registerLocale('ja', ja);
 
-  const MinDate = new Date();
-  const MaxDate = addYears(MinDate, 10);
+  const MinDate: Date = new Date();
+  const MaxDate: Date = addYears(MinDate, 10);
 
-  const years = _.range(getYear(MinDate), getYear(MinDate) + 10, 1);
+  const years: number[] = _.range(getYear(MinDate), getYear(MinDate) + 10, 1);
   const months = Array.from(Array(12).keys());
 
   const CustomHeader: React.FC<CustomHeaderProps> = ({
