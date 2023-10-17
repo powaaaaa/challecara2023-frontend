@@ -15,5 +15,8 @@ export default meta;
 type Story = StoryObj<typeof PwdInput>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    label: 'パスワード',
+    display: 'hidden',
+  },
 };
