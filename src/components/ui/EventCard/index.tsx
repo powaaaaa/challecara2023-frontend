@@ -6,7 +6,7 @@ import Image from 'next/image';
 type Props = {
   image_url: string;
   title: string;
-  name: string;
+  administratorName: string;
   startTime: Date;
   endTime: Date;
 } & ComponentPropsWithoutRef<'button'>;
@@ -14,7 +14,7 @@ type Props = {
 export const EventCard: React.FC<Props> = ({
   image_url,
   title,
-  name,
+  administratorName,
   startTime,
   endTime,
   ...props
@@ -37,7 +37,9 @@ export const EventCard: React.FC<Props> = ({
 
       <span>
         <p className="text-left font-medium text-base pt-10 px-4">{title}</p>
-        <p className="absolute right-0 bottom-0 pr-4 pb-[70px]">{name}</p>
+        <p className="absolute right-0 bottom-0 pr-4 pb-[70px]">
+          {administratorName}
+        </p>
         <p className="absolute right-0 bottom-0 pr-4 pb-10">{`${start} ～ ${end}`}</p>
       </span>
     </button>
