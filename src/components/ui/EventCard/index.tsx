@@ -1,3 +1,5 @@
+import type { ComponentPropsWithoutRef } from 'react';
+
 import { format } from 'date-fns';
 import Image from 'next/image';
 
@@ -7,7 +9,7 @@ type Props = {
   name: string;
   startTime: Date;
   endTime: Date;
-};
+} & ComponentPropsWithoutRef<'button'>;
 
 export const EventCard: React.FC<Props> = ({
   image_url,
@@ -15,12 +17,16 @@ export const EventCard: React.FC<Props> = ({
   name,
   startTime,
   endTime,
+  ...props
 }) => {
   const start = format(startTime, 'yyyy/MM/dd');
   const end = format(endTime, 'yyyy/MM/dd');
 
   return (
-    <button className="text-black bg-basic w-[832px] h-[252px] rounded-xl flex relative overflow-hidden">
+    <button
+      className="text-black bg-basic w-[832px] h-[252px] rounded-xl shadow-yb2 flex relative overflow-hidden"
+      {...props}
+    >
       <Image
         className="z-0 bg-origin-border object-cover object-center"
         src={image_url}
