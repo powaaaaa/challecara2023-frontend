@@ -8,7 +8,7 @@ type Props = {
 } & ComponentPropsWithoutRef<'input'>;
 
 export const InputStyle =
-  'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal font-noto-sans placeholder-black-lighten-1';
+  'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1';
 
 export const Input: React.FC<Props> = ({
   type,

@@ -37,7 +37,7 @@ export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
     prevMonthButtonDisabled,
     nextMonthButtonDisabled,
   }) => (
-    <div className="flex px-4 items-center justify-between bg-base p-2 text-black font-medium">
+    <div className="flex px-4 items-center justify-between bg-basic p-2 text-black font-medium">
       <button
         className={`text-xl text-black-lighten-1 ${
           prevMonthButtonDisabled
@@ -50,7 +50,7 @@ export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
       </button>
 
       <select
-        className="p-1 text-xl bg-base cursor-pointer"
+        className="p-1 text-xl bg-basic cursor-pointer"
         value={getYear(date)}
         onChange={({ target: { value } }): void => changeYear(parseInt(value))}
       >
@@ -61,7 +61,7 @@ export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
         ))}
       </select>
       <select
-        className="p-1 text-xl bg-base cursor-pointer"
+        className="p-1 text-xl bg-basic cursor-pointer"
         value={getMonth(date)}
         onChange={({ target: { value } }): void => changeMonth(parseInt(value))}
       >

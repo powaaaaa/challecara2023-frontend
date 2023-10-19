@@ -16,7 +16,7 @@ export const PwdInput: React.FC<Props> = ({ label, id, display, ...props }) => {
   };
 
   return (
-    <span>
+    <span className="text-base">
       <label className={`${display} text-black font-medium pb-2`} htmlFor={id}>
         {label}
       </label>
