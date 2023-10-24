@@ -2,18 +2,17 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-type Props = {
-  tag: string;
+type TagsList = {
+  id: string;
+  label: string;
   selected: boolean;
-  className: string;
+} & object;
+
+type Props = {
+  tagsList: TagsList[];
 } & ComponentPropsWithoutRef<'span'>;
 
-export const Tag: React.FC<Props> = ({
-  tag,
-  selected,
-  className,
-  ...props
-}) => {
+export const Tag: React.FC<Props> = ({ tagsList, ...props }) => {
   const TagStyle = cva(
     'flex px-2 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
     {
@@ -26,8 +25,16 @@ export const Tag: React.FC<Props> = ({
     }
   );
   return (
-    <span className={TagStyle({ selected, className })} {...props}>
-      {tag}
-    </span>
+    <div className="flex flex-wrap gap-x-2 gap-y-4">
+      {tagsList.map((tag) => (
+        <span
+          className={TagStyle({ selected: tag.selected })}
+          key={tag.id}
+          {...props}
+        >
+          {tag.label}
+        </span>
+      ))}
+    </div>
   );
 };
