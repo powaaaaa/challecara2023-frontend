@@ -39,3 +39,10 @@ export const Sub: Story = {
     label: 'テキスト',
   },
 };
+
+export const InputStyle: Story = {
+  args: {
+    variant: 'inputStyle',
+    label: '選択してください',
+  },
+};
