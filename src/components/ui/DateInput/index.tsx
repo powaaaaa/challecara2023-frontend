@@ -4,7 +4,6 @@ import _ from 'lodash';
 import DatePicker, { registerLocale } from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { InputStyle } from '../Input';
 import '../DateInput/index.css';
 
 import type { ReactDatePickerProps } from 'react-datepicker';
@@ -18,6 +17,9 @@ type CustomHeaderProps = {
   prevMonthButtonDisabled: boolean;
   nextMonthButtonDisabled: boolean;
 };
+
+const InputStyle =
+  'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1';
 
 export const DateInput: React.FC<ReactDatePickerProps> = ({ ...props }) => {
   registerLocale('ja', ja);
