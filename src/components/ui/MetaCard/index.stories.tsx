@@ -1,9 +1,9 @@
-import { detailCard } from '.';
+import { MetaCard } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof detailCard> = {
-  component: detailCard,
+const meta: Meta<typeof MetaCard> = {
+  component: MetaCard,
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +12,7 @@ const meta: Meta<typeof detailCard> = {
 
 export default meta;
 
-type Story = StoryObj<typeof detailCard>;
+type Story = StoryObj<typeof MetaCard>;
 
 export const Default: Story = {
   args: {

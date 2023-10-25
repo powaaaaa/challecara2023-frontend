@@ -10,7 +10,7 @@ type Props = {
   winningNumber: number;
 };
 
-export const detailCard: React.FC<Props> = ({
+export const MetaCard: React.FC<Props> = ({
   administratorName,
   introduction,
   snsUrl,
