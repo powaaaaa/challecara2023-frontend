@@ -41,8 +41,8 @@ export const List: React.FC<Props<Result | Receive>> = ({ columns, data }) => {
   });
 
   return (
-    <Table className="bg-basic">
-      <Thead className="bg-sub pl-8 text-left border-sub border-l-[32px]">
+    <Table className="bg-basic text-black">
+      <Thead className="bg-sub pl-8 font-semibold text-left border-sub border-l-[32px]">
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
