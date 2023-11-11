@@ -1,7 +1,7 @@
-import { CreateEventPresentation  } from './presentations';
-import { CreateEventEmptyPresentation  } from './presentations/empty';
-import { CreateEventErrorPresentation  } from './presentations/error';
-import { CreateEventLoadingPresentation  } from './presentations/loading';
+import { CreateEventPresentation } from './presentations';
+import { CreateEventEmptyPresentation } from './presentations/empty';
+import { CreateEventErrorPresentation } from './presentations/error';
+import { CreateEventLoadingPresentation } from './presentations/loading';
 
 import type { Meta, StoryObj } from '@storybook/react';
 

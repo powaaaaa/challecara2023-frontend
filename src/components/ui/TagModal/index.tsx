@@ -1,8 +1,9 @@
-import { Button } from '../Button';
+import type { Dispatch, SetStateAction } from 'react';
+
 import { Tags } from '../Tags';
 
 type Props = {
-  show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
 };
 
 const List = [
@@ -16,17 +17,22 @@ const List = [
   { id: '8', label: 'お寿司', selected: true },
 ];
 
-export const TagModal: React.FC<Props> = ({ show }) => {
-  if (show) {
-    return (
-      <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center">
-        <div className="z-10 w-1/2 p-4 bg-white">
-          <Tags tagsList={List} />
-          <Button variant="base" label="戻る" />
-        </div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-};
+export const TagModal: React.FC<Props> = ({ setShow }) => (
+  <div
+    className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center"
+    role="button"
+    tabIndex={0}
+    onClick={(): void => setShow(false)}
+    onKeyDown={(): void => setShow(false)}
+  >
+    <div
+      className="z-10 w-1/2 p-8 bg-white rounded border-2 border-black-lighten-2"
+      role="button"
+      tabIndex={0}
+      onClick={(e): void => e.stopPropagation()}
+      onKeyDown={(e): void => e.stopPropagation()}
+    >
+      <Tags tagsList={List} />
+    </div>
+  </div>
+);

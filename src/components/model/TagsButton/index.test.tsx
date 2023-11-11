@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
 
-import "@testing-library/jest-dom";
-import { TagsButton } from ".";
+import '@testing-library/jest-dom';
+import { TagsButton } from '.';
 
-describe("model/TagsButtonのテスト", () => {
-  it("title is exist", () => {
+describe('model/TagsButtonのテスト', () => {
+  it('title is exist', () => {
     render(<TagsButton />);
 
     const title = screen.getByText(/this is TagsButton component/);

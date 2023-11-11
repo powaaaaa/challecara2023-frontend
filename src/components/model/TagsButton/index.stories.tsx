@@ -1,5 +1,5 @@
-import { TagsButtonPresentation  } from './presentations';
-import { TagsButtonLoadingPresentation  } from './presentations/loading';
+import { TagsButtonPresentation } from './presentations';
+import { TagsButtonLoadingPresentation } from './presentations/loading';
 
 import type { Meta, StoryObj } from '@storybook/react';
 

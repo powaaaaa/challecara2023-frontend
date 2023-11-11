@@ -4,9 +4,9 @@ import { useState } from 'react';
 type IUseCreateEvent = {
   state: string;
   setState: Dispatch<SetStateAction<string>>;
-}
+};
 
-export const useCreateEvent = ():IUseCreateEvent => {
-  const [state, setState] = useState("");
-  return {state,setState}
+export const useCreateEvent = (): IUseCreateEvent => {
+  const [state, setState] = useState('');
+  return { state, setState };
 };

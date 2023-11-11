@@ -40,6 +40,10 @@
   color: #fafafa;
 }
 
+.react-datepicker__portal {
+  background-color: rgba(60, 61, 68, 0.5);
+}
+
 /* 選択された日付 */
 .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range,

@@ -14,7 +14,7 @@ type Props = {
 
 export const Tags: React.FC<Props> = ({ tagsList, ...props }) => {
   const TagStyle = cva(
-    'flex px-2 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
+    'flex px-3 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
     {
       variants: {
         selected: {
@@ -25,7 +25,7 @@ export const Tags: React.FC<Props> = ({ tagsList, ...props }) => {
     }
   );
   return (
-    <div className="flex flex-wrap gap-x-2 gap-y-4">
+    <div className="flex flex-wrap gap-x-4 gap-y-4">
       {tagsList.map((tag) => (
         <span
           className={TagStyle({ selected: tag.selected })}

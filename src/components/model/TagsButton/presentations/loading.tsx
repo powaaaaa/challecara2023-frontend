@@ -1,1 +1,3 @@
-export const TagsButtonLoadingPresentation:React.FC = () => <>this is TagsButton component</>;
+export const TagsButtonLoadingPresentation: React.FC = () => (
+  <>this is TagsButton component</>
+);
