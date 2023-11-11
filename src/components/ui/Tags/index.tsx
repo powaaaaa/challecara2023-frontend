@@ -12,7 +12,7 @@ type Props = {
   tagsList: TagsList[];
 } & ComponentPropsWithoutRef<'span'>;
 
-export const Tag: React.FC<Props> = ({ tagsList, ...props }) => {
+export const Tags: React.FC<Props> = ({ tagsList, ...props }) => {
   const TagStyle = cva(
     'flex px-2 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
     {
