@@ -21,6 +21,7 @@ export const TagsButtonPresentation: React.FC<Props> = ({ id }) => {
   return (
     <div className="z-20">
       <Button
+        className="w-[400px]"
         variant="inputStyle"
         label="選択してください"
         id={id}

@@ -3,11 +3,40 @@ import { TagsButtonPresentation } from '../../TagsButton/presentations';
 import { DateInput } from '@/components/ui/DateInput';
 import { ImageInput } from '@/components/ui/ImageInput';
 import { Input } from '@/components/ui/Input';
+import { InputText } from '@/components/ui/InputText';
 
-export const CreateEventPresentation: React.FC = () => (
+type WithRange = never;
+
+type Props = {
+  uploadThumbnail: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeParticipantsNumber: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  changeEventTerm: (
+    date: WithRange extends false | undefined
+      ? Date | null
+      : [Date | null, Date | null]
+  ) => void;
+  changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const CreateEventPresentation: React.FC<Props> = ({
+  uploadThumbnail,
+  changeEventTitle,
+  changeParticipantsNumber,
+  startDate,
+  endDate,
+  changeEventTerm,
+  changeEventInfo,
+  changeEventId,
+}) => (
   <div className="bg-basic w-[736px] rounded border-2 border-black-lighten-1">
     <div className="border-b-2 border-black-lighten-1">
-      <ImageInput />
+      <ImageInput onChange={uploadThumbnail} />
     </div>
 
     <div className="mt-16 mr-10 ml-20">
@@ -19,7 +48,14 @@ export const CreateEventPresentation: React.FC = () => (
           >
             タイトル
           </label>
-          <Input type="text" display="hidden" label="label" id="id" />
+          <Input
+            className="w-[400px]"
+            type="text"
+            display="hidden"
+            label="label"
+            id="id"
+            onChange={changeEventTitle}
+          />
         </div>
 
         <div className="flex pt-2">
@@ -29,6 +65,7 @@ export const CreateEventPresentation: React.FC = () => (
           >
             タグ
           </label>
+          {/*  // TODO onChangeを書く */}
           <TagsButtonPresentation id="button" />
         </div>
       </div>
@@ -42,7 +79,14 @@ export const CreateEventPresentation: React.FC = () => (
             募集人数
           </label>
           <div className="mb-2">
-            <Input type="number" display="hidden" label="label" id="id2" />
+            <Input
+              className="w-[400px]"
+              type="number"
+              display="hidden"
+              label="label"
+              id="id2"
+              onChange={changeParticipantsNumber}
+            />
           </div>
         </div>
 
@@ -54,7 +98,12 @@ export const CreateEventPresentation: React.FC = () => (
             募集期間
           </label>
           <div>
-            <DateInput id="id3" onChange={(e): void => console.log(e)} />
+            <DateInput
+              id="id3"
+              startDate={startDate}
+              endDate={endDate}
+              onChange={changeEventTerm}
+            />
           </div>
         </div>
       </div>
@@ -68,7 +117,7 @@ export const CreateEventPresentation: React.FC = () => (
             詳細
           </label>
           <div className="mb-2">
-            <Input type="text" display="hidden" label="label" id="id4" />
+            <InputText id="id4" onChange={changeEventInfo} />
           </div>
         </div>
         <div className="flex">
@@ -78,7 +127,14 @@ export const CreateEventPresentation: React.FC = () => (
           >
             イベントID
           </label>
-          <Input type="text" display="hidden" label="label" id="id5" />
+          <Input
+            className="w-[400px]"
+            type="text"
+            display="hidden"
+            label="label"
+            id="id5"
+            onChange={changeEventId}
+          />
         </div>
       </div>
     </div>
