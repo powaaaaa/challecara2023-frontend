@@ -15,7 +15,5 @@ export default meta;
 type Story = StoryObj<typeof TagModal>;
 
 export const Default: Story = {
-  args: {
-    show: true,
-  },
+  args: {},
 };
