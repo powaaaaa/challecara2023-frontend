@@ -6,13 +6,15 @@ import './globals.css';
 const noto = Noto_Sans({
   weight: ['400', '700'],
   subsets: ['latin'],
+  display: 'swap',
+  adjustFontFallback: false,
   variable: '--font-noto-sans',
 });
 
 const notojp = Noto_Sans_JP({
-  weight: ['400', '700'],
-  preload: false,
+  subsets: ['latin'],
   display: 'swap',
+  adjustFontFallback: false,
   variable: '--font-noto-sans-jp',
 });
 
@@ -23,11 +25,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }): ReactNode => (
   <html lang="ja">
-    <body
-      className={`${noto.variable} ${notojp.variable} font-NotoSansJP font-NotoSans`}
-    >
-      {children}
-    </body>
+    <body className={(noto.className, notojp.className)}>{children}</body>
   </html>
 );
 
