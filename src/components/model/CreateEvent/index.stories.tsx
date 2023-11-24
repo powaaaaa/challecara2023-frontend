@@ -1,7 +1,5 @@
 import { CreateEventPresentation } from './presentations';
-import { CreateEventEmptyPresentation } from './presentations/empty';
 import { CreateEventErrorPresentation } from './presentations/error';
-import { CreateEventLoadingPresentation } from './presentations/loading';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -21,14 +19,6 @@ export const Default: Story = {
   args: {},
 };
 
-export const Empty: Story = {
-  render: () => <CreateEventEmptyPresentation />,
-};
-
 export const Error: Story = {
-  render: () => <CreateEventErrorPresentation />,
-};
-
-export const Loading: Story = {
-  render: () => <CreateEventLoadingPresentation />,
+  render: () => <CreateEventErrorPresentation errorText="" />,
 };
