@@ -6,13 +6,17 @@
   "language": "en",
   // words - list of words to be always considered correct
   "words": [
+    "appspot",
     "autodocs",
     "chakra",
+    "challecara",
     "clsx",
     "datepicker",
+    "firebaseapp",
     "noto",
     "notojp",
-    "tanstack"
+    "tanstack",
+    "Zdlj"
   ],
   "ignorePaths": []
   // flagWords - list of words to be always considered incorrect
