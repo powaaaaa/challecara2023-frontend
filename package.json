@@ -21,7 +21,8 @@
     "ci:test-group": "run-p test:*",
     "ci:check": "run-p check:*",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "api:build": "aspida"
   },
   "engines": {
     "npm": "pnpm please",
@@ -35,11 +36,13 @@
     ]
   },
   "dependencies": {
+    "@aspida/axios": "^1.14.0",
     "@chakra-ui/react": "^2.8.1",
     "@egoist/tailwindcss-icons": "^1.4.0",
     "@tanstack/react-table": "^8.10.7",
     "@types/lodash": "^4.14.199",
     "@types/react-datepicker": "^4.19.0",
+    "aspida": "^1.14.0",
     "autoprefixer": "10.4.16",
     "axios": "^1.6.1",
     "class-variance-authority": "^0.7.0",
