@@ -2,15 +2,17 @@ export type User = {
   id: string;
   display_name: string;
   password?: string;
+  address?: string;
 };
 
 export type Event = {
   id: string;
   title: string;
   image_url: string;
-  administrator_id: string;
+  administrator_id: User['id'];
   start_time: string;
   end_time: string;
+  detail?: string;
 };
 
 export type Tag = {
@@ -22,19 +24,20 @@ export type Administrator = {
   id?: User['id'];
   administrator_display_name: User['display_name'];
   password?: User['password'];
+  address?: User['address'];
   introduction: string;
   sns_url: string;
   homepage_url: string;
 };
 
 export type Result = {
-  participant_id: string;
+  participant_id: User['id'];
   txid: string;
-  is_winner: string;
+  is_winner: boolean;
 };
 
 export type Receipt = {
-  participant_id: string;
+  participant_id: User['id'];
   txid: string;
 };
 
@@ -69,7 +72,7 @@ export type ResultResponse = {
 export type ReceiptResponse = {
   user: User;
   title: Event['title'];
-  address: string;
+  address: User['address'];
 };
 
 export type ReceiptPayload = {
@@ -94,14 +97,14 @@ export type EventAdministratorResponse = {
 };
 
 export type DraftEventPayload = {
-  administrator_id: User['id'];
+  administrator_id: Administrator['id'];
   title?: Event['title'];
   image_url: Event['image_url'];
   tags?: Tag['name'][];
   winning_number: string;
   start_time: Event['start_time'];
   end_time: Event['end_time'];
-  detail: string;
+  detail: Event['detail'];
   id: Event['id'];
 };
 
@@ -111,12 +114,12 @@ export type PublishEventPayload = {
 
 export type SignUpPayload = {
   email: string;
-  password: string;
-  id: string;
-  display_name: string;
+  password: User['password'];
+  id: User['id'];
+  display_name: User['display_name'];
   age: string;
   phone_number: string;
-  address: string;
+  address: User['address'];
   is_admin: boolean;
   introduction?: Administrator['introduction'];
   sns_url?: Administrator['sns_url'];
