@@ -21,7 +21,8 @@
     "ci:test-group": "run-p test:*",
     "ci:check": "run-p check:*",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "api:build": "aspida"
   },
   "engines": {
     "npm": "pnpm please",
