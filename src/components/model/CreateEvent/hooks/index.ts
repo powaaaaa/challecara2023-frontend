@@ -1,6 +1,8 @@
 // import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
+import { getUnixTime } from 'date-fns';
+
 import type * as Types from '@/api/@types';
 
 import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
@@ -33,8 +35,10 @@ export const useCreateEvent = (): IUseCreateEvent => {
   const [eventImage, setEventImage] = useState<File>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [participantsNumber, setParticipantsNumber] = useState<string>();
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+  const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
+  const [postStartDate, setPostStartDate] = useState<string>();
+  const [postEndDate, setPostEndDate] = useState<string>();
   const [eventInfo, setEventInfo] = useState<string>('');
   const [eventId, setEventId] = useState<string>('');
 
@@ -68,11 +72,17 @@ export const useCreateEvent = (): IUseCreateEvent => {
       ? Date | null
       : [Date | null, Date | null]
   ): void => {
+    console.log(startDate)
     if (Array.isArray(date)) {
       // nullをフィルタリングして新しいDateの配列を作成
       const newDateRange = date.filter((d) => d !== null) as Date[];
       // 新しいDateの配列をセット
       setDateRange(newDateRange);
+      console.log(dateRange);
+      if (startDate !== undefined && endDate !== undefined) {
+        setPostStartDate(getUnixTime(startDate).toString());
+        setPostEndDate(getUnixTime(endDate).toString());
+      }
     } else {
       // 単一のDateオブジェクトまたはnullの場合、新しいDateの配列を作成してセット
       // setDateRange(date !== null ? [date, date] : [new Date(), new Date()]);
@@ -119,8 +129,13 @@ export const useCreateEvent = (): IUseCreateEvent => {
     useEffect(() => {
       const fetchData = async (): Promise<void> => {
         try {
-          if (eventImage === undefined || participantsNumber === undefined) {
-            alert('画像と参加人数を入力して下さい。');
+          if (
+            eventImage === undefined ||
+            participantsNumber === undefined ||
+            postStartDate === undefined ||
+            postEndDate === undefined
+          ) {
+            alert('全て入力して下さい');
             return;
           }
 
@@ -138,8 +153,8 @@ export const useCreateEvent = (): IUseCreateEvent => {
             image_url: image_url,
             tags: ['one', 'two'],
             winning_number: participantsNumber,
-            start_time: '1701442800',
-            end_time: '1701442800',
+            start_time: postStartDate,
+            end_time: postEndDate,
             detail: eventInfo,
             id: eventId,
           };
