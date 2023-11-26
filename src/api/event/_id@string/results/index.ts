@@ -2,7 +2,7 @@
 import type * as Types from '../../../@types';
 
 export type Methods = {
-  post: {
-    reqBody: Types.PublishEventPayload;
+  get: {
+    resBody: Types.ResultResponse;
   };
 };
