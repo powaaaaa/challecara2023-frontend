@@ -1,23 +1,24 @@
 import type { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
+import { Button } from '../Button';
 import { Tags } from '../Tags';
+
+import type { TagItem } from '../Tags';
 
 type Props = {
   setShow: Dispatch<SetStateAction<boolean>>;
+  tagsList: TagItem[];
+  changeIsSelected: (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ) => void;
 };
 
-const List = [
-  { id: '1', label: '焼き肉', selected: false },
-  { id: '2', label: 'お寿司', selected: true },
-  { id: '3', label: '焼き肉', selected: false },
-  { id: '4', label: 'お寿司いいいいいいいい！', selected: true },
-  { id: '5', label: '焼き肉', selected: false },
-  { id: '6', label: 'お寿司', selected: true },
-  { id: '7', label: '焼き肉', selected: false },
-  { id: '8', label: 'お寿司', selected: true },
-];
-
-export const TagModal: React.FC<Props> = ({ setShow }) => (
+export const TagModal: React.FC<Props> = ({
+  setShow,
+  tagsList,
+  changeIsSelected,
+}) => (
   <div
     className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center"
     role="button"
@@ -32,7 +33,15 @@ export const TagModal: React.FC<Props> = ({ setShow }) => (
       onClick={(e): void => e.stopPropagation()}
       onKeyDown={(e): void => e.stopPropagation()}
     >
-      <Tags tagsList={List} />
+      <Tags tagsList={tagsList} onClick={changeIsSelected} />
+      <div className="mt-5">
+        <Button
+          className="m-auto"
+          variant="base"
+          label="閉じる"
+          onClick={(): void => setShow(false)}
+        />
+      </div>
     </div>
   </div>
 );

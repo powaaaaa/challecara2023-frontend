@@ -2,17 +2,20 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-type TagsList = {
+import type * as Types from '@/api/@types';
+
+export type TagItem = {
   id: string;
-  label: string;
+  label: Types.Tag['name'];
   selected: boolean;
 } & object;
 
-type Props = {
-  tagsList: TagsList[];
-} & ComponentPropsWithoutRef<'span'>;
+export type Props = {
+  tagsList: TagItem[];
+  onClick: (event: React.MouseEvent<TagItem & HTMLButtonElement>) => void;
+} & ComponentPropsWithoutRef<'button'>;
 
-export const Tags: React.FC<Props> = ({ tagsList, ...props }) => {
+export const Tags: React.FC<Props> = ({ tagsList, onClick, ...props }) => {
   const TagStyle = cva(
     'flex px-3 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
     {
@@ -27,13 +30,14 @@ export const Tags: React.FC<Props> = ({ tagsList, ...props }) => {
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-4">
       {tagsList.map((tag) => (
-        <span
+        <button
           className={TagStyle({ selected: tag.selected })}
           key={tag.id}
+          onClick={onClick}
           {...props}
         >
           {tag.label}
-        </span>
+        </button>
       ))}
     </div>
   );
