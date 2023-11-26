@@ -1,4 +1,8 @@
-import { TagsButtonPresentation } from '../../TagsButton/presentations';
+import type { MouseEventHandler } from 'react';
+
+import { TagsButton } from './item/TagsButton';
+
+import type { TagItem } from '@/components/ui/Tags';
 
 import { DateInput } from '@/components/ui/DateInput';
 import { ImageInput } from '@/components/ui/ImageInput';
@@ -10,6 +14,9 @@ type WithRange = never;
 type Props = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeEventTags: ((event: React.MouseEvent<TagItem>) => void) &
+    MouseEventHandler<HTMLButtonElement>;
+  tagList: TagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
@@ -27,6 +34,8 @@ type Props = {
 export const CreateEventPresentation: React.FC<Props> = ({
   changeImage,
   changeEventTitle,
+  changeEventTags,
+  tagList,
   changeParticipantsNumber,
   startDate,
   endDate,
@@ -65,8 +74,11 @@ export const CreateEventPresentation: React.FC<Props> = ({
           >
             タグ
           </label>
-          {/*  // TODO onChangeを書く */}
-          <TagsButtonPresentation id="button" />
+          <TagsButton
+            id="button"
+            tagsList={tagList ?? []}
+            changeIsSelected={changeEventTags}
+          />
         </div>
       </div>
 

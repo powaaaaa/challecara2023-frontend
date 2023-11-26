@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getUnixTime } from 'date-fns';
 
 import type * as Types from '@/api/@types';
+import type { TagItem } from '@/components/ui/Tags';
 
 import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
 import { apiClient } from '@/libs/apiClients';
@@ -13,6 +14,9 @@ type WithRange = never;
 type IUseCreateEvent = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeEventTags: ((event: React.ChangeEvent<TagItem>) => void) &
+    React.FormEventHandler<TagItem>;
+  tagList: TagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
@@ -33,6 +37,7 @@ type IUseCreateEvent = {
 export const useCreateEvent = (): IUseCreateEvent => {
   const [errorText, setErrorText] = useState<string>('Sample error text');
   const [eventImage, setEventImage] = useState<File>();
+  const [tagList, setTagList] = useState<TagItem[]>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [participantsNumber, setParticipantsNumber] = useState<string>();
   const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]);
@@ -58,6 +63,43 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }
   };
 
+  const fetchTags = async (): Promise<Types.TagsResponse> =>
+    await apiClient.event.tags.$get();
+
+  const createTagList = async (): Promise<TagItem[]> => {
+    const tagsData = await fetchTags();
+    const List: TagItem[] = tagsData.tags.map((item) => ({
+      id: item.uuid,
+      label: item.name,
+      selected: false,
+    }));
+    return List;
+  };
+
+  useEffect(() => {
+    createTagList()
+      .then((List) => {
+        setTagList(List);
+      })
+      .catch((error) => {
+        console.error('タグの取得時にエラーが発生しました: ', error);
+      });
+  });
+
+  const changeEventTags = (event: React.ChangeEvent<TagItem>): void => {
+    const selectedTag = event.target;
+
+    // tagListから特定のtagItemを選択して、selectedをtrueに変更
+    const updatedTagList = tagList?.map((tagItem) => {
+      if (tagItem.id === selectedTag.id) {
+        return { ...tagItem, selected: true };
+      }
+      return tagItem;
+    });
+
+    setTagList(updatedTagList);
+  };
+
   const changeParticipantsNumber = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -72,7 +114,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
       ? Date | null
       : [Date | null, Date | null]
   ): void => {
-    console.log(startDate)
+    console.log(startDate);
     if (Array.isArray(date)) {
       // nullをフィルタリングして新しいDateの配列を作成
       const newDateRange = date.filter((d) => d !== null) as Date[];
@@ -131,6 +173,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
         try {
           if (
             eventImage === undefined ||
+            tagList === undefined ||
             participantsNumber === undefined ||
             postStartDate === undefined ||
             postEndDate === undefined
@@ -151,7 +194,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
             administrator_id: 'admin',
             title: eventTitle,
             image_url: image_url,
-            tags: ['one', 'two'],
+            tags: tagList.map((tag) => tag.label),
             winning_number: participantsNumber,
             start_time: postStartDate,
             end_time: postEndDate,
@@ -174,6 +217,8 @@ export const useCreateEvent = (): IUseCreateEvent => {
   return {
     changeImage,
     changeEventTitle,
+    changeEventTags,
+    tagList,
     changeParticipantsNumber,
     startDate,
     endDate,
