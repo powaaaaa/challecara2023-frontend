@@ -38,7 +38,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
   const uploadThumbnail = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const file = event.target.files;
+    const file = event.target?.files;
     if (file && file[0]) {
       setEventThumbnail(file[0]);
     }
