@@ -1,5 +1,3 @@
-import type { MouseEventHandler } from 'react';
-
 import { TagsButton } from './item/TagsButton';
 
 import type { TagItem } from '@/components/ui/Tags';
@@ -14,8 +12,9 @@ type WithRange = never;
 type Props = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  changeEventTags: ((event: React.MouseEvent<TagItem>) => void) &
-    MouseEventHandler<HTMLButtonElement>;
+  changeEventTags: (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ) => void;
   tagList: TagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>

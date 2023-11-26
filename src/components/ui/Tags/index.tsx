@@ -10,9 +10,9 @@ export type TagItem = {
   selected: boolean;
 } & object;
 
-type Props = {
+export type Props = {
   tagsList: TagItem[];
-  onClick: (event: React.MouseEvent<TagItem>) => void;
+  onClick: (event: React.MouseEvent<TagItem & HTMLButtonElement>) => void;
 } & ComponentPropsWithoutRef<'button'>;
 
 export const Tags: React.FC<Props> = ({ tagsList, onClick, ...props }) => {

@@ -1,4 +1,4 @@
-import type { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 
 import { Button } from '../Button';
@@ -9,8 +9,9 @@ import type { TagItem } from '../Tags';
 type Props = {
   setShow: Dispatch<SetStateAction<boolean>>;
   tagsList: TagItem[];
-  changeIsSelected: ((event: React.MouseEvent<TagItem>) => void) &
-    MouseEventHandler<HTMLButtonElement>;
+  changeIsSelected: (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ) => void;
 };
 
 export const TagModal: React.FC<Props> = ({

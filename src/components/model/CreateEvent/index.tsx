@@ -8,6 +8,8 @@ export const CreateEvent: React.FC = () => {
   const {
     changeImage,
     changeEventTitle,
+    changeEventTags,
+    tagList,
     changeParticipantsNumber,
     startDate,
     endDate,
@@ -23,6 +25,8 @@ export const CreateEvent: React.FC = () => {
       <CreateEventPresentation
         changeImage={changeImage}
         changeEventTitle={changeEventTitle}
+        changeEventTags={changeEventTags}
+        tagList={tagList}
         changeParticipantsNumber={changeParticipantsNumber}
         startDate={startDate}
         endDate={endDate}

@@ -1,4 +1,3 @@
-import type { MouseEventHandler } from 'react';
 import { useState } from 'react';
 
 import type { TagItem } from '@/components/ui/Tags';
@@ -9,8 +8,9 @@ import { TagModal } from '@/components/ui/TagModal';
 type Props = {
   id: string;
   tagsList: TagItem[];
-  changeIsSelected: ((event: React.MouseEvent<TagItem>) => void) &
-    MouseEventHandler<HTMLButtonElement>;
+  changeIsSelected: (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ) => void;
 };
 
 export const TagsButton: React.FC<Props> = ({

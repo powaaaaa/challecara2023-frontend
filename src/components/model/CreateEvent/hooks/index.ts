@@ -14,8 +14,9 @@ type WithRange = never;
 type IUseCreateEvent = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  changeEventTags: ((event: React.ChangeEvent<TagItem>) => void) &
-    React.FormEventHandler<TagItem>;
+  changeEventTags: (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ) => void;
   tagList: TagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -86,8 +87,10 @@ export const useCreateEvent = (): IUseCreateEvent => {
       });
   });
 
-  const changeEventTags = (event: React.ChangeEvent<TagItem>): void => {
-    const selectedTag = event.target;
+  const changeEventTags = (
+    event: React.MouseEvent<TagItem & HTMLButtonElement>
+  ): void => {
+    const selectedTag = event.currentTarget as TagItem;
 
     // tagListから特定のtagItemを選択して、selectedをtrueに変更
     const updatedTagList = tagList?.map((tagItem) => {
