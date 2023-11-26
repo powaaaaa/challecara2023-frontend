@@ -6,12 +6,32 @@
   "language": "en",
   // words - list of words to be always considered correct
   "words": [
+    "appspot",
+    "aspida",
     "autodocs",
+    "cgkkxp",
     "chakra",
+    "challecara",
+    "clsx",
     "datepicker",
+    "ddyzg",
+    "firebaseapp",
+    "hvrpot",
+    "kdyhc",
+    "klckca",
     "noto",
     "notojp",
-    "tanstack"
+    "oqkkb",
+    "qcpq",
+    "signin",
+    "smttma",
+    "tanstack",
+    "txid",
+    "txyzl",
+    "xzna",
+    "yslf",
+    "Zdlj",
+    "zpos"
   ],
   "ignorePaths": []
   // flagWords - list of words to be always considered incorrect

@@ -14,7 +14,7 @@ export const ImageInput: React.FC<Props> = ({ ...props }) => {
   return (
     <div className="relative">
       <button
-        className="bg-black-lighten-3 w-[736px] h-[270px] px-[287px] py-[120px] flex"
+        className="bg-black-lighten-3 w-[732.5px] h-[270px] px-[284px] py-[120px] flex rounded-t"
         onClick={fileUpload}
       >
         <span className="text-black-lighten-1 pt-1 pr-1 ">

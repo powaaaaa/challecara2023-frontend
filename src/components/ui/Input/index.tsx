@@ -1,5 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
+import { cva } from 'class-variance-authority';
+
 type Props = {
   type: 'text' | 'number' | 'email' | 'password' | 'tel' | 'url';
   label: string;
@@ -7,14 +9,12 @@ type Props = {
   display: 'hidden' | 'block';
 } & ComponentPropsWithoutRef<'input'>;
 
-const InputStyle =
-  'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1';
-
 export const Input: React.FC<Props> = ({
   type,
   label,
   id,
   display,
+  className,
   ...props
 }) => {
   const placeholderText = (type: string): string => {
@@ -36,13 +36,17 @@ export const Input: React.FC<Props> = ({
     }
   };
 
+  const inputStyle = cva(
+    'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1'
+  );
+
   return (
     <span className="text-base">
       <label className={`${display} text-black font-medium pb-2`} htmlFor={id}>
         {label}
       </label>
       <input
-        className={InputStyle}
+        className={inputStyle({ className })}
         id={id}
         type={type}
         placeholder={placeholderText(type)}
