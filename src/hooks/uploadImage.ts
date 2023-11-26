@@ -3,28 +3,28 @@ import {
   getMetadata,
   listAll,
   ref,
-  uploadBytesResumable,
+  uploadBytes,
 } from 'firebase/storage';
 
 import { storage } from './firebase/firebase';
 
-import type { UploadTask } from 'firebase/storage';
+import type { UploadResult } from 'firebase/storage';
 
 // 画像をfirebase storageにアップロードする関数
 export const uploadImage = async (
   eventId: string,
   file: File
-): Promise<UploadTask | null> => {
+): Promise<UploadResult> => {
   const fileRef = file.name;
 
-  const storageRef = ref(storage, fileRef);
+  const storageRef = ref(storage, `images/${fileRef}`);
   const metadata = {
     customMetadata: {
       eventId: eventId,
     },
   };
 
-  return uploadBytesResumable(storageRef, file, metadata);
+  return uploadBytes(storageRef, file, metadata);
 };
 
 // アプロードした画像のURLを取得する関数

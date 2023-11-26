@@ -1,12 +1,15 @@
 // import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
+import type * as Types from '@/api/@types';
+
+import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
+import { apiClient } from '@/libs/apiClients';
 
 type WithRange = never;
 
 type IUseCreateEvent = {
-  uploadThumbnail: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -27,20 +30,18 @@ type IUseCreateEvent = {
 
 export const useCreateEvent = (): IUseCreateEvent => {
   const [errorText, setErrorText] = useState<string>('Sample error text');
-  const [eventThumbnail, setEventThumbnail] = useState<File | null>();
+  const [eventImage, setEventImage] = useState<File>();
   const [eventTitle, setEventTitle] = useState<string>('');
-  const [participantsNumber, setParticipantsNumber] = useState<number>();
+  const [participantsNumber, setParticipantsNumber] = useState<string>();
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
   const [eventInfo, setEventInfo] = useState<string>('');
   const [eventId, setEventId] = useState<string>('');
 
-  const uploadThumbnail = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const changeImage = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const file = event.target?.files;
     if (file && file[0]) {
-      setEventThumbnail(file[0]);
+      setEventImage(file[0]);
     }
   };
 
@@ -56,7 +57,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
   const changeParticipantsNumber = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const partNumber = event.target.valueAsNumber;
+    const partNumber = event.target.value;
     if (partNumber) {
       setParticipantsNumber(partNumber);
     }
@@ -95,77 +96,68 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }
   };
 
-  // const sendCreateEvent = useCallback(async (): Promise<void> => {
-  //   if (
-  //     !eventThumbnail &&
-  //     !eventTitle &&
-  //     !participantsNumber &&
-  //     !eventInfo &&
-  //     !eventId
-  //   ) {
-  //     return;
-  //   }
-  //   await axios
-  //     .post('http://localhost:8000/api/event/draft', {
-  //       administrator_id: 'admin', // administratorId,
-  //       title: eventTitle,
-  //       image_url: eventThumbnail,
-  //       tags: ['one', 'two'], // eventTags,
-  //       winning_number: participantsNumber,
-  //       start_time: 1701442800, // eventStartTime,
-  //       end_time: 1701486000, // eventEndTime,
-  //       detail: eventInfo,
-  //       id: eventId,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [eventThumbnail, eventTitle, participantsNumber, eventInfo, eventId]);
+  const fetchEvent = async (body: Types.DraftEventPayload): Promise<void> =>
+    await apiClient.event.draft.$post({ body });
 
-  const useSendCreateEvent = (): void => {
+  const fetchImage = async (
+    file: File,
+    eventId: string
+  ): Promise<string | null> => {
     try {
-      useEffect(() => {
-        const postCreateEvent = async (): Promise<void> => {
-          if (
-            !eventThumbnail &&
-            !eventTitle &&
-            !participantsNumber &&
-            !eventInfo &&
-            !eventId
-          ) {
-            return;
-          }
-          await axios
-            .post('http://localhost:8000/api/event/draft', {
-              administrator_id: 'admin', // administratorId,
-              title: eventTitle,
-              image_url: eventThumbnail,
-              tags: ['one', 'two'], // eventTags,
-              winning_number: participantsNumber,
-              start_time: 1701442800, // eventStartTime,
-              end_time: 1701486000, // eventEndTime,
-              detail: eventInfo,
-              id: eventId,
-            })
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        };
-        postCreateEvent;
-      }, []);
+      await uploadImage(eventId, file).then((snapshot) => {
+        console.log('画像アップロードに成功しました: ', snapshot);
+      });
+      const url = await getImageUrl(eventId);
+      return url;
     } catch (error) {
-      setErrorText('イベント作成データの送信に失敗しました.');
+      console.error('画像アップロードまたはURL取得に失敗しました: ', error);
+      return null;
     }
   };
 
+  const useSendCreateEvent = (): void => {
+    useEffect(() => {
+      const fetchData = async (): Promise<void> => {
+        try {
+          if (eventImage === undefined || participantsNumber === undefined) {
+            alert('画像と参加人数を入力して下さい。');
+            return;
+          }
+
+          const image_url = await fetchImage(eventImage, eventId);
+          if (!image_url) {
+            console.error(
+              '画像の取得に失敗したためイベント作成は中止されました'
+            );
+            return;
+          }
+
+          const reqBody: Types.DraftEventPayload = {
+            administrator_id: 'admin',
+            title: eventTitle,
+            image_url: image_url,
+            tags: ['one', 'two'],
+            winning_number: participantsNumber,
+            start_time: '1701442800',
+            end_time: '1701442800',
+            detail: eventInfo,
+            id: eventId,
+          };
+
+          await fetchEvent(reqBody);
+        } catch (error) {
+          setErrorText('イベント作成データの送信に失敗しました.');
+        }
+      };
+
+      fetchData().catch((error) => {
+        console.error('fetchData関数内でエラーが発生しました:', error);
+      });
+    }, []);
+  };
+
   return {
-    uploadThumbnail,
+    changeImage,
     changeEventTitle,
     changeParticipantsNumber,
     startDate,

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 
 export const CreateEvent: React.FC = () => {
   const {
-    uploadThumbnail,
+    changeImage,
     changeEventTitle,
     changeParticipantsNumber,
     startDate,
@@ -21,7 +21,7 @@ export const CreateEvent: React.FC = () => {
     <div className="bg-basic w-[736px] rounded border-2 border-black-lighten-1">
       this is CreateEvent component
       <CreateEventPresentation
-        uploadThumbnail={uploadThumbnail}
+        changeImage={changeImage}
         changeEventTitle={changeEventTitle}
         changeParticipantsNumber={changeParticipantsNumber}
         startDate={startDate}

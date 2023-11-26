@@ -8,7 +8,7 @@ import { InputText } from '@/components/ui/InputText';
 type WithRange = never;
 
 type Props = {
-  uploadThumbnail: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -25,7 +25,7 @@ type Props = {
 };
 
 export const CreateEventPresentation: React.FC<Props> = ({
-  uploadThumbnail,
+  changeImage,
   changeEventTitle,
   changeParticipantsNumber,
   startDate,
@@ -36,7 +36,7 @@ export const CreateEventPresentation: React.FC<Props> = ({
 }) => (
   <div className="bg-basic w-[736px] rounded border-2 border-black-lighten-1">
     <div className="border-b-2 border-black-lighten-1">
-      <ImageInput onChange={uploadThumbnail} />
+      <ImageInput onChange={changeImage} />
     </div>
 
     <div className="mt-16 mr-10 ml-20">
