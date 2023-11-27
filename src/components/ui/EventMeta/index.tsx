@@ -1,3 +1,6 @@
+import type { ComponentPropsWithoutRef } from 'react';
+
+import { CustomButton } from '../CustomButton';
 import { MetaCard } from '../MetaCard';
 
 type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft' | 'none';
@@ -12,7 +15,10 @@ type Props = {
   winningNumber: number;
   stateText: string;
   buttonState: ButtonCustom;
-};
+  label: string;
+  subLabel: string;
+  FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+} & ComponentPropsWithoutRef<'button'>;
 
 export const EventMeta: React.FC<Props> = ({
   administratorName,
@@ -23,7 +29,11 @@ export const EventMeta: React.FC<Props> = ({
   endTime,
   winningNumber,
   stateText,
-  // buttonState,
+  buttonState,
+  label,
+  subLabel,
+  FstOnClick,
+  ...props
 }) => (
   // const [buttonState, setButtonState] = useState<ButtonCustom>('base');
 
@@ -40,6 +50,12 @@ export const EventMeta: React.FC<Props> = ({
       />
     </div>
     <div>{stateText}</div>
-    {/* <CustomButton variant={buttonState} /> */}
+    <CustomButton
+      buttonState={buttonState}
+      label={label}
+      subLabel={subLabel}
+      FstOnClick={FstOnClick}
+      {...props}
+    />
   </div>
 );
