@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Button } from '../Button';
 
-type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft' | 'none';
+export type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft' | 'none';
 
 type Props = {
   buttonState: ButtonCustom;

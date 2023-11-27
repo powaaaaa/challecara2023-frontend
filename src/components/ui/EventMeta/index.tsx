@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import { CustomButton } from '../CustomButton';
 import { MetaCard } from '../MetaCard';
 
-type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft' | 'none';
+import type { ButtonCustom} from '../CustomButton';
 
 type Props = {
   administratorName: string;
