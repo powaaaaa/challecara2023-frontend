@@ -1,9 +1,9 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import type { SelectTagItem, isLabelDisplay } from '@/libs/@types';
+import type { SelectTagItem, IsLabelDisplay } from '@/libs/@types';
 
 type Props = {
-  display: isLabelDisplay;
+  display: IsLabelDisplay;
   label: SelectTagItem['label'];
   id: SelectTagItem['id'];
   pref: string[];
