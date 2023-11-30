@@ -21,7 +21,7 @@ export const Default: Story = {
     title:
       'デリシャスな贅沢抽選！抽選で50名様に美味しい食品バスケットをプレゼント！',
     administratorName: 'おいしいよ株式会社',
-    startTime: new Date(),
-    endTime: new Date(),
+    startTime: '2019-08-24T14:15:22Z',
+    endTime: '2019-08-24T14:15:22Z',
   },
 };

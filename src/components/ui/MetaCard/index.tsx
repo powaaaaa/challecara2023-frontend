@@ -1,13 +1,15 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+
+import type * as Types from '@/api/@types';
 
 type Props = {
-  administratorName: string;
-  introduction: string;
-  snsUrl: string;
-  homepageUrl: string;
-  startTime: Date;
-  endTime: Date;
-  winningNumber: number;
+  administratorName: Types.AdministratorItem['administrator_display_name'];
+  introduction: Types.AdministratorItem['introduction'];
+  snsUrl: Types.AdministratorItem['sns_url'];
+  homepageUrl: Types.AdministratorItem['homepage_url'];
+  startTime: Types.EventItem['start_time'];
+  endTime: Types.EventItem['end_time'];
+  winningNumber: Types.EventItem['winning_number'];
 };
 
 export const MetaCard: React.FC<Props> = ({
@@ -19,11 +21,11 @@ export const MetaCard: React.FC<Props> = ({
   endTime,
   winningNumber,
 }) => {
-  const start = format(startTime, 'yyyy/MM/dd');
-  const end = format(endTime, 'yyyy/MM/dd');
+  const start = format(parseISO(startTime), 'yyyy/MM/dd');
+  const end = format(parseISO(endTime), 'yyyy/MM/dd');
 
   return (
-    <div className="w-[255px] h-[425px] bg-basic rounded-lg py-10 border border-black text-black">
+    <div className="w-[255px] bg-basic rounded-lg py-10 border border-black text-black">
       <div className="mx-8 pb-8 border-b border-black-lighten-1">
         <p className="pb-2">{administratorName}</p>
         <p className="pb-4 text-xs">{introduction}</p>

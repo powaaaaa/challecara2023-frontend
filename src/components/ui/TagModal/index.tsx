@@ -2,15 +2,15 @@ import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 
 import { Button } from '../Button';
-import { Tags } from '../Tags';
+import { SelectTags } from '../SelectTags';
 
-import type { TagItem } from '../Tags';
+import type { SelectTagItem } from '@/libs/@types';
 
 type Props = {
   setShow: Dispatch<SetStateAction<boolean>>;
-  tagsList: TagItem[];
+  tagsList: SelectTagItem[];
   changeIsSelected: (
-    event: React.MouseEvent<TagItem & HTMLButtonElement>
+    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
 };
 
@@ -33,7 +33,7 @@ export const TagModal: React.FC<Props> = ({
       onClick={(e): void => e.stopPropagation()}
       onKeyDown={(e): void => e.stopPropagation()}
     >
-      <Tags tagsList={tagsList} onClick={changeIsSelected} />
+      <SelectTags tagsList={tagsList} onClick={changeIsSelected} />
       <div className="mt-5">
         <Button
           className="m-auto"

@@ -1,7 +1,10 @@
+import type * as Types from '@/api/@types';
+import type { DisplayTagItem } from '@/libs/@types';
+
 type Props = {
-  title: string;
-  detail: string;
-  tags: string[];
+  title: Types.EventItem['title'];
+  detail: Types.EventItem['detail'];
+  tags: DisplayTagItem[];
 };
 
 export const EventDetailCard: React.FC<Props> = ({ title, detail, tags }) => (
@@ -9,7 +12,7 @@ export const EventDetailCard: React.FC<Props> = ({ title, detail, tags }) => (
     <p className="mb-4 text-xl">{title}</p>
     <span className="text-base text-black-lighten-1">
       {tags.map((tag) => (
-        <span key={tag}>{tag}, </span>
+        <span key={tag.uuid}>{tag.name}, </span>
       ))}
     </span>
     <p className="mt-12 text-xl">{detail}</p>
