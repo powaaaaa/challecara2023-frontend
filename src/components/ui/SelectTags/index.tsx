@@ -2,20 +2,18 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-import type * as Types from '@/api/@types';
-
-export type TagItem = {
-  id: string;
-  label: Types.Tag['name'];
-  selected: boolean;
-} & object;
+import type { SelectTagItem } from '@/libs/@types';
 
 export type Props = {
-  tagsList: TagItem[];
-  onClick: (event: React.MouseEvent<TagItem & HTMLButtonElement>) => void;
+  tagsList: SelectTagItem[];
+  onClick: (event: React.MouseEvent<SelectTagItem & HTMLButtonElement>) => void;
 } & ComponentPropsWithoutRef<'button'>;
 
-export const Tags: React.FC<Props> = ({ tagsList, onClick, ...props }) => {
+export const SelectTags: React.FC<Props> = ({
+  tagsList,
+  onClick,
+  ...props
+}) => {
   const TagStyle = cva(
     'flex px-3 justify-center items-center gap-2.5 rounded-xl cursor-pointer shadow-yb2',
     {

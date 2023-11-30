@@ -2,8 +2,10 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
+import type { ButtonVariant } from '@/libs/@types';
+
 type Props = {
-  variant: 'base' | 'sub' | 'inputStyle' | 'disabled';
+  variant: ButtonVariant;
   label: string;
 } & ComponentPropsWithoutRef<'button'>;
 

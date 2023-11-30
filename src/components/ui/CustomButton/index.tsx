@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Button } from '../Button';
 
-export type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft' | 'none';
+import type { ButtonCustom } from '@/libs/@types';
 
 type Props = {
   buttonState: ButtonCustom;
@@ -22,17 +22,11 @@ export const CustomButton: React.FC<Props> = ({
 }) => (
   <div>
     {/* base */}
-    <div
-      className="mx-auto"
-      style={{ display: buttonState === 'base' ? '' : 'none' }}
-    >
+    <div style={{ display: buttonState === 'base' ? '' : 'none' }}>
       <Button variant="base" label={label} onClick={FstOnClick} />
     </div>
     {/* disabled */}
-    <div
-      className="mx-auto"
-      style={{ display: buttonState === 'disabled' ? '' : 'none' }}
-    >
+    <div style={{ display: buttonState === 'disabled' ? '' : 'none' }}>
       <Button variant="disabled" disabled label={label} />
     </div>
     {/* result */}

@@ -1,9 +1,9 @@
-import { Tags } from '.';
+import { SelectTags } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof Tags> = {
-  component: Tags,
+const meta: Meta<typeof SelectTags> = {
+  component: SelectTags,
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +12,7 @@ const meta: Meta<typeof Tags> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Tags>;
+type Story = StoryObj<typeof SelectTags>;
 
 export const Default: Story = {
   args: {

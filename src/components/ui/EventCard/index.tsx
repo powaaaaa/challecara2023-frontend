@@ -1,14 +1,16 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import Image from 'next/image';
 
+import type * as Types from '@/api/@types';
+
 type Props = {
-  image_url: string;
-  title: string;
-  administratorName: string;
-  startTime: Date;
-  endTime: Date;
+  image_url: Types.EventItem['image_url'];
+  title: Types.EventItem['title'];
+  administratorName: Types.AdministratorItem['administrator_display_name'];
+  startTime: Types.EventItem['start_time'];
+  endTime: Types.EventItem['end_time'];
 } & ComponentPropsWithoutRef<'button'>;
 
 export const EventCard: React.FC<Props> = ({
@@ -19,8 +21,8 @@ export const EventCard: React.FC<Props> = ({
   endTime,
   ...props
 }) => {
-  const start = format(startTime, 'yyyy/MM/dd');
-  const end = format(endTime, 'yyyy/MM/dd');
+  const start = format(parseISO(startTime), 'yyyy/MM/dd');
+  const end = format(parseISO(endTime), 'yyyy/MM/dd');
 
   return (
     <button

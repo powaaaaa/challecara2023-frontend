@@ -1,4 +1,5 @@
 import type { AspidaClient } from 'aspida';
+import { dataToURLString } from 'aspida';
 import type { Methods as Methods_1rq3rau } from './event';
 import type { Methods as Methods_10xwc1i } from './event/_id@string';
 import type { Methods as Methods_8jam25 } from './event/_id@string/receipt';
@@ -127,12 +128,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         post: (option: {
           body: Methods_17tf88m['post']['reqBody'];
           config?: T | undefined;
-        }) => fetch(prefix, PATH4, POST, option, 'FormData').send(),
+        }) => fetch(prefix, PATH4, POST, option).send(),
         $post: (option: {
           body: Methods_17tf88m['post']['reqBody'];
           config?: T | undefined;
         }) =>
-          fetch(prefix, PATH4, POST, option, 'FormData')
+          fetch(prefix, PATH4, POST, option)
             .send()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH4}`,
@@ -208,18 +209,34 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         $path: () => `${prefix}${PATH8}`,
       },
       search: {
-        get: (option?: { config?: T | undefined } | undefined) =>
+        get: (option: {
+          query: Methods_176zpos['get']['query'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_176zpos['get']['resBody']>(
             prefix,
             PATH9,
             GET,
             option
           ).json(),
-        $get: (option?: { config?: T | undefined } | undefined) =>
+        $get: (option: {
+          query: Methods_176zpos['get']['query'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_176zpos['get']['resBody']>(prefix, PATH9, GET, option)
             .json()
             .then((r) => r.body),
-        $path: () => `${prefix}${PATH9}`,
+        $path: (
+          option?:
+            | {
+                method?: 'get' | undefined;
+                query: Methods_176zpos['get']['query'];
+              }
+            | undefined
+        ) =>
+          `${prefix}${PATH9}${
+            option && option.query ? `?${dataToURLString(option.query)}` : ''
+          }`,
       },
     },
     signin: {
@@ -231,20 +248,13 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           prefix,
           PATH10,
           POST,
-          option,
-          'FormData'
+          option
         ).json(),
       $post: (option: {
         body: Methods_1oqkkb0['post']['reqBody'];
         config?: T | undefined;
       }) =>
-        fetch<Methods_1oqkkb0['post']['resBody']>(
-          prefix,
-          PATH10,
-          POST,
-          option,
-          'FormData'
-        )
+        fetch<Methods_1oqkkb0['post']['resBody']>(prefix, PATH10, POST, option)
           .json()
           .then((r) => r.body),
       $path: () => `${prefix}${PATH10}`,
@@ -253,12 +263,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       post: (option: {
         body: Methods_1smttma['post']['reqBody'];
         config?: T | undefined;
-      }) => fetch(prefix, PATH11, POST, option, 'FormData').send(),
+      }) => fetch(prefix, PATH11, POST, option).send(),
       $post: (option: {
         body: Methods_1smttma['post']['reqBody'];
         config?: T | undefined;
       }) =>
-        fetch(prefix, PATH11, POST, option, 'FormData')
+        fetch(prefix, PATH11, POST, option)
           .send()
           .then((r) => r.body),
       $path: () => `${prefix}${PATH11}`,

@@ -1,6 +1,6 @@
 import { TagsButton } from './item/TagsButton';
 
-import type { TagItem } from '@/components/ui/Tags';
+import type { SelectTagItem } from '@/libs/@types';
 
 import { DateInput } from '@/components/ui/DateInput';
 import { ImageInput } from '@/components/ui/ImageInput';
@@ -13,9 +13,9 @@ type Props = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTags: (
-    event: React.MouseEvent<TagItem & HTMLButtonElement>
+    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
-  tagList: TagItem[] | undefined;
+  tagList: SelectTagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
