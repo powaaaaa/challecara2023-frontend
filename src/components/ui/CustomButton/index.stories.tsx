@@ -43,9 +43,3 @@ export const Draft: Story = {
     subLabel: '下書き',
   },
 };
-
-export const None: Story = {
-  args: {
-    buttonState: 'none',
-  },
-};
