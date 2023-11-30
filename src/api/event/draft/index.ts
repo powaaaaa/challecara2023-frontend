@@ -1,9 +1,9 @@
 /* eslint-disable */
-import type * as Types from '../../@types';
+import type * as Types from '@/api/@types';
 
 export type Methods = {
   post: {
-    reqFormat: FormData;
+    // reqFormat: FormData;
     reqBody: Types.DraftEventPayload;
   };
 };

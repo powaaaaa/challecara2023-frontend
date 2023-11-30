@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-import type { TagItem } from '@/components/ui/Tags';
+import type { SelectTagItem } from '@/libs/@types';
 
 import { Button } from '@/components/ui/Button';
 import { TagModal } from '@/components/ui/TagModal';
 
 type Props = {
   id: string;
-  tagsList: TagItem[];
+  tagsList: SelectTagItem[];
   changeIsSelected: (
-    event: React.MouseEvent<TagItem & HTMLButtonElement>
+    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
 };
 

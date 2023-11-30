@@ -28,6 +28,7 @@ export const Default: Story = {
 
 export const DefaultDisabled: Story = {
   args: {
+    variant: 'disabled',
     label: 'テキスト',
     disabled: true,
   },

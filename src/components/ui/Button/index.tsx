@@ -2,8 +2,10 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
+import type { ButtonVariant } from '@/libs/@types';
+
 type Props = {
-  variant: 'base' | 'sub' | 'inputStyle';
+  variant: ButtonVariant;
   label: string;
 } & ComponentPropsWithoutRef<'button'>;
 
@@ -23,6 +25,7 @@ export const Button: React.FC<Props> = ({
         base: 'text-white bg-main hover:bg-accent',
         sub: 'text-main bg-white border-2 border-main hover:bg-sub',
         inputStyle: `${InputStyle} text-left`,
+        disabled: '',
       },
       disabled: {
         true: 'text-black-lighten-1 bg-white border-2 border-black-lighten-1',

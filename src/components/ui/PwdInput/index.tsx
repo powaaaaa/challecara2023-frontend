@@ -1,9 +1,11 @@
 import { useState, type ComponentPropsWithoutRef } from 'react';
 
+import type { IsLabelDisplay } from '@/libs/@types';
+
 type Props = {
   label: string;
   id: string;
-  display: 'hidden' | 'block';
+  display: IsLabelDisplay;
 } & ComponentPropsWithoutRef<'input'>;
 
 const InputStyle =

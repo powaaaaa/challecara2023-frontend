@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getUnixTime } from 'date-fns';
 
 import type * as Types from '@/api/@types';
-import type { TagItem } from '@/components/ui/Tags';
+import type { SelectTagItem } from '@/libs/@types';
 
 import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
 import { apiClient } from '@/libs/apiClients';
@@ -15,9 +15,9 @@ type IUseCreateEvent = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeEventTags: (
-    event: React.MouseEvent<TagItem & HTMLButtonElement>
+    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
-  tagList: TagItem[] | undefined;
+  tagList: SelectTagItem[] | undefined;
   changeParticipantsNumber: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
@@ -38,7 +38,7 @@ type IUseCreateEvent = {
 export const useCreateEvent = (): IUseCreateEvent => {
   const [errorText, setErrorText] = useState<string>('Sample error text');
   const [eventImage, setEventImage] = useState<File>();
-  const [tagList, setTagList] = useState<TagItem[]>();
+  const [tagList, setTagList] = useState<SelectTagItem[]>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [participantsNumber, setParticipantsNumber] = useState<string>();
   const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]);
@@ -67,9 +67,9 @@ export const useCreateEvent = (): IUseCreateEvent => {
   const fetchTags = async (): Promise<Types.TagsResponse> =>
     await apiClient.event.tags.$get();
 
-  const createTagList = async (): Promise<TagItem[]> => {
+  const createTagList = async (): Promise<SelectTagItem[]> => {
     const tagsData = await fetchTags();
-    const List: TagItem[] = tagsData.tags.map((item) => ({
+    const List: SelectTagItem[] = tagsData.tags.map((item) => ({
       id: item.uuid,
       label: item.name,
       selected: false,
@@ -88,9 +88,9 @@ export const useCreateEvent = (): IUseCreateEvent => {
   });
 
   const changeEventTags = (
-    event: React.MouseEvent<TagItem & HTMLButtonElement>
+    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ): void => {
-    const selectedTag = event.currentTarget as TagItem;
+    const selectedTag = event.currentTarget as SelectTagItem;
 
     // tagListから特定のtagItemを選択して、selectedをtrueに変更
     const updatedTagList = tagList?.map((tagItem) => {

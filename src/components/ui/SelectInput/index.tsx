@@ -1,9 +1,11 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
+import type { SelectTagItem, IsLabelDisplay } from '@/libs/@types';
+
 type Props = {
-  display: 'hidden' | 'block';
-  label: string | null;
-  id: string;
+  display: IsLabelDisplay;
+  label: SelectTagItem['label'];
+  id: SelectTagItem['id'];
   pref: string[];
 } & ComponentPropsWithoutRef<'select'>;
 
