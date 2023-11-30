@@ -2,13 +2,13 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-import type { ButtonType, isLabelDisplay } from '@/libs/@types';
+import type { ButtonType, IsLabelDisplay } from '@/libs/@types';
 
 type Props = {
   type: ButtonType;
   label: string;
   id: string;
-  display: isLabelDisplay;
+  display: IsLabelDisplay;
 } & ComponentPropsWithoutRef<'input'>;
 
 export const Input: React.FC<Props> = ({
