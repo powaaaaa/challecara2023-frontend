@@ -21,6 +21,13 @@ export const useFailedEventDetail = (): IUseFailedEventDetail => {
   const [fetchData, setFetchData] = useState<EventResponse | null>(null);
   const [eventId, setEventId] = useState<string>('');
   const [eventTitle, setEventTitle] = useState<string>('');
+  const [resultData, setResultData] = useState<ResultResponse | undefined>(
+    undefined
+  );
+
+  const [receiptsData, setReceiptsData] = useState<
+    ReceiptsResponse | undefined
+  >(undefined);
 
   useEffect(() => {
     const sessionData = sessionStorage.getItem('EventResponse');
@@ -58,9 +65,10 @@ export const useFailedEventDetail = (): IUseFailedEventDetail => {
       if (fetchData === null) {
         return;
       }
-      const fetch = async (): Promise<ResultResponse | undefined> => {
+      const fetch = async (): Promise<void> => {
         try {
-          return await fetchResult(eventId);
+          const result = await fetchResult(eventId);
+          setResultData(result);
         } catch (error) {
           console.error('抽選結果の取得に失敗しました: ', error);
           return;
@@ -78,9 +86,10 @@ export const useFailedEventDetail = (): IUseFailedEventDetail => {
       if (fetchData === null) {
         return;
       }
-      const fetch = async (): Promise<ReceiptsResponse | undefined> => {
+      const fetch = async (): Promise<void> => {
         try {
-          return await fetchReceipts(eventId);
+          const receipts = await fetchReceipts(eventId);
+          setReceiptsData(receipts);
         } catch (error) {
           console.error('受領データの取得に失敗しました: ', error);
           return;
@@ -94,7 +103,11 @@ export const useFailedEventDetail = (): IUseFailedEventDetail => {
   };
 
   const FstOnClick = (): void => {
-    const resultData = useFetchResult();
+    useFetchResult();
+    if (resultData === undefined) {
+      console.log('resultData is undefined');
+      return;
+    }
 
     const query = {
       title: eventTitle,
@@ -112,7 +125,11 @@ export const useFailedEventDetail = (): IUseFailedEventDetail => {
   };
 
   const useOnClick = (): void => {
-    const receiptsData = useFetchReceipts();
+    useFetchReceipts();
+    if (receiptsData === undefined) {
+      console.log('receiptsData is undefined');
+      return;
+    }
 
     const query = {
       title: eventTitle,

@@ -71,7 +71,7 @@ export type User = {
  *参加者向けに利用可能な全てのイベント一覧を取得するために使用されます。
  */
 export type EventParticipantResponse = {
-  users: User[];
+  user: User;
   events: EventListItem[];
   tags: Tag[];
 };
