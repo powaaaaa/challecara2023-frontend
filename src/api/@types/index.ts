@@ -34,7 +34,7 @@ export type EventListItem = {
 
 export type EventReceiptItem = {
   participant_id: User['id'];
-  txid: string;
+  txid: string | null;
 };
 
 export type EventResultItem = {

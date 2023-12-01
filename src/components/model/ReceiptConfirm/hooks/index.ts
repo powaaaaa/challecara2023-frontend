@@ -2,29 +2,29 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import type { ResultResponse } from '@/api/@types';
-import type { Result } from '@/libs/@types';
+import type { ReceiptsResponse } from '@/api/@types';
+import type { Receipt } from '@/libs/@types';
 
 type IUseReceiptConfirm = {
   eventTitle: string;
   topNumber: number;
   bottomNumber: number;
-  ResultData: Result[];
+  ResultData: Receipt[];
 };
 
 export const useReceiptConfirm = (): IUseReceiptConfirm => {
   const router = useRouter();
-  const [fetchData, setFetchData] = useState<ResultResponse | null>(null);
+  const [fetchData, setFetchData] = useState<ReceiptsResponse | null>(null);
   const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
-  const [ResultData, setResultData] = useState<Result[]>([]);
+  const [ResultData, setResultData] = useState<Receipt[]>([]);
 
   useEffect(() => {
     const sessionData = sessionStorage.getItem('ResultResponse');
     if (sessionData) {
       try {
-        const data = JSON.parse(sessionData) as ResultResponse;
+        const data = JSON.parse(sessionData) as ReceiptsResponse;
         setFetchData(data);
       } catch (error) {
         console.error('データのパースに失敗しました.', error);
@@ -33,25 +33,20 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
   }, []);
 
   useEffect(() => {
-    if (fetchData === null || fetchData?.results === null) {
+    if (fetchData === null || fetchData?.receipts === null) {
       console.error('不正なデータです。');
       return;
     }
-    const results: Result[] = fetchData.results.map((item) => ({
+    const receipts: Receipt[] = fetchData.receipts.map((item) => ({
       participant_id: item.participant_id,
-      txid: item.txid,
-      is_winner: item.is_winner ? '当選' : '落選', // is_winnerの値に基づいて文字列を設定
+      txid: item.txid ?? '', // txidがnullの場合、空の文字列を代入
     }));
-    setResultData(results);
+    setResultData(receipts);
 
-    const winningNumber = fetchData.results.reduce((count, item) => {
-      // fetchData.resultsを直接使用
-      if (item.is_winner) {
-        return count + 1;
-      }
-      return count;
-    }, 0);
-    setTopNumber(winningNumber);
+    const receiptsNumber: number = fetchData.receipts.filter(
+      (item) => item.txid !== null
+    ).length;
+    setTopNumber(receiptsNumber);
     setBottomNumber(ResultData.length);
   }, [fetchData, ResultData.length]);
 

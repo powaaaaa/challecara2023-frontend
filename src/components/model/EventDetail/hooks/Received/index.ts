@@ -114,10 +114,19 @@ export const useReceivedEventDetail = (): IUseReceivedEventDetail => {
   const useOnClick = (): void => {
     const receiptsData = useFetchReceipts();
 
+    const query = {
+      title: eventTitle,
+    };
+
     sessionStorage.setItem('ReceiptsResponse', JSON.stringify(receiptsData));
-    router.push(`/Event/${eventId}/Receipts`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router
+      .push(
+        { pathname: `/Event/${eventId}/Receipts`, query: query },
+        `/Event/${eventId}/Receipts`
+      )
+      .catch((error) => {
+        console.error('ページ遷移に失敗しました: ', error);
+      });
   };
 
   return { fetchData, FstOnClick, useOnClick };

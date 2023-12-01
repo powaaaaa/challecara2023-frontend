@@ -148,12 +148,21 @@ export const useWinningEventDetail = (): IUseWinningEventDetail => {
   };
 
   const OnClick = (): void => {
-    const receiptData = useFetchGetReceipt();
+    const receiptsData = useFetchGetReceipt();
 
-    sessionStorage.setItem('ReceiptResponse', JSON.stringify(receiptData));
-    router.push(`/Event/${eventId}/Receipt`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    const query = {
+      title: eventTitle,
+    };
+
+    sessionStorage.setItem('ReceiptsResponse', JSON.stringify(receiptsData));
+    router
+      .push(
+        { pathname: `/Event/${eventId}/Receipts`, query: query },
+        `/Event/${eventId}/Receipts`
+      )
+      .catch((error) => {
+        console.error('ページ遷移に失敗しました: ', error);
+      });
   };
 
   return { fetchData, FstOnClick, useOnClick, OnClick };

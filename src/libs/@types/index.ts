@@ -37,8 +37,7 @@ export type Result = {
   is_winner: string;
 };
 
-export type Receive = {
-  userId: string;
-  transaction: string;
-  receive: string;
+export type Receipt = {
+  participant_id: string;
+  txid: string;
 };
