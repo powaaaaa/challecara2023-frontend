@@ -20,6 +20,7 @@ export const useReceivedEventDetail = (): IUseReceivedEventDetail => {
   const router = useRouter();
   const [fetchData, setFetchData] = useState<EventResponse | null>(null);
   const [eventId, setEventId] = useState<string>('');
+  const [eventTitle, setEventTitle] = useState<string>('');
 
   useEffect(() => {
     const sessionData = sessionStorage.getItem('EventResponse');
@@ -34,12 +35,16 @@ export const useReceivedEventDetail = (): IUseReceivedEventDetail => {
   }, []);
 
   useEffect(() => {
-    if (fetchData?.event.id === undefined) {
+    if (
+      fetchData?.event.id === undefined ||
+      fetchData.event.title === undefined
+    ) {
       console.error('不正なデータです');
       return;
     }
 
     setEventId(fetchData.event.id);
+    setEventTitle(fetchData.event.title);
   }, [fetchData]);
 
   const fetchResult = async (path: string): Promise<ResultResponse> =>
@@ -91,10 +96,19 @@ export const useReceivedEventDetail = (): IUseReceivedEventDetail => {
   const FstOnClick = (): void => {
     const resultData = useFetchResult();
 
+    const query = {
+      title: eventTitle,
+    };
+
     sessionStorage.setItem('ResultResponse', JSON.stringify(resultData));
-    router.push(`/Event/${eventId}/Result`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router
+      .push(
+        { pathname: `/Event/${eventId}/Result`, query: query },
+        `/Event/${eventId}/Result`
+      )
+      .catch((error) => {
+        console.error('ページ遷移に失敗しました: ', error);
+      });
   };
 
   const useOnClick = (): void => {
