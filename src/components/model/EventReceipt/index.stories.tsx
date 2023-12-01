@@ -1,5 +1,4 @@
 import { EventReceiptPresentation } from './presentations';
-import { EventReceiptErrorPresentation } from './presentations/error';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -26,8 +25,4 @@ export const Default: Story = {
       address: '〒123-4567 東京都港区浜松町1-2-3 サクラビル205号室',
     },
   },
-};
-
-export const Error: Story = {
-  render: () => <EventReceiptErrorPresentation />,
 };

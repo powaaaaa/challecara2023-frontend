@@ -1,18 +1,17 @@
 import { EventDetailPresentation } from './presentations';
-import { EventDetailErrorPresentation } from './presentations/error';
-import { EventDetailLoadingPresentation } from './presentations/loading';
-
-import type { EventResponse } from '@/api/@types';
 
 type Props = {
-  fetchData: EventResponse;
+  eventDetailState:
+    | 'Applied'
+    | 'Active'
+    | 'Failed'
+    | 'Received'
+    | 'Winning'
+    | 'Draft';
 };
 
-export const EventDetail: React.FC<Props> = ({ fetchData }) => (
+export const EventDetail: React.FC<Props> = ({ eventDetailState }) => (
   <>
-    this is EventDetail component
-    <EventDetailPresentation fetchData={fetchData} />
-    <EventDetailErrorPresentation />
-    <EventDetailLoadingPresentation />
+    <EventDetailPresentation eventDetailState={eventDetailState} />
   </>
 );

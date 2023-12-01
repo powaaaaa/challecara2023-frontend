@@ -1,6 +1,5 @@
 import { useCreateEvent } from './hooks';
 import { CreateEventPresentation } from './presentations';
-import { CreateEventErrorPresentation } from './presentations/error';
 
 import { Button } from '@/components/ui/Button';
 
@@ -16,12 +15,10 @@ export const CreateEvent: React.FC = () => {
     changeEventTerm,
     changeEventInfo,
     changeEventId,
-    useSendCreateEvent,
-    errorText,
+    HandleSubmitNewEvent,
   } = useCreateEvent();
   return (
-    <div className="bg-basic w-[736px] rounded border-2 border-black-lighten-1">
-      this is CreateEvent component
+    <div className="w-[736px]">
       <CreateEventPresentation
         changeImage={changeImage}
         changeEventTitle={changeEventTitle}
@@ -34,15 +31,13 @@ export const CreateEvent: React.FC = () => {
         changeEventInfo={changeEventInfo}
         changeEventId={changeEventId}
       />
-      <Button onClick={useSendCreateEvent} variant="base" label="submit" />
-      {errorText && (
-        <>
-          <div className="bg-[#00000033] w-[640px] h-[480px] absolute top-0 z-0" />
-          <div className="absolute top-1/2 z-10">
-            <CreateEventErrorPresentation errorText={errorText} />
-          </div>
-        </>
-      )}
+      <div className="flex flex-col items-center mt-12">
+        <Button
+          onClick={HandleSubmitNewEvent}
+          variant="base"
+          label="確定する"
+        />
+      </div>
     </div>
   );
 };
