@@ -11,7 +11,6 @@ import {
 import type { Receive, Result } from '@/libs/@types';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 
-
 export type Props<Data extends object> = {
   data: Data[];
   columns: ColumnDef<Data>[];

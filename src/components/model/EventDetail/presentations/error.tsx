@@ -1,1 +1,3 @@
-export const EventDetailErrorPresentation: React.FC = () => <>this is EventDetail error presentation</>;
+export const EventDetailErrorPresentation: React.FC = () => (
+  <>this is EventDetail error presentation</>
+);

@@ -1,1 +1,3 @@
-export const EventDetailEmptyPresentation: React.FC = () => <>this is EventDetail empty presentation</>;
+export const EventDetailEmptyPresentation: React.FC = () => (
+  <>this is EventDetail empty presentation</>
+);

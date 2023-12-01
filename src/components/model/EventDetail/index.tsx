@@ -9,10 +9,10 @@ type Props = {
 };
 
 export const EventDetail: React.FC<Props> = ({ fetchData }) => (
-    <>
-      this is EventDetail component
-      <EventDetailPresentation fetchData={fetchData} />
-      <EventDetailErrorPresentation />
-      <EventDetailLoadingPresentation />
-    </>
-  );
+  <>
+    this is EventDetail component
+    <EventDetailPresentation fetchData={fetchData} />
+    <EventDetailErrorPresentation />
+    <EventDetailLoadingPresentation />
+  </>
+);
