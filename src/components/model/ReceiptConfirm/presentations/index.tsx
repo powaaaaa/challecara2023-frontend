@@ -10,14 +10,14 @@ type Props = {
   eventTitle: string;
   topNumber: number;
   bottomNumber: number;
-  ResultData: Result[];
+  ReceiptsData: Receipt[];
 };
 
 export const ReceiptConfirmPresentation: React.FC<Props> = ({
   eventTitle,
   topNumber,
   bottomNumber,
-  ResultData,
+  ReceiptsData,
 }) => {
   const [isDisplay, setIsDisplay] = useState<boolean>(false);
   const ResultColumns: ColumnDef<Result | Receipt>[] = [
@@ -28,10 +28,6 @@ export const ReceiptConfirmPresentation: React.FC<Props> = ({
     {
       accessorKey: 'txid',
       header: 'トランザクション',
-    },
-    {
-      accessorKey: 'is_winner',
-      header: '結果',
     },
   ];
 
@@ -56,8 +52,11 @@ export const ReceiptConfirmPresentation: React.FC<Props> = ({
         >
           {isDisplay ? '▲ 閉じる' : '▼ 詳しく見る'}
         </button>
-        <div style={{ display: isDisplay ? '' : 'none' }}>
-          <List data={ResultData} columns={ResultColumns} />
+        <div
+          className="flex flex-col items-center"
+          style={{ display: isDisplay ? '' : 'none' }}
+        >
+          <List data={ReceiptsData} columns={ResultColumns} />
         </div>
       </div>
     </div>

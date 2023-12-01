@@ -9,7 +9,7 @@ type IUseReceiptConfirm = {
   eventTitle: string;
   topNumber: number;
   bottomNumber: number;
-  ResultData: Receipt[];
+  ReceiptsData: Receipt[];
 };
 
 export const useReceiptConfirm = (): IUseReceiptConfirm => {
@@ -18,10 +18,10 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
   const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
-  const [ResultData, setResultData] = useState<Receipt[]>([]);
+  const [ReceiptsData, setReceiptsData] = useState<Receipt[]>([]);
 
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('ResultResponse');
+    const sessionData = sessionStorage.getItem('ReceiptsResponse');
     if (sessionData) {
       try {
         const data = JSON.parse(sessionData) as ReceiptsResponse;
@@ -41,14 +41,14 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
       participant_id: item.participant_id,
       txid: item.txid ?? '', // txidがnullの場合、空の文字列を代入
     }));
-    setResultData(receipts);
+    setReceiptsData(receipts);
 
     const receiptsNumber: number = fetchData.receipts.filter(
       (item) => item.txid !== null
     ).length;
     setTopNumber(receiptsNumber);
-    setBottomNumber(ResultData.length);
-  }, [fetchData, ResultData.length]);
+    setBottomNumber(ReceiptsData.length);
+  }, [fetchData, ReceiptsData.length]);
 
   useEffect(() => {
     if (!router.isReady) {
@@ -61,5 +61,5 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
     setEventTitle(query);
   }, [router, router.query]);
 
-  return { eventTitle, topNumber, bottomNumber, ResultData };
+  return { eventTitle, topNumber, bottomNumber, ReceiptsData };
 };

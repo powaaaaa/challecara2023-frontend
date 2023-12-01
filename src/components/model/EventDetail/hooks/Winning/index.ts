@@ -154,11 +154,11 @@ export const useWinningEventDetail = (): IUseWinningEventDetail => {
       title: eventTitle,
     };
 
-    sessionStorage.setItem('ReceiptsResponse', JSON.stringify(receiptsData));
+    sessionStorage.setItem('ReceiptResponse', JSON.stringify(receiptsData));
     router
       .push(
-        { pathname: `/Event/${eventId}/Receipts`, query: query },
-        `/Event/${eventId}/Receipts`
+        { pathname: `/Event/${eventId}/Receipt`, query: query },
+        `/Event/${eventId}/Receipt`
       )
       .catch((error) => {
         console.error('ページ遷移に失敗しました: ', error);
