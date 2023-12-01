@@ -106,7 +106,7 @@ export const useDraftEventDetail = (): IUseDraftEventDetail => {
   };
 
   const onClick = (): void => {
-    router.push(`/Administrator/Home`).catch((error) => {
+    router.push(`/Admin/Home`).catch((error) => {
       console.error('ページ遷移に失敗しました: ', error);
     });
   };

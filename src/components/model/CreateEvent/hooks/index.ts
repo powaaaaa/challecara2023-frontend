@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { getUnixTime } from 'date-fns';
+import { useRouter } from 'next/router';
 
 import type * as Types from '@/api/@types';
 import type { SelectTagItem } from '@/libs/@types';
@@ -29,10 +30,12 @@ type IUseCreateEvent = {
   ) => void;
   changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  useSendCreateEvent: () => void;
+  HandleSubmitNewEvent: () => void;
 };
 
 export const useCreateEvent = (): IUseCreateEvent => {
+  const router = useRouter();
+  const [fetchData, setFetchData] = useState<Types.EventResponse | null>(null);
   const [eventImage, setEventImage] = useState<File>();
   const [tagList, setTagList] = useState<SelectTagItem[]>();
   const [eventTitle, setEventTitle] = useState<string>('');
@@ -213,6 +216,46 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }, []);
   };
 
+  const updateFetchEvent = async (path: string): Promise<Types.EventResponse> =>
+    await apiClient.event._id(path).$get();
+
+  const useUpdateFetchEvent = (): void => {
+    useEffect(() => {
+      if (fetchData === null) {
+        return;
+      }
+      const fetch = async (): Promise<Types.EventResponse | void> => {
+        try {
+          if (fetchData.event.id === undefined) {
+            console.error('不正なイベントIDです');
+            return;
+          }
+
+          const path: string = fetchData.event.id;
+          const data: Types.EventResponse = await updateFetchEvent(path);
+          setFetchData(data);
+        } catch (error) {
+          console.error('イベントデータの更新に失敗しました: ', error);
+          return;
+        }
+      };
+
+      fetch().catch((error) => {
+        console.error('fetch関数内でエラーが発生しました: ', error);
+      });
+    });
+  };
+
+  const HandleSubmitNewEvent = (): void => {
+    useSendCreateEvent();
+    useUpdateFetchEvent();
+
+    sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
+    router.push(`/Event/${eventId}`).catch((error) => {
+      console.error('ページ遷移に失敗しました: ', error);
+    });
+  };
+
   return {
     changeImage,
     changeEventTitle,
@@ -224,6 +267,6 @@ export const useCreateEvent = (): IUseCreateEvent => {
     changeEventTerm,
     changeEventInfo,
     changeEventId,
-    useSendCreateEvent,
+    HandleSubmitNewEvent,
   };
 };
