@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 
 import { getUnixTime } from 'date-fns';
@@ -30,7 +31,7 @@ type IUseCreateEvent = {
   ) => void;
   changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  HandleSubmitNewEvent: () => void;
+  HandleSubmitNewEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const useCreateEvent = (): IUseCreateEvent => {

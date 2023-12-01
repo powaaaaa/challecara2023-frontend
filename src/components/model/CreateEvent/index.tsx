@@ -15,11 +15,10 @@ export const CreateEvent: React.FC = () => {
     changeEventTerm,
     changeEventInfo,
     changeEventId,
-    useSendCreateEvent,
+    HandleSubmitNewEvent,
   } = useCreateEvent();
   return (
     <div className="w-[736px]">
-      this is CreateEvent component
       <CreateEventPresentation
         changeImage={changeImage}
         changeEventTitle={changeEventTitle}
@@ -33,7 +32,11 @@ export const CreateEvent: React.FC = () => {
         changeEventId={changeEventId}
       />
       <div className="flex flex-col items-center mt-12">
-        <Button onClick={useSendCreateEvent} variant="base" label="確定する" />
+        <Button
+          onClick={HandleSubmitNewEvent}
+          variant="base"
+          label="確定する"
+        />
       </div>
     </div>
   );

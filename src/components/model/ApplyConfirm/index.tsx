@@ -12,7 +12,6 @@ export const ApplyConfirm: React.FC = () => {
   } = useApplyConfirm();
   return (
     <>
-      this is ApplyConfirm component
       <ApplyConfirmPresentation
         image_url={image_url}
         eventTitle={eventTitle}

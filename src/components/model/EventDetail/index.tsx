@@ -12,7 +12,6 @@ type Props = {
 
 export const EventDetail: React.FC<Props> = ({ eventDetailState }) => (
   <>
-    this is EventDetail component
     <EventDetailPresentation eventDetailState={eventDetailState} />
   </>
 );
