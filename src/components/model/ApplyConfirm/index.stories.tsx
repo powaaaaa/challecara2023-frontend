@@ -1,5 +1,4 @@
 import { ApplyConfirmPresentation } from './presentations';
-import { ApplyConfirmErrorPresentation } from './presentations/error';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -23,8 +22,4 @@ export const Default: Story = {
     administratorName: 'おいしいよ株式会社',
     administratorNote: 'アンケートにご協力下さい！',
   },
-};
-
-export const Error: Story = {
-  render: () => <ApplyConfirmErrorPresentation />,
 };
