@@ -3,16 +3,14 @@ import React from 'react';
 import { EventDetailItem } from '..';
 import { useWinningEventDetail } from '../../../hooks/Winning';
 
-import type { EventResponse } from '@/api/@types';
+export const WinningEventDetail: React.FC = () => {
+  const { fetchData, FstOnClick, useOnClick, OnClick } =
+    useWinningEventDetail();
 
-type Props = {
-  fetchData: EventResponse;
-};
-
-export const WinningEventDetail: React.FC<Props> = ({ fetchData }) => {
-  const { FstOnClick, useOnClick, OnClick } = useWinningEventDetail({
-    fetchData,
-  });
+  if (fetchData === null) {
+    console.error('fetchDataが取得できていません。');
+    return;
+  }
 
   return (
     <div>

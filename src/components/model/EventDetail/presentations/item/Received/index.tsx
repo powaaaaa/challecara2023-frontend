@@ -3,14 +3,13 @@ import React from 'react';
 import { EventDetailItem } from '..';
 import { useReceivedEventDetail } from '../../../hooks/Received';
 
-import type { EventResponse } from '@/api/@types';
+export const ReceivedEventDetail: React.FC = () => {
+  const { fetchData, FstOnClick, useOnClick } = useReceivedEventDetail();
 
-type Props = {
-  fetchData: EventResponse;
-};
-
-export const ReceivedEventDetail: React.FC<Props> = ({ fetchData }) => {
-  const { FstOnClick, useOnClick } = useReceivedEventDetail({ fetchData });
+  if (fetchData === null) {
+    console.error('fetchDataが取得できていません。');
+    return;
+  }
 
   return (
     <div>
