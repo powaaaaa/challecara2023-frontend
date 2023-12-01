@@ -1,6 +1,5 @@
 import { useApplyConfirm } from './hooks';
 import { ApplyConfirmPresentation } from './presentations';
-import { ApplyConfirmErrorPresentation } from './presentations/error';
 
 export const ApplyConfirm: React.FC = () => {
   const {
@@ -19,7 +18,6 @@ export const ApplyConfirm: React.FC = () => {
         administratorNote={administratorNote}
         onClick={OnClick}
       />
-      <ApplyConfirmErrorPresentation />
     </>
   );
 };

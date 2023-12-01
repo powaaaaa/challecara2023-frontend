@@ -32,9 +32,9 @@ export type DisplayTagItem = {
 
 // List
 export type Result = {
-  userId: string;
-  transaction: string;
-  result: string;
+  participant_id: string;
+  txid: string;
+  is_winner: string;
 };
 
 export type Receive = {
