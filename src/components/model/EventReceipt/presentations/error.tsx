@@ -1,3 +1,1 @@
-export const EventReceiptErrorPresentation: React.FC = () => (
-  <>this is EventReceipt error presentation</>
-);
+export const EventReceiptErrorPresentation:React.FC = () => <>this is EventReceipt error presentation</>;
