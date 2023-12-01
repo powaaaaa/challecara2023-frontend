@@ -33,7 +33,9 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
         console.error('データのパースに失敗しました。', error);
       }
     }
+  }, []);
 
+  useEffect(() => {
     if (
       fetchData?.event.image_url === undefined ||
       fetchData.event.title === undefined ||
@@ -79,7 +81,9 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
         }
       };
 
-      void fetch();
+      fetch().catch((error) => {
+        console.error('fetch関数内でエラーが発生しました: ', error);
+      });
     });
   };
 
@@ -107,7 +111,9 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
         }
       };
 
-      void fetch();
+      fetch().catch((error) => {
+        console.error('fetch関数内でエラーが発生しました: ', error);
+      });
     });
   };
 

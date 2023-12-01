@@ -3,6 +3,14 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { EventDetail } from '.';
 
+jest.mock('next/router', () => ({
+  useRouter(): { asPath: string } {
+    return {
+      asPath: '/',
+    };
+  },
+}));
+
 describe('model/EventDetailのテスト', () => {
   it('title is exist', () => {
     render(

@@ -1,51 +1,49 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import type { EventResponse, RegisterEventPayload } from '@/api/@types';
+import { useRouter } from 'next/router';
 
-import { apiClient } from '@/libs/apiClients';
+import type { EventResponse } from '@/api/@types';
 
 type IUseActiveEventDetail = {
+  fetchData: EventResponse | null;
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-type Props = {
-  fetchData: EventResponse;
-};
+export const useActiveEventDetail = (): IUseActiveEventDetail => {
+  const router = useRouter();
+  const [fetchData, setFetchData] = useState<EventResponse | null>(null);
+  const [eventId, setEventId] = useState<string>('');
 
-export const useActiveEventDetail = ({
-  fetchData,
-}: Props): IUseActiveEventDetail => {
-  const fetchEvent = async (body: RegisterEventPayload): Promise<void> =>
-    await apiClient.event.$post({ body });
+  useEffect(() => {
+    const sessionData = sessionStorage.getItem('EventResponse');
+    if (sessionData) {
+      try {
+        const data = JSON.parse(sessionData) as EventResponse;
+        setFetchData(data);
+      } catch (error) {
+        console.error('データのパースに失敗しました。');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (fetchData?.event.id === undefined || fetchData?.user.id === undefined) {
+      console.error('不正なデータです。');
+      return;
+    }
+
+    setEventId(fetchData.event.id);
+  }, [fetchData]);
 
   const FstOnClick = (): void => {
-    useEffect(() => {
-      const fetch = async (): Promise<void> => {
-        try {
-          if (
-            fetchData.event.id === undefined ||
-            fetchData.user.id === undefined
-          ) {
-            alert('不正なイベントIDまたはユーザーIDです');
-            return;
-          }
-
-          const reqBody: RegisterEventPayload = {
-            id: fetchData.event.id,
-            participant_id: fetchData.user.id,
-          };
-
-          await fetchEvent(reqBody);
-        } catch (error) {
-          console.error('データの送信に失敗しました: ', error);
-        }
-      };
-
-      fetch().catch((error) => {
-        console.error('fetch関数内でエラーが発生しました', error);
-      });
-    }, []);
+    sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
+    router.push(`/Event/${eventId}/ApplyConfirm`).catch((error) => {
+      console.error('ページ遷移に失敗しました: ', error);
+    });
   };
 
-  return { FstOnClick };
+  return {
+    fetchData,
+    FstOnClick,
+  };
 };
