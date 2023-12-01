@@ -1,4 +1,3 @@
-// import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
 import { getUnixTime } from 'date-fns';
@@ -31,12 +30,9 @@ type IUseCreateEvent = {
   changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
   useSendCreateEvent: () => void;
-  errorText: string;
-  // setState: Dispatch<SetStateAction<string>>;
 };
 
 export const useCreateEvent = (): IUseCreateEvent => {
-  const [errorText, setErrorText] = useState<string>('Sample error text');
   const [eventImage, setEventImage] = useState<File>();
   const [tagList, setTagList] = useState<SelectTagItem[]>();
   const [eventTitle, setEventTitle] = useState<string>('');
@@ -207,7 +203,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
 
           await fetchEvent(reqBody);
         } catch (error) {
-          setErrorText('イベント作成データの送信に失敗しました.');
+          console.error('イベント作成データの送信に失敗しました.', error);
         }
       };
 
@@ -229,6 +225,5 @@ export const useCreateEvent = (): IUseCreateEvent => {
     changeEventInfo,
     changeEventId,
     useSendCreateEvent,
-    errorText,
   };
 };

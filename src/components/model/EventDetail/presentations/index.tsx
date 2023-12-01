@@ -7,57 +7,37 @@ import { FailedEventDetail } from './item/Failed';
 import { ReceivedEventDetail } from './item/Received';
 import { WinningEventDetail } from './item/Winning';
 
-import type { EventResponse } from '@/api/@types';
-
 type Props = {
-  fetchData: EventResponse;
+  eventDetailState:
+    | 'Applied'
+    | 'Active'
+    | 'Failed'
+    | 'Received'
+    | 'Winning'
+    | 'Draft';
 };
 
-export const EventDetailPresentation: React.FC<Props> = ({ fetchData }) => {
-  const EventDetailState = (): string => {
-    if (fetchData.event.is_published) {
-      if (fetchData.event.is_active) {
-        if (fetchData.event.has_applied) {
-          return 'Applied';
-        } else {
-          return 'Active';
-        }
-      } else {
-        if (!fetchData.event.is_winner) {
-          return 'Failed';
-        } else {
-          if (fetchData.event.is_received) {
-            return 'Received';
-          } else {
-            return 'Winning';
-          }
-        }
-      }
-    } else {
-      return 'Draft';
-    }
-  };
-
-  return (
+export const EventDetailPresentation: React.FC<Props> = ({
+  eventDetailState,
+}) => (
     <div>
-      <div style={{ display: EventDetailState() === 'Applied' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Applied' ? '' : 'none' }}>
         <AppliedEventDetail />
       </div>
-      <div style={{ display: EventDetailState() === 'Active' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Active' ? '' : 'none' }}>
         <ActiveEventDetail />
       </div>
-      <div style={{ display: EventDetailState() === 'Failed' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Failed' ? '' : 'none' }}>
         <FailedEventDetail />
       </div>
-      <div style={{ display: EventDetailState() === 'Received' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Received' ? '' : 'none' }}>
         <ReceivedEventDetail />
       </div>
-      <div style={{ display: EventDetailState() === 'Winning' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Winning' ? '' : 'none' }}>
         <WinningEventDetail />
       </div>
-      <div style={{ display: EventDetailState() === 'Draft' ? '' : 'none' }}>
+      <div style={{ display: eventDetailState === 'Draft' ? '' : 'none' }}>
         <DraftEventDetail />
       </div>
     </div>
   );
-};

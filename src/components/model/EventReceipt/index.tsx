@@ -1,6 +1,5 @@
 import { useEventReceipt } from './hooks';
 import { EventReceiptPresentation } from './presentations';
-import { EventReceiptErrorPresentation } from './presentations/error';
 
 export const EventReceipt: React.FC = () => {
   const { fetchData, HandleReceipt, HandleReturnHome } = useEventReceipt();
@@ -12,7 +11,6 @@ export const EventReceipt: React.FC = () => {
         handleReceipt={HandleReceipt}
         handleReturnHome={HandleReturnHome}
       />
-      <EventReceiptErrorPresentation />
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { CreateEventPresentation } from './presentations';
-import { CreateEventErrorPresentation } from './presentations/error';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -17,8 +16,4 @@ type Story = StoryObj<typeof CreateEventPresentation>;
 
 export const Default: Story = {
   args: {},
-};
-
-export const Error: Story = {
-  render: () => <CreateEventErrorPresentation errorText="" />,
 };
