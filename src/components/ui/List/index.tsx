@@ -8,7 +8,7 @@ import {
   getSortedRowModel,
 } from '@tanstack/react-table';
 
-import type { EventReceiptItem, EventResultItem } from '@/api/@types';
+import type { Receive, Result } from '@/libs/@types';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 
 
@@ -17,10 +17,7 @@ export type Props<Data extends object> = {
   columns: ColumnDef<Data>[];
 };
 
-export const List: React.FC<Props<EventResultItem | EventReceiptItem>> = ({
-  columns,
-  data,
-}) => {
+export const List: React.FC<Props<Result | Receive>> = ({ columns, data }) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const table = useReactTable({
     columns,

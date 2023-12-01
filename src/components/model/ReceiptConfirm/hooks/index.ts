@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import type { EventResultItem, ResultResponse } from '@/api/@types';
+import type { ResultResponse } from '@/api/@types';
+import type { Result } from '@/libs/@types';
 
 type IUseReceiptConfirm = {
   eventTitle: string;
   topNumber: number;
   bottomNumber: number;
-  ResultData: EventResultItem[];
+  ResultData: Result[];
 };
 
 export const useReceiptConfirm = (): IUseReceiptConfirm => {
@@ -17,7 +18,7 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
   const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
-  const [ResultData, setResultData] = useState<EventResultItem[]>([]);
+  const [ResultData, setResultData] = useState<Result[]>([]);
 
   useEffect(() => {
     const sessionData = sessionStorage.getItem('ResultResponse');
@@ -36,7 +37,12 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
       console.error('不正なデータです。');
       return;
     }
-    setResultData(fetchData.results);
+    const results: Result[] = fetchData.results.map((item) => ({
+      participant_id: item.participant_id,
+      txid: item.txid,
+      is_winner: item.is_winner ? '当選' : '落選', // is_winnerの値に基づいて文字列を設定
+    }));
+    setResultData(results);
 
     const winningNumber = fetchData.results.reduce((count, item) => {
       // fetchData.resultsを直接使用

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
-import type { EventReceiptItem, EventResultItem } from '@/api/@types';
+import type { Receive, Result } from '@/libs/@types';
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { DisplayNumber } from '@/components/ui/DisplayNumber';
 import { List } from '@/components/ui/List';
 
+
 type Props = {
   eventTitle: string;
   topNumber: number;
   bottomNumber: number;
-  ResultData: EventResultItem[];
+  ResultData: Result[];
 };
 
 export const ReceiptConfirmPresentation: React.FC<Props> = ({
@@ -20,7 +21,7 @@ export const ReceiptConfirmPresentation: React.FC<Props> = ({
   ResultData,
 }) => {
   const [isDisplay, setIsDisplay] = useState<boolean>(false);
-  const ResultColumns: ColumnDef<EventResultItem | EventReceiptItem>[] = [
+  const ResultColumns: ColumnDef<Result | Receive>[] = [
     {
       accessorKey: 'participant_id',
       header: 'ユーザーID',
