@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useRouter } from 'next/router';
 
 import type {
   EventResponse,
@@ -9,34 +11,53 @@ import type {
 import { apiClient } from '@/libs/apiClients';
 
 type IUseFailedEventDetail = {
+  fetchData: EventResponse | null;
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   useOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-type Props = {
-  fetchData: EventResponse;
-};
+export const useFailedEventDetail = (): IUseFailedEventDetail => {
+  const router = useRouter();
+  const [fetchData, setFetchData] = useState<EventResponse | null>(null);
+  const [eventId, setEventId] = useState<string>('');
 
-export const useFailedEventDetail = ({
-  fetchData,
-}: Props): IUseFailedEventDetail => {
-  const fetchResult = async (eventId: string): Promise<ResultResponse> =>
-    await apiClient.event._id(eventId).results.$get();
+  useEffect(() => {
+    const sessionData = sessionStorage.getItem('EventResponse');
+    if (sessionData) {
+      try {
+        const data = JSON.parse(sessionData) as EventResponse;
+        setFetchData(data);
+      } catch (error) {
+        console.error('データのパースに失敗しました。', error);
+      }
+    }
+  }, []);
 
-  const fetchReceipts = async (eventId: string): Promise<ReceiptsResponse> =>
-    await apiClient.event._id(eventId).receipts.$get();
+  useEffect(() => {
+    if (fetchData?.event.id === undefined) {
+      console.error('不正なデータです');
+      return;
+    }
 
-  const FstOnClick = (): void => {
+    setEventId(fetchData.event.id);
+  }, [fetchData]);
+
+  const fetchResult = async (path: string): Promise<ResultResponse> =>
+    await apiClient.event._id(path).results.$get();
+
+  const fetchReceipts = async (path: string): Promise<ReceiptsResponse> =>
+    await apiClient.event._id(path).receipts.$get();
+
+  const useFetchResult = (): void => {
     useEffect(() => {
-      const fetch = async (): Promise<void> => {
+      if (fetchData === null) {
+        return;
+      }
+      const fetch = async (): Promise<ResultResponse | undefined> => {
         try {
-          if (fetchData.event.id === undefined) {
-            console.log('不正なイベントIDです');
-          }
-
-          await fetchResult(fetchData.event.id);
+          return await fetchResult(eventId);
         } catch (error) {
-          console.log('結果データの取得に失敗しました: ', error);
+          console.error('抽選結果の取得に失敗しました: ', error);
           return;
         }
       };
@@ -44,29 +65,46 @@ export const useFailedEventDetail = ({
       fetch().catch((error) => {
         console.error('fetch関数内でエラーが発生しました: ', error);
       });
+    });
+  };
+
+  const useFetchReceipts = (): void => {
+    useEffect(() => {
+      if (fetchData === null) {
+        return;
+      }
+      const fetch = async (): Promise<ReceiptsResponse | undefined> => {
+        try {
+          return await fetchReceipts(eventId);
+        } catch (error) {
+          console.error('受領データの取得に失敗しました: ', error);
+          return;
+        }
+      };
+
+      fetch().catch((error) => {
+        console.error('fetch関数内でエラーが発生しました: ', error);
+      });
+    });
+  };
+
+  const FstOnClick = (): void => {
+    const resultData = useFetchResult();
+
+    sessionStorage.setItem('ResultResponse', JSON.stringify(resultData));
+    router.push(`/Event/${eventId}/Result`).catch((error) => {
+      console.error('ページ遷移に失敗しました: ', error);
     });
   };
 
   const useOnClick = (): void => {
-    useEffect(() => {
-      const fetch = async (): Promise<void> => {
-        try {
-          if (fetchData.event.id === undefined) {
-            console.log('不正なイベントIDです');
-          }
+    const receiptsData = useFetchReceipts();
 
-          await fetchReceipts(fetchData.event.id);
-        } catch (error) {
-          console.log('受領データの取得に失敗しました: ', error);
-          return;
-        }
-      };
-
-      fetch().catch((error) => {
-        console.error('fetch関数内でエラーが発生しました: ', error);
-      });
+    sessionStorage.setItem('ReceiptsResponse', JSON.stringify(receiptsData));
+    router.push(`/Event/${eventId}/Receipts`).catch((error) => {
+      console.error('ページ遷移に失敗しました: ', error);
     });
   };
 
-  return { FstOnClick, useOnClick };
+  return { fetchData, FstOnClick, useOnClick };
 };

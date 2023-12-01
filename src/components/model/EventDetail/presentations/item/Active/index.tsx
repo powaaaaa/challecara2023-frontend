@@ -1,14 +1,13 @@
 import { EventDetailItem } from '..';
 import { useActiveEventDetail } from '../../../hooks/Active';
 
-import type { EventResponse } from '@/api/@types';
+export const ActiveEventDetail: React.FC = () => {
+  const { fetchData, FstOnClick } = useActiveEventDetail();
 
-type Props = {
-  fetchData: EventResponse;
-};
-
-export const ActiveEventDetail: React.FC<Props> = ({ fetchData }) => {
-  const { FstOnClick } = useActiveEventDetail({ fetchData });
+  if (fetchData === null) {
+    console.error('fetchDataが取得できていません。');
+    return;
+  }
 
   return (
     <div>
@@ -18,9 +17,7 @@ export const ActiveEventDetail: React.FC<Props> = ({ fetchData }) => {
         label="応募する"
         subLabel=""
         FstOnClick={FstOnClick}
-        OnClick={(): void =>
-          console.log('このメッセージが出るのはおかしいよ！')
-        }
+        OnClick={(): void => console.log('')}
       />
     </div>
   );

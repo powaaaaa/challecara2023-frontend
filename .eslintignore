@@ -13,4 +13,5 @@ build/
 _templates/
 setup.js
 *.config.*
+src/hooks/firebase/*
 src/api/**/*

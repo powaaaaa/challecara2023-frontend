@@ -3,14 +3,13 @@ import React from 'react';
 import { EventDetailItem } from '..';
 import { useDraftEventDetail } from '../../../hooks/Draft';
 
-import type { EventResponse } from '@/api/@types';
+export const DraftEventDetail: React.FC = () => {
+  const { fetchData, FstOnClick, onClick } = useDraftEventDetail();
 
-type Props = {
-  fetchData: EventResponse;
-};
-
-export const DraftEventDetail: React.FC<Props> = ({ fetchData }) => {
-  const { FstOnClick, onClick } = useDraftEventDetail({ fetchData });
+  if (fetchData === null) {
+    console.error('fetchDataが取得できていません。');
+    return;
+  }
 
   return (
     <div>

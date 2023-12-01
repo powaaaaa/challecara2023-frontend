@@ -41,22 +41,22 @@ export const EventDetailPresentation: React.FC<Props> = ({ fetchData }) => {
   return (
     <div>
       <div style={{ display: EventDetailState() === 'Applied' ? '' : 'none' }}>
-        <AppliedEventDetail fetchData={fetchData} />
+        <AppliedEventDetail />
       </div>
       <div style={{ display: EventDetailState() === 'Active' ? '' : 'none' }}>
-        <ActiveEventDetail fetchData={fetchData} />
+        <ActiveEventDetail />
       </div>
       <div style={{ display: EventDetailState() === 'Failed' ? '' : 'none' }}>
-        <FailedEventDetail fetchData={fetchData} />
+        <FailedEventDetail />
       </div>
       <div style={{ display: EventDetailState() === 'Received' ? '' : 'none' }}>
-        <ReceivedEventDetail fetchData={fetchData} />
+        <ReceivedEventDetail />
       </div>
       <div style={{ display: EventDetailState() === 'Winning' ? '' : 'none' }}>
-        <WinningEventDetail fetchData={fetchData} />
+        <WinningEventDetail />
       </div>
       <div style={{ display: EventDetailState() === 'Draft' ? '' : 'none' }}>
-        <DraftEventDetail fetchData={fetchData} />
+        <DraftEventDetail />
       </div>
     </div>
   );
