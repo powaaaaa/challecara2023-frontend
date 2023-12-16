@@ -1,7 +1,6 @@
 'use client';
 
-// TODO `EventDetail` must be fixed about State
-import { Screen } from '@/components/page/ActiveEventDetail';
+import { Screen } from '@/components/page/EventDetail';
 
 const Top: React.FC = () => <Screen />;
 
