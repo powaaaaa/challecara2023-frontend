@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import type { EventResponse, RegisterEventPayload } from '@/api/@types';
 
@@ -122,9 +122,7 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
     useUpdateFetchEvent();
 
     sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
-    router.push(`/Event/${fetchData?.event.id}`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router.push(`/Event/${fetchData?.event.id}`);
   };
 
   return {

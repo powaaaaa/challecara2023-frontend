@@ -2,7 +2,7 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 
 import { getUnixTime } from 'date-fns';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import type * as Types from '@/api/@types';
 import type { SelectTagItem } from '@/libs/@types';
@@ -252,9 +252,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
     useUpdateFetchEvent();
 
     sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
-    router.push(`/Event/${eventId}`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router.push(`/Event/${eventId}`);
   };
 
   return {

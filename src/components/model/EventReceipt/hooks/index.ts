@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import type {
   EventResponse,
@@ -20,14 +20,15 @@ type IUseEventReceipt = {
 export const useEventReceipt = (): IUseEventReceipt => {
   const router = useRouter();
   const [fetchData, setFetchData] = useState<ReceiptResponse | null>(null);
+  const [eventId, setEventId] = useState<string>('');
   const [fetchUpdateData, setFetchUpdateData] = useState<EventResponse | null>(
     null
   );
-  const [eventId, setEventId] = useState<string>('');
   const [participantId, setParticipantId] = useState<string>('');
 
   useEffect(() => {
     const sessionData = sessionStorage.getItem('EventResponse');
+    const eventId = sessionStorage.getItem('eventId');
     if (sessionData) {
       try {
         const data = JSON.parse(sessionData) as ReceiptResponse;
@@ -36,16 +37,23 @@ export const useEventReceipt = (): IUseEventReceipt => {
         console.error('データのパースに失敗しました。', error);
       }
     }
+    if (eventId) {
+      try {
+        const data = JSON.parse(eventId) as string;
+        setEventId(data);
+      } catch (error) {
+        console.error('データのパースに失敗しました。', error);
+      }
+    }
   }, []);
 
   useEffect(() => {
-    if (router.query || fetchData?.user.id === undefined) {
+    if (fetchData?.user.id === undefined) {
       console.error('不正なデータです');
       return;
     }
-    setEventId(router.query);
     setParticipantId(fetchData.user.id);
-  }, [fetchData, router.query]);
+  }, [fetchData]);
 
   const fetchPostReceipt = async (
     path: string,
@@ -57,7 +65,7 @@ export const useEventReceipt = (): IUseEventReceipt => {
 
   const useFetchPostReceipt = (): void => {
     useEffect(() => {
-      if (fetchData === null || !router.query) {
+      if (fetchData === null || eventId === null) {
         return;
       }
       const fetch = async (): Promise<void> => {
@@ -112,15 +120,11 @@ export const useEventReceipt = (): IUseEventReceipt => {
     useUpdateFetchEvent();
 
     sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
-    router.push(`/Event/${fetchUpdateData?.event.id}`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router.push(`/Event/${fetchUpdateData?.event.id}`);
   };
 
   const HandleReturnHome = (): void => {
-    router.push(`/User/Home`).catch((error) => {
-      console.error('ページ遷移に失敗しました: ', error);
-    });
+    router.push(`/User/Home`);
   };
 
   return { fetchData, HandleReceipt, HandleReturnHome };

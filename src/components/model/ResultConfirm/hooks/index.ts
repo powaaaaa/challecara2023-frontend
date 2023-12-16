@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/navigation';
 
 import type { ResultResponse } from '@/api/@types';
 import type { Result } from '@/libs/@types';
@@ -11,9 +11,9 @@ type IUseResultConfirm = {
 };
 
 export const useResultConfirm = (): IUseResultConfirm => {
-  const router = useRouter();
+  // const router = useRouter();
   const [fetchData, setFetchData] = useState<ResultResponse | null>(null);
-  const [eventTitle, setEventTitle] = useState<string>('');
+  const [eventTitle] = useState<string>('');
   const [ResultData, setResultData] = useState<Result[]>([]);
 
   useEffect(() => {
@@ -41,16 +41,16 @@ export const useResultConfirm = (): IUseResultConfirm => {
     setResultData(results);
   }, [fetchData, ResultData.length]);
 
-  useEffect(() => {
-    if (!router.isReady) {
-      return;
-    }
-    const query = router.query['title'];
-    if (query === undefined || Array.isArray(query)) {
-      return;
-    }
-    setEventTitle(query);
-  }, [router, router.query]);
+  // useEffect(() => {
+  //   if (!router.isReady) {
+  //     return;
+  //   }
+  //   const query = router.query['title'];
+  //   if (query === undefined || Array.isArray(query)) {
+  //     return;
+  //   }
+  //   setEventTitle(query);
+  // }, [router, router.query]);
 
   return { eventTitle, ResultData };
 };

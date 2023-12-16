@@ -4,5 +4,8 @@ import type * as Types from '@/api/@types';
 export type Methods = {
   get: {
     resBody: Types.TagsResponse;
+    reqHeader: {
+      token: string;
+    };
   };
 };

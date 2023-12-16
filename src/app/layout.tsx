@@ -25,7 +25,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }): ReactNode => (
   <html lang="ja">
-    <body className="bg-basic">{children}</body>
+    <body className="bg-basic font-NotoSansJP">{children}</body>
   </html>
 );
 

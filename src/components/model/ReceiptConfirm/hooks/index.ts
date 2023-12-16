@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/navigation';
 
 import type { ReceiptsResponse } from '@/api/@types';
 import type { Receipt } from '@/libs/@types';
@@ -13,9 +13,9 @@ type IUseReceiptConfirm = {
 };
 
 export const useReceiptConfirm = (): IUseReceiptConfirm => {
-  const router = useRouter();
+  // const router = useRouter();
   const [fetchData, setFetchData] = useState<ReceiptsResponse | null>(null);
-  const [eventTitle, setEventTitle] = useState<string>('');
+  const [eventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
   const [ReceiptsData, setReceiptsData] = useState<Receipt[]>([]);
@@ -50,16 +50,16 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
     setBottomNumber(ReceiptsData.length);
   }, [fetchData, ReceiptsData.length]);
 
-  useEffect(() => {
-    if (!router.isReady) {
-      return;
-    }
-    const query = router.query['title'];
-    if (query === undefined || Array.isArray(query)) {
-      return;
-    }
-    setEventTitle(query);
-  }, [router, router.query]);
+  // useEffect(() => {
+  //   if (!router.isReady) {
+  //     return;
+  //   }
+  //   const query = router.query['title'];
+  //   if (query === undefined || Array.isArray(query)) {
+  //     return;
+  //   }
+  //   setEventTitle(query);
+  // }, [router, router.query]);
 
   return { eventTitle, topNumber, bottomNumber, ReceiptsData };
 };
