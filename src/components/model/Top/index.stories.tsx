@@ -1,4 +1,4 @@
-import { TopPresentation  } from './presentations';
+import { TopPresentation } from './presentations';
 
 import type { Meta, StoryObj } from '@storybook/react';
 

@@ -31,7 +31,7 @@ export const SearchCard: React.FC<Props> = ({
 
     <div className="pt-8 mx-8 flex flex-col items-center">
       <Input
-        className="w-[224px] mb-9"
+        className="w-[220px] mb-9"
         type="text"
         label="キーワードで検索"
         id="keyword"

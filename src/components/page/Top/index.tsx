@@ -1,3 +1,5 @@
+'use client';
+
 import { Top } from '@/components/model/Top';
 import { Header } from '@/components/ui/Header';
 
