@@ -54,8 +54,11 @@ export const EventDetail: React.FC = () => {
   );
 };
 
-const DynamicPage: ComponentType = dynamic(() => import('./index'), {
-  ssr: false,
-});
+const DynamicPage: ComponentType = dynamic(
+  import('@/components/model/EventDetail/index'),
+  {
+    ssr: false,
+  }
+);
 
 export default DynamicPage;
