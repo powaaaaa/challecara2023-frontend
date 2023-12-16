@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { useEventDetail } from './hooks';
 import { EventDetailPresentation } from './presentations';
 
+import type { NextPage } from 'next';
+
 export const EventDetail: React.FC = () => {
   const { eventData } = useEventDetail();
 
@@ -52,6 +54,6 @@ export const EventDetail: React.FC = () => {
   );
 };
 
-const DynamicPage= dynamic(() => import('./index'), { ssr: false });
+const DynamicPage: NextPage = dynamic(() => import('./index'), { ssr: false });
 
 export default DynamicPage;
