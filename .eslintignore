@@ -14,3 +14,4 @@ _templates/
 setup.js
 *.config.*
 src/api/**/*
+src/libs/env.mjs

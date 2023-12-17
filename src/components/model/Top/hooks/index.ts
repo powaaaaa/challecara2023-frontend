@@ -8,7 +8,7 @@ export const useTop = (): IUseTop => {
   const router = useRouter();
 
   const handleLogin = (): void => {
-    router.push(`/Signin`);
+    router.push(`/SignIn`);
   };
 
   return { handleLogin };

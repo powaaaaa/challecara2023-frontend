@@ -2,19 +2,21 @@
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
+
+import { env } from '@/libs/env.mjs';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyAZUrkcGbmCctmR8B6oCgoPVVHdRfSjpWw',
-  authDomain: 'pen-gift-7f6f3.firebaseapp.com',
-  projectId: 'open-gift-7f6f3',
-  storageBucket: 'open-gift-7f6f3.appspot.com',
-  messagingSenderId: '225200388482',
-  appId: '1:225200388482:web:b187606ce1c2eef514379b',
-  measurementId: 'G-49PMK5M6G3',
+  apiKey: env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
