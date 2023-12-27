@@ -16,7 +16,7 @@ type Story = StoryObj<typeof ApplyConfirmPresentation>;
 
 export const Default: Story = {
   args: {
-    image_url:
+    imageUrl:
       'https://mona-log.com/wp-content/uploads/2020/05/3364392-scaled.jpg',
     eventTitle: 'タイトルタイトル',
     administratorName: 'おいしいよ株式会社',
