@@ -1,4 +1,4 @@
-import { env } from '@/libs/env.mjs';
+import { env } from '@/libs/env';
 
 export const BASE_URL =
   process.env.NODE_ENV === 'production'

@@ -3,7 +3,7 @@ import { getAnalytics, isSupported } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 
-import { env } from '@/libs/env.mjs';
+import { env } from '@/libs/env';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
