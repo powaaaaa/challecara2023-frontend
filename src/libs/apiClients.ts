@@ -1,5 +1,3 @@
-'use client';
-
 import aspida from '@aspida/axios';
 // import qs from 'qs';
 import axios from 'axios';
@@ -21,7 +19,10 @@ export const Axios = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('access_token')}`,
+    Authorization:
+      typeof window !== 'undefined'
+        ? `Bearer ${window.localStorage.getItem('access_token')}`
+        : '',
   },
   timeout: 2500,
 });

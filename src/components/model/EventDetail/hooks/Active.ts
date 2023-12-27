@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 
 import type { EventResponse } from '@/api/@types';
 
-// import { Axios } from '@/libs/apiClients';
-
 type IUseActiveEventDetail = {
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
