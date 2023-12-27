@@ -16,13 +16,7 @@ type Story = StoryObj<typeof EventReceiptPresentation>;
 
 export const Default: Story = {
   args: {
-    fetchData: {
-      user: {
-        id: 'admin',
-        display_name: 'ユーザー',
-      },
-      title: 'タイトル',
-      address: '〒123-4567 東京都港区浜松町1-2-3 サクラビル205号室',
-    },
+    eventTitle: 'タイトル',
+    userAddress: '〒123-4567 東京都港区浜松町1-2-3 サクラビル205号室',
   },
 };
