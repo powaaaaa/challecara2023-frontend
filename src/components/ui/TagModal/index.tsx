@@ -10,7 +10,8 @@ type Props = {
   setShow: Dispatch<SetStateAction<boolean>>;
   tagsList: SelectTagItem[];
   changeIsSelected: (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ) => void;
 };
 
@@ -33,7 +34,7 @@ export const TagModal: React.FC<Props> = ({
       onClick={(e): void => e.stopPropagation()}
       onKeyDown={(e): void => e.stopPropagation()}
     >
-      <SelectTags tagsList={tagsList} onClick={changeIsSelected} />
+      <SelectTags tagsList={tagsList} onClickTag={changeIsSelected} />
       <div className="mt-5">
         <Button
           className="m-auto"

@@ -15,7 +15,8 @@ type Props = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setEventTitle: Dispatch<SetStateAction<string>>;
   changeEventTags: (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ) => void;
   tagList: SelectTagItem[] | undefined;
   setParticipantsNumber: Dispatch<SetStateAction<string>>;

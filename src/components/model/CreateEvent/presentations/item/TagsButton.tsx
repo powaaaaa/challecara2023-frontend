@@ -9,7 +9,8 @@ type Props = {
   id: string;
   tagsList: SelectTagItem[];
   changeIsSelected: (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ) => void;
 };
 

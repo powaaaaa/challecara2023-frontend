@@ -17,7 +17,8 @@ type IUseCreateEvent = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setEventTitle: Dispatch<SetStateAction<string>>;
   changeEventTags: (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ) => void;
   tagList: SelectTagItem[] | undefined;
   setParticipantsNumber: Dispatch<SetStateAction<string>>;
@@ -80,13 +81,13 @@ export const useCreateEvent = (): IUseCreateEvent => {
   });
 
   const changeEventTags = (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ): void => {
-    const selectedTag = event.currentTarget as SelectTagItem;
-
+    event.preventDefault();
     // tagListから特定のtagItemを選択して、selectedをtrueに変更
     const updatedTagList = tagList?.map((tagItem) => {
-      if (tagItem.id === selectedTag.id) {
+      if (tagItem.id === item.id) {
         return { ...tagItem, selected: true };
       }
       return tagItem;
