@@ -2,6 +2,12 @@
 
 `git@github.com:tosaken1116/nextjs-app-templates.git`から作成されました。
 
+volta使用
+
+node: `v20.10`
+
+pnpm: `v8.7.4`
+
 ## 環境構築
 
 1. ローカルにclone
