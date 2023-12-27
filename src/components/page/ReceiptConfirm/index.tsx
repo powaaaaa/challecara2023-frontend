@@ -1,3 +1,5 @@
+'use client';
+
 import { ReceiptsConfirm } from '@/components/model/ReceiptsConfirm';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';

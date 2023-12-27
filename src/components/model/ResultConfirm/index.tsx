@@ -1,3 +1,5 @@
+'use client';
+
 import { useResultConfirm } from './hooks';
 import { ResultConfirmPresentation } from './presentations';
 

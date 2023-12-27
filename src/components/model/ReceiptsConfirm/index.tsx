@@ -1,3 +1,5 @@
+'use client';
+
 import { useReceiptsConfirm } from './hooks';
 import { ReceiptsConfirmPresentation } from './presentations';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { useApplyConfirm } from './hooks';
 import { ApplyConfirmPresentation } from './presentations';
 

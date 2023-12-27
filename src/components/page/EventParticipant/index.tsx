@@ -1,3 +1,5 @@
+'use client';
+
 import { EventsParticipant } from '@/components/model/EventsParticipant';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';

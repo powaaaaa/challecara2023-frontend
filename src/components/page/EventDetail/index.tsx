@@ -1,3 +1,5 @@
+'use client';
+
 import { EventDetail } from '@/components/model/EventDetail';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';

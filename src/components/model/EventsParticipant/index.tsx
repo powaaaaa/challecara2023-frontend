@@ -1,3 +1,5 @@
+'use client';
+
 import { useEventsParticipant } from './hooks';
 import { EventsParticipantPresentation } from './presentations';
 

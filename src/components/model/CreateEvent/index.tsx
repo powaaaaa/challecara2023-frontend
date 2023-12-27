@@ -1,3 +1,5 @@
+'use client';
+
 import { useCreateEvent } from './hooks';
 import { CreateEventPresentation } from './presentations';
 

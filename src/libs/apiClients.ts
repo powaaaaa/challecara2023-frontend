@@ -21,7 +21,7 @@ export const Axios = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+    Authorization: `Bearer ${window.localStorage.getItem('access_token')}`,
   },
   timeout: 2500,
 });

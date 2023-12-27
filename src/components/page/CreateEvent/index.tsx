@@ -1,3 +1,5 @@
+'use client';
+
 import { CreateEvent } from '@/components/model/CreateEvent';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';

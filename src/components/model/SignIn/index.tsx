@@ -1,3 +1,5 @@
+'use client';
+
 import { useSignIn } from './hooks';
 import { SignInPresentation } from './presentations';
 

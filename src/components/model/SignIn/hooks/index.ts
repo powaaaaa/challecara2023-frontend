@@ -44,7 +44,7 @@ export const useSignIn = (): IUseSignIn => {
       .then((res) => {
         console.log('サインインdone');
         console.log('res: ', res);
-        localStorage.setItem('access_token', res.access_token);
+        window.localStorage.setItem('access_token', res.access_token);
         router.push(`/events/participant`);
       })
       .catch((error) => {

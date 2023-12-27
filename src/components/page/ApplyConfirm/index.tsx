@@ -1,3 +1,5 @@
+'use client';
+
 import { ApplyConfirm } from '@/components/model/ApplyConfirm';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';

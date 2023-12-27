@@ -1,3 +1,5 @@
+'use client';
+
 import { SignIn } from '@/components/model/SignIn';
 import { Header } from '@/components/ui/Header';
 

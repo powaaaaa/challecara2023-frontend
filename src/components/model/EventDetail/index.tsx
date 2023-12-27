@@ -1,6 +1,4 @@
-import type { ComponentType } from 'react';
-
-import dynamic from 'next/dynamic';
+'use client';
 
 import { useEventDetail } from './hooks';
 import { EventDetailPresentation } from './presentations';
@@ -53,12 +51,3 @@ export const EventDetail: React.FC = () => {
     </>
   );
 };
-
-const DynamicPage: ComponentType = dynamic(
-  import('@/components/model/EventDetail/index'),
-  {
-    ssr: false,
-  }
-);
-
-export default DynamicPage;

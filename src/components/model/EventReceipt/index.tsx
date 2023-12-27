@@ -1,3 +1,5 @@
+'use client';
+
 import { useEventReceipt } from './hooks';
 import { EventReceiptPresentation } from './presentations';
 
