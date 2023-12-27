@@ -1,25 +1,29 @@
-## Next.js AppRouter用のテンプレート
+# OPEN Gift フロントエンド
 
-### 使用手順
-1. clone
+`git@github.com:tosaken1116/nextjs-app-templates.git`から作成されました。
 
-        git clone git@github.com:tosaken1116/nextjs-app-templates.git
+volta使用
 
-    or
+node: `v20.10`
 
-        git clone https://github.com/tosaken1116/nextjs-app-templates.git
+pnpm: `v8.7.4`
 
-2. ディレクトリ移動
+## 環境構築
 
-        cd nextjs-app-templates
+1. ローカルにclone
 
-3. パッケージマネージャの選択
+`git clone https://github.com/powaaaaa/challecara2023-frontend.git`
 
-        chmod +x setup.sh
+2. 移動
 
-        ./setup.sh
+`cd nextjs-app-template`
 
-    ```
-    Choose a package manager (npm/yarn/pnpm/bun):
-    Enter a new project name:
-    ```
+3. 開発サーバを起動
+
+`pnpm dev`
+
+## 開発
+
+- Storybookの起動
+
+`pnpm storybook`

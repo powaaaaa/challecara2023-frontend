@@ -5,7 +5,37 @@
   // language - current active spelling language
   "language": "en",
   // words - list of words to be always considered correct
-  "words": ["autodocs"],
+  "words": [
+    "appspot",
+    "aspida",
+    "autodocs",
+    "Cctm",
+    "cgkkxp",
+    "chakra",
+    "challecara",
+    "clsx",
+    "datepicker",
+    "ddyzg",
+    "firebaseapp",
+    "hvrpot",
+    "kdyhc",
+    "klckca",
+    "noto",
+    "notojp",
+    "oqkkb",
+    "qcpq",
+    "signin",
+    "smttma",
+    "tanstack",
+    "txid",
+    "txyzl",
+    "Urkc",
+    "useon",
+    "xzna",
+    "yslf",
+    "Zdlj",
+    "zpos"
+  ],
   "ignorePaths": []
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.

@@ -23,6 +23,12 @@
     // 関数の戻り値の型を明示的に指定する
     "@typescript-eslint/explicit-function-return-type": "error",
 
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+
+    "@typescript-eslint/no-unsafe-call": "warn",
+
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+
     // 必要な場合にのみアロー関数の本体を使用する
     "arrow-body-style": ["error", "as-needed"],
 
