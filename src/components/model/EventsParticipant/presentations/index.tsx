@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { SearchCard } from './item/SearchCard';
 
 import type { EventListItem } from '@/api/@types';
@@ -8,33 +10,45 @@ import { EventCardList } from '@/components/ui/EventCardList';
 type Props = {
   eventListItem: EventListItem[];
   tagList: SelectTagItem[];
-  changeEventTags: (
-    event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
+  changeEventTag: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
   ) => void;
-  changeKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSearchEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  eventKeyword: string;
+  setEventKeyword: Dispatch<SetStateAction<string>>;
+  HandleSearchEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickEventCard: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: EventListItem
+  ) => void;
 };
 
 export const EventsParticipantPresentation: React.FC<Props> = ({
   eventListItem,
   tagList,
-  changeEventTags,
-  changeKeyword,
-  handleSearchEvent,
+  changeEventTag,
+  eventKeyword,
+  setEventKeyword,
+  HandleSearchEvent,
+  onClickEventCard,
 }) => (
   <div className="text-black flex gap-x-8">
     <div className="mt-12">
       <SearchCard
-        changeEventTags={changeEventTags}
-        handleSearchEvent={handleSearchEvent}
+        onClickEventTag={changeEventTag}
+        HandleSearchEvent={HandleSearchEvent}
         tagList={tagList}
-        changeKeyword={changeKeyword}
+        setEventKeyword={setEventKeyword}
+        eventKeyword={eventKeyword}
       />
     </div>
     <div>
-      <div className="mb-4 font-medium text-2xl">開催中の抽選</div>
+      <p className="mb-4 font-medium text-2xl">開催中の抽選</p>
       <div>
-        <EventCardList eventListItem={eventListItem} />
+        <EventCardList
+          eventListItem={eventListItem}
+          onClickEventCard={onClickEventCard}
+        />
       </div>
     </div>
   </div>

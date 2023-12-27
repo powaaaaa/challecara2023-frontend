@@ -140,7 +140,7 @@ export type ResultResponse = {
 export type ReceiptResponse = {
   user: User;
   title: EventItem['title'];
-  address: User['address'];
+  address: string;
 };
 
 /**

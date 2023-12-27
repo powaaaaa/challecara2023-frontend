@@ -1,4 +1,4 @@
-import { ReceiptConfirm } from '@/components/model/ReceiptConfirm';
+import { ReceiptsConfirm } from '@/components/model/ReceiptsConfirm';
 import { Back } from '@/components/ui/Back';
 import { Header } from '@/components/ui/Header';
 
@@ -11,7 +11,7 @@ export const Screen: React.FC = () => (
       <Back />
     </div>
     <div className="flex flex-col items-center">
-      <ReceiptConfirm />
+      <ReceiptsConfirm />
     </div>
   </div>
 );

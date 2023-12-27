@@ -2,35 +2,57 @@ import { useEffect, useState } from 'react';
 
 // import { useRouter } from 'next/navigation';
 
+import { useParams } from 'next/navigation';
+
 import type { ResultResponse } from '@/api/@types';
 import type { Result } from '@/libs/@types';
 
+import { Axios } from '@/libs/apiClients';
+
 type IUseResultConfirm = {
   eventTitle: string;
-  ResultData: Result[];
+  resultData: Result[];
 };
 
 export const useResultConfirm = (): IUseResultConfirm => {
   // const router = useRouter();
-  const [fetchData, setFetchData] = useState<ResultResponse | null>(null);
-  const [eventTitle] = useState<string>('');
-  const [ResultData, setResultData] = useState<Result[]>([]);
+  const eventId = useParams<{ id: string }>().id;
+  const [fetchData, setFetchData] = useState<ResultResponse>();
+  const [eventTitle, setEventTitle] = useState<string>('');
+  const [resultData, setResultData] = useState<Result[]>([]);
 
+  // TODO useEffectの見直し
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('ResultResponse');
+    const sessionData = sessionStorage.getItem('eventTitle');
     if (sessionData) {
       try {
-        const data = JSON.parse(sessionData) as ResultResponse;
-        setFetchData(data);
+        setEventTitle(sessionData);
       } catch (error) {
         console.error('データのパースに失敗しました.', error);
       }
     }
   }, []);
 
+  const fetchResult = async (path: string): Promise<ResultResponse> =>
+    // await apiClient.event._id(path).results.$get();
+    await Axios.get(`/event/${path}/result`);
+
+  // NOTE consider to use AbortController and prune axios or fetch
   useEffect(() => {
-    if (fetchData === null || fetchData?.results === null) {
-      console.error('不正なデータです。');
+    const abortController = new AbortController();
+    fetchResult(eventId)
+      .then((res) => {
+        console.log('結果取得done');
+        setFetchData(res);
+      })
+      .catch((e) => console.error('fetchに失敗しました: ', e));
+    return () => {
+      abortController.abort();
+    };
+  });
+
+  useEffect(() => {
+    if (fetchData === undefined) {
       return;
     }
     const results: Result[] = fetchData.results.map((item) => ({
@@ -39,7 +61,9 @@ export const useResultConfirm = (): IUseResultConfirm => {
       is_winner: item.is_winner ? '当選' : '落選', // is_winnerの値に基づいて文字列を設定
     }));
     setResultData(results);
-  }, [fetchData, ResultData.length]);
+  }, [fetchData, resultData.length]);
+
+  // NOTE EventDetailに戻るのは「戻る」任せでいいのかな～
 
   // useEffect(() => {
   //   if (!router.isReady) {
@@ -52,5 +76,5 @@ export const useResultConfirm = (): IUseResultConfirm => {
   //   setEventTitle(query);
   // }, [router, router.query]);
 
-  return { eventTitle, ResultData };
+  return { eventTitle, resultData };
 };

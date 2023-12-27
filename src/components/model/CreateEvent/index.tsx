@@ -6,34 +6,34 @@ import { Button } from '@/components/ui/Button';
 export const CreateEvent: React.FC = () => {
   const {
     changeImage,
-    changeEventTitle,
+    setEventTitle,
     changeEventTags,
     tagList,
-    changeParticipantsNumber,
+    setParticipantsNumber,
     startDate,
     endDate,
     changeEventTerm,
-    changeEventInfo,
-    changeEventId,
-    HandleSubmitNewEvent,
+    setEventInfo,
+    setEventId,
+    handleSubmitNewEvent,
   } = useCreateEvent();
   return (
     <div className="w-[736px]">
       <CreateEventPresentation
         changeImage={changeImage}
-        changeEventTitle={changeEventTitle}
+        setEventTitle={setEventTitle}
         changeEventTags={changeEventTags}
         tagList={tagList}
-        changeParticipantsNumber={changeParticipantsNumber}
+        setParticipantsNumber={setParticipantsNumber}
         startDate={startDate}
         endDate={endDate}
         changeEventTerm={changeEventTerm}
-        changeEventInfo={changeEventInfo}
-        changeEventId={changeEventId}
+        setEventInfo={setEventInfo}
+        setEventId={setEventId}
       />
       <div className="flex flex-col items-center mt-12">
         <Button
-          onClick={HandleSubmitNewEvent}
+          onClick={handleSubmitNewEvent}
           variant="base"
           label="確定する"
         />

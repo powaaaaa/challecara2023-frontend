@@ -27,8 +27,6 @@ export const Input: React.FC<Props> = ({
         return '0';
       case 'email':
         return 'example@example.com';
-      case 'password':
-        return 'password';
       case 'tel':
         return '012-3456-7890';
       case 'url':
@@ -39,7 +37,7 @@ export const Input: React.FC<Props> = ({
   };
 
   const inputStyle = cva(
-    'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1'
+    `${className} w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1`
   );
 
   return (
@@ -48,7 +46,7 @@ export const Input: React.FC<Props> = ({
         {label}
       </label>
       <input
-        className={inputStyle({ className })}
+        className={inputStyle()}
         id={id}
         type={type}
         placeholder={placeholderText(type)}

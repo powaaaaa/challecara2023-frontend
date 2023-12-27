@@ -3,7 +3,7 @@ import { ApplyConfirmPresentation } from './presentations';
 
 export const ApplyConfirm: React.FC = () => {
   const {
-    image_url,
+    imageUrl,
     eventTitle,
     administratorName,
     administratorNote,
@@ -12,7 +12,7 @@ export const ApplyConfirm: React.FC = () => {
   return (
     <>
       <ApplyConfirmPresentation
-        image_url={image_url}
+        imageUrl={imageUrl}
         eventTitle={eventTitle}
         administratorName={administratorName}
         administratorNote={administratorNote}

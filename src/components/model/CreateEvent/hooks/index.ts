@@ -1,4 +1,5 @@
 import type React from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
 import { getUnixTime } from 'date-fns';
@@ -8,20 +9,18 @@ import type * as Types from '@/api/@types';
 import type { SelectTagItem } from '@/libs/@types';
 
 import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
-import { apiClient } from '@/libs/apiClients';
+import { Axios } from '@/libs/apiClients';
 
 type WithRange = never;
 
 type IUseCreateEvent = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setEventTitle: Dispatch<SetStateAction<string>>;
   changeEventTags: (
     event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
   tagList: SelectTagItem[] | undefined;
-  changeParticipantsNumber: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  setParticipantsNumber: Dispatch<SetStateAction<string>>;
   startDate: Date | undefined;
   endDate: Date | undefined;
   changeEventTerm: (
@@ -29,18 +28,18 @@ type IUseCreateEvent = {
       ? Date | null
       : [Date | null, Date | null]
   ) => void;
-  changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  HandleSubmitNewEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  setEventInfo: Dispatch<SetStateAction<string>>;
+  setEventId: Dispatch<SetStateAction<string>>;
+  handleSubmitNewEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const useCreateEvent = (): IUseCreateEvent => {
   const router = useRouter();
-  const [fetchData, setFetchData] = useState<Types.EventResponse | null>(null);
   const [eventImage, setEventImage] = useState<File>();
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [tagList, setTagList] = useState<SelectTagItem[]>();
   const [eventTitle, setEventTitle] = useState<string>('');
-  const [participantsNumber, setParticipantsNumber] = useState<string>();
+  const [participantsNumber, setParticipantsNumber] = useState<string>('');
   const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
   const [postStartDate, setPostStartDate] = useState<string>();
@@ -55,17 +54,9 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }
   };
 
-  const changeEventTitle = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const title = event.target.value;
-    if (title) {
-      setEventTitle(title);
-    }
-  };
-
   const fetchTags = async (): Promise<Types.TagsResponse> =>
-    await apiClient.event.tags.$get();
+    // await apiClient.event.tags.$get();
+    await Axios.get('/event/tags');
 
   const createTagList = async (): Promise<SelectTagItem[]> => {
     const tagsData = await fetchTags();
@@ -77,6 +68,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
     return List;
   };
 
+  // TODO useEffect
   useEffect(() => {
     createTagList()
       .then((List) => {
@@ -103,15 +95,6 @@ export const useCreateEvent = (): IUseCreateEvent => {
     setTagList(updatedTagList);
   };
 
-  const changeParticipantsNumber = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const partNumber = event.target.value;
-    if (partNumber) {
-      setParticipantsNumber(partNumber);
-    }
-  };
-
   const changeEventTerm = (
     date: WithRange extends false | undefined
       ? Date | null
@@ -135,24 +118,9 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }
   };
 
-  const changeEventInfo = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
-    const info = event.target.value;
-    if (info) {
-      setEventInfo(info);
-    }
-  };
-
-  const changeEventId = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const id = event.target.value;
-    if (id) {
-      setEventId(id);
-    }
-  };
-
   const fetchEvent = async (body: Types.DraftEventPayload): Promise<void> =>
-    await apiClient.event.draft.$post({ body });
+    // await apiClient.event.draft.$post({ body });
+    await Axios.post('/event/draft', body);
 
   const fetchImage = async (
     file: File,
@@ -170,102 +138,65 @@ export const useCreateEvent = (): IUseCreateEvent => {
     }
   };
 
-  const useSendCreateEvent = (): void => {
-    useEffect(() => {
-      const fetchData = async (): Promise<void> => {
-        try {
-          if (
-            eventImage === undefined ||
-            tagList === undefined ||
-            participantsNumber === undefined ||
-            postStartDate === undefined ||
-            postEndDate === undefined
-          ) {
-            alert('全て入力して下さい');
-            return;
-          }
+  const handleSubmitNewEvent = (): void => {
+    if (
+      eventImage === undefined ||
+      tagList === undefined ||
+      participantsNumber === undefined ||
+      postStartDate === undefined ||
+      postEndDate === undefined
+    ) {
+      alert('全て入力して下さい');
+      return;
+    }
 
-          const image_url = await fetchImage(eventImage, eventId);
-          if (!image_url) {
-            console.error(
-              '画像の取得に失敗したためイベント作成は中止されました'
-            );
-            return;
-          }
-
-          const reqBody: Types.DraftEventPayload = {
-            administrator_id: 'admin',
-            title: eventTitle,
-            image_url: image_url,
-            tags: tagList.map((tag) => tag.label),
-            winning_number: participantsNumber,
-            start_time: postStartDate,
-            end_time: postEndDate,
-            detail: eventInfo,
-            id: eventId,
-          };
-
-          await fetchEvent(reqBody);
-        } catch (error) {
-          console.error('イベント作成データの送信に失敗しました.', error);
+    fetchImage(eventImage, eventId)
+      .then((res) => {
+        if (!res) {
+          throw new Error(
+            '画像の取得に失敗したためイベント作成は中止されました'
+          );
         }
-      };
-
-      fetchData().catch((error) => {
-        console.error('fetchData関数内でエラーが発生しました:', error);
+        setImageUrl(res);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    }, []);
-  };
 
-  const updateFetchEvent = async (path: string): Promise<Types.EventResponse> =>
-    await apiClient.event._id(path).$get();
+    const reqBody: Types.DraftEventPayload = {
+      administrator_id: 'admin',
+      title: eventTitle,
+      image_url: imageUrl,
+      tags: tagList.map((tag) => tag.label),
+      winning_number: participantsNumber,
+      start_time: postStartDate,
+      end_time: postEndDate,
+      detail: eventInfo,
+      id: eventId,
+    };
 
-  const useUpdateFetchEvent = (): void => {
-    useEffect(() => {
-      if (fetchData === null) {
-        return;
-      }
-      const fetch = async (): Promise<Types.EventResponse | void> => {
-        try {
-          if (fetchData.event.id === undefined) {
-            console.error('不正なイベントIDです');
-            return;
-          }
-
-          const path: string = fetchData.event.id;
-          const data: Types.EventResponse = await updateFetchEvent(path);
-          setFetchData(data);
-        } catch (error) {
-          console.error('イベントデータの更新に失敗しました: ', error);
-          return;
-        }
-      };
-
-      fetch().catch((error) => {
-        console.error('fetch関数内でエラーが発生しました: ', error);
+    fetchEvent(reqBody)
+      .then(() => {
+        console.log('イベント作成done');
+        router.push(`/event/${eventId}`);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+        alert('イベントを作成出来ませんでした。');
       });
-    });
-  };
-
-  const HandleSubmitNewEvent = (): void => {
-    useSendCreateEvent();
-    useUpdateFetchEvent();
-
-    sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
-    router.push(`/Event/${eventId}`);
   };
 
   return {
     changeImage,
-    changeEventTitle,
+    setEventTitle,
     changeEventTags,
     tagList,
-    changeParticipantsNumber,
+    setParticipantsNumber,
     startDate,
     endDate,
     changeEventTerm,
-    changeEventInfo,
-    changeEventId,
-    HandleSubmitNewEvent,
+    setEventInfo,
+    setEventId,
+    handleSubmitNewEvent,
   };
 };

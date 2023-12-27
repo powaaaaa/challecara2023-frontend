@@ -6,12 +6,15 @@ import type { SelectTagItem } from '@/libs/@types';
 
 export type Props = {
   tagsList: SelectTagItem[];
-  onClick: (event: React.MouseEvent<SelectTagItem & HTMLButtonElement>) => void;
+  onClickTag: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: SelectTagItem
+  ) => void;
 } & ComponentPropsWithoutRef<'button'>;
 
 export const SelectTags: React.FC<Props> = ({
   tagsList,
-  onClick,
+  onClickTag,
   ...props
 }) => {
   const TagStyle = cva(
@@ -25,13 +28,21 @@ export const SelectTags: React.FC<Props> = ({
       },
     }
   );
+
+  const handleClick =
+    (item: SelectTagItem) =>
+    // クリック時にonClickを呼び出す
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClickTag(event, item);
+    };
+
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-4">
       {tagsList.map((tag) => (
         <button
           className={TagStyle({ selected: tag.selected })}
           key={tag.id}
-          onClick={onClick}
+          onClick={handleClick(tag)}
           {...props}
         >
           {tag.label}

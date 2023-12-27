@@ -1,6 +1,6 @@
 'use client';
 
-import { Screen } from '@/components/page/EventParticipant';
+import { Screen } from '@/components/page/Top';
 
 const Top: React.FC = () => <Screen />;
 

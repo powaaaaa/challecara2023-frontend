@@ -1,6 +1,6 @@
 'use client';
 
-import { Screen } from '@/components/page/EventConfirm';
+import { Screen } from '@/components/page/ApplyConfirm';
 
 const Top: React.FC = () => <Screen />;
 

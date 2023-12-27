@@ -2,11 +2,13 @@ import { useEventReceipt } from './hooks';
 import { EventReceiptPresentation } from './presentations';
 
 export const EventReceipt: React.FC = () => {
-  const { fetchData, HandleReceipt, HandleReturnHome } = useEventReceipt();
+  const { eventTitle, userAddress, HandleReceipt, HandleReturnHome } =
+    useEventReceipt();
   return (
     <>
       <EventReceiptPresentation
-        fetchData={fetchData}
+        eventTitle={eventTitle}
+        userAddress={userAddress}
         handleReceipt={HandleReceipt}
         handleReturnHome={HandleReturnHome}
       />

@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { TagsButton } from './item/TagsButton';
 
 import type { SelectTagItem } from '@/libs/@types';
@@ -11,14 +13,12 @@ type WithRange = never;
 
 type Props = {
   changeImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  changeEventTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setEventTitle: Dispatch<SetStateAction<string>>;
   changeEventTags: (
     event: React.MouseEvent<SelectTagItem & HTMLButtonElement>
   ) => void;
   tagList: SelectTagItem[] | undefined;
-  changeParticipantsNumber: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  setParticipantsNumber: Dispatch<SetStateAction<string>>;
   startDate: Date | undefined;
   endDate: Date | undefined;
   changeEventTerm: (
@@ -26,21 +26,21 @@ type Props = {
       ? Date | null
       : [Date | null, Date | null]
   ) => void;
-  changeEventInfo: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  changeEventId: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setEventInfo: Dispatch<SetStateAction<string>>;
+  setEventId: Dispatch<SetStateAction<string>>;
 };
 
 export const CreateEventPresentation: React.FC<Props> = ({
   changeImage,
-  changeEventTitle,
+  setEventTitle,
   changeEventTags,
   tagList,
-  changeParticipantsNumber,
+  setParticipantsNumber,
   startDate,
   endDate,
   changeEventTerm,
-  changeEventInfo,
-  changeEventId,
+  setEventInfo,
+  setEventId,
 }) => (
   <div className="bg-basic w-[736px] rounded border-2 border-black-lighten-1">
     <div className="border-b-2 border-black-lighten-1">
@@ -62,7 +62,7 @@ export const CreateEventPresentation: React.FC<Props> = ({
             display="hidden"
             label="label"
             id="id"
-            onChange={changeEventTitle}
+            onChange={(e) => setEventTitle(e.target.value)}
           />
         </div>
 
@@ -96,7 +96,7 @@ export const CreateEventPresentation: React.FC<Props> = ({
               display="hidden"
               label="label"
               id="id2"
-              onChange={changeParticipantsNumber}
+              onChange={(e) => setParticipantsNumber(e.target.value)}
             />
           </div>
         </div>
@@ -128,7 +128,10 @@ export const CreateEventPresentation: React.FC<Props> = ({
             詳細
           </label>
           <div className="mb-2">
-            <InputText id="id4" onChange={changeEventInfo} />
+            <InputText
+              id="id4"
+              onChange={(e) => setEventInfo(e.target.value)}
+            />
           </div>
         </div>
         <div className="flex">
@@ -144,7 +147,7 @@ export const CreateEventPresentation: React.FC<Props> = ({
             display="hidden"
             label="label"
             id="id5"
-            onChange={changeEventId}
+            onChange={(e) => setEventId(e.target.value)}
           />
         </div>
       </div>

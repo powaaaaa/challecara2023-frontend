@@ -1,14 +1,14 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import type { EventResponse, RegisterEventPayload } from '@/api/@types';
 
-import { apiClient } from '@/libs/apiClients';
+import { Axios } from '@/libs/apiClients';
 
 type IUseApplyConfirm = {
-  image_url: string;
+  imageUrl: string;
   eventTitle: string;
   administratorName: string;
   administratorNote: string;
@@ -17,17 +17,23 @@ type IUseApplyConfirm = {
 
 export const useApplyConfirm = (): IUseApplyConfirm => {
   const router = useRouter();
-  const [fetchData, setFetchData] = useState<EventResponse | null>(null);
-  const [image_url, setImage_url] = useState<string>('');
+  const params = useParams<{ id: string }>();
+  const [fetchData, setFetchData] = useState<EventResponse>();
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [eventTitle, setEventTitle] = useState<string>('');
   const [administratorName, setAdministratorName] = useState<string>('');
   const [administratorNote, setAdministratorNote] = useState<string>('');
 
+  // TODO useEffect
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('EventResponse');
+    const sessionData = sessionStorage.getItem('eventResponse');
     if (sessionData) {
       try {
         const data = JSON.parse(sessionData) as EventResponse;
+        if (data === null) {
+          console.error('eventDataが取得出来ませんでした');
+          return;
+        }
         setFetchData(data);
       } catch (error) {
         console.error('データのパースに失敗しました。', error);
@@ -36,97 +42,76 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
   }, []);
 
   useEffect(() => {
-    if (
-      fetchData?.event.image_url === undefined ||
-      fetchData.event.title === undefined ||
-      fetchData.administrator.administrator_display_name === undefined
-    ) {
+    if (fetchData === undefined) {
       console.error('不正なデータです');
       return;
     }
 
-    setImage_url(fetchData.event.image_url);
+    setImageUrl(fetchData.event.image_url);
     setEventTitle(fetchData.event.title);
     setAdministratorName(fetchData.administrator.administrator_display_name);
-    setAdministratorNote('ないね！');
+    setAdministratorNote('お楽しみに！');
   }, [fetchData]);
 
-  const fetchEvent = async (body: RegisterEventPayload): Promise<void> =>
-    await apiClient.event.$post({ body });
+  const fetchEventRegister = async (
+    body: RegisterEventPayload
+  ): Promise<void> =>
+    // await apiClient.event.$post({ body });
+    await Axios.post(`/event`, body);
 
-  const useFetchEvent = (): void => {
-    useEffect(() => {
-      if (fetchData === null) {
-        return;
-      }
-      const fetch = async (): Promise<void> => {
-        try {
-          if (
-            fetchData.event.id === undefined ||
-            fetchData.user.id === undefined
-          ) {
-            console.error('イベントIDまたはユーザーIDが不正です');
-            return;
-          }
+  // const updateFetchEvent = async (path: string): Promise<EventResponse> =>
+  //   await apiClient.event._id(path).$get();
 
-          const reqBody: RegisterEventPayload = {
-            id: fetchData.event.id,
-            participant_id: fetchData.user.id,
-          };
+  // const useUpdateFetchEvent = (): void => {
+  //   useEffect(() => {
+  //     if (fetchData === null) {
+  //       return;
+  //     }
+  //     const fetch = async (): Promise<EventResponse | void> => {
+  //       try {
+  //         if (fetchData.event.id === undefined) {
+  //           console.error('不正なイベントIDです');
+  //           return;
+  //         }
 
-          await fetchEvent(reqBody);
-        } catch (error) {
-          console.error('応募の送信に失敗しました: ', error);
-          return;
-        }
-      };
+  //         const path: string = fetchData.event.id;
+  //         const data: EventResponse = await updateFetchEvent(path);
+  //         setFetchData(data);
+  //       } catch (error) {
+  //         console.error('イベントデータの更新に失敗しました: ', error);
+  //         return;
+  //       }
+  //     };
 
-      fetch().catch((error) => {
-        console.error('fetch関数内でエラーが発生しました: ', error);
-      });
-    });
-  };
-
-  const updateFetchEvent = async (path: string): Promise<EventResponse> =>
-    await apiClient.event._id(path).$get();
-
-  const useUpdateFetchEvent = (): void => {
-    useEffect(() => {
-      if (fetchData === null) {
-        return;
-      }
-      const fetch = async (): Promise<EventResponse | void> => {
-        try {
-          if (fetchData.event.id === undefined) {
-            console.error('不正なイベントIDです');
-            return;
-          }
-
-          const path: string = fetchData.event.id;
-          const data: EventResponse = await updateFetchEvent(path);
-          setFetchData(data);
-        } catch (error) {
-          console.error('イベントデータの更新に失敗しました: ', error);
-          return;
-        }
-      };
-
-      fetch().catch((error) => {
-        console.error('fetch関数内でエラーが発生しました: ', error);
-      });
-    });
-  };
+  //     fetch().catch((error) => {
+  //       console.error('fetch関数内でエラーが発生しました: ', error);
+  //     });
+  //   });
+  // };
 
   const OnClick = (): void => {
-    useFetchEvent();
-    useUpdateFetchEvent();
+    if (fetchData === undefined) {
+      return;
+    }
 
-    sessionStorage.setItem('EventResponse', JSON.stringify(fetchData));
-    router.push(`/Event/${fetchData?.event.id}`);
+    const reqBody: RegisterEventPayload = {
+      id: params.id,
+      participant_id: fetchData.user.id,
+    };
+
+    fetchEventRegister(reqBody)
+      .then(() => {
+        console.log('参加申し込みdone');
+        router.push(`/event/${params.id}`);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+        alert('申し込みできませんでした。');
+      });
   };
 
   return {
-    image_url,
+    imageUrl,
     eventTitle,
     administratorName,
     administratorNote,

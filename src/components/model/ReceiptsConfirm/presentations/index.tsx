@@ -13,7 +13,7 @@ type Props = {
   ReceiptsData: Receipt[];
 };
 
-export const ReceiptConfirmPresentation: React.FC<Props> = ({
+export const ReceiptsConfirmPresentation: React.FC<Props> = ({
   eventTitle,
   topNumber,
   bottomNumber,

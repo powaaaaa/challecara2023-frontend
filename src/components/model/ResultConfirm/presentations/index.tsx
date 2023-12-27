@@ -7,12 +7,12 @@ import { List } from '@/components/ui/List';
 
 type Props = {
   eventTitle: string;
-  ResultData: Result[];
+  resultData: Result[];
 };
 
 export const ResultConfirmPresentation: React.FC<Props> = ({
   eventTitle,
-  ResultData,
+  resultData,
 }) => {
   const ResultColumns: ColumnDef<Result | Receipt>[] = [
     {
@@ -37,7 +37,7 @@ export const ResultConfirmPresentation: React.FC<Props> = ({
 
       <div>
         <div className="flex flex-col items-center">
-          <List data={ResultData} columns={ResultColumns} />
+          <List data={resultData} columns={ResultColumns} />
         </div>
       </div>
     </div>

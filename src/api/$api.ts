@@ -38,14 +38,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
         return {
           receipt: {
-            get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            get: (option: {
+              headers: Methods_8jam25['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_8jam25['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH1}`,
                 GET,
                 option
               ).json(),
-            $get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            $get: (option: {
+              headers: Methods_8jam25['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_8jam25['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH1}`,
@@ -54,12 +66,20 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
               )
                 .json()
                 .then((r) => r.body),
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
             post: (option: {
               body: Methods_8jam25['post']['reqBody'];
+              headers: Methods_8jam25['post']['reqHeaders'];
               config?: T | undefined;
             }) => fetch(prefix, `${prefix1}${PATH1}`, POST, option).send(),
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
             $post: (option: {
               body: Methods_8jam25['post']['reqBody'];
+              headers: Methods_8jam25['post']['reqHeaders'];
               config?: T | undefined;
             }) =>
               fetch(prefix, `${prefix1}${PATH1}`, POST, option)
@@ -68,14 +88,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
             $path: () => `${prefix}${prefix1}${PATH1}`,
           },
           receipts: {
-            get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            get: (option: {
+              headers: Methods_1klckca['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_1klckca['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH2}`,
                 GET,
                 option
               ).json(),
-            $get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            $get: (option: {
+              headers: Methods_1klckca['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_1klckca['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH2}`,
@@ -87,14 +119,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
             $path: () => `${prefix}${prefix1}${PATH2}`,
           },
           results: {
-            get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            get: (option: {
+              headers: Methods_d7g2dv['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_d7g2dv['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH3}`,
                 GET,
                 option
               ).json(),
-            $get: (option?: { config?: T | undefined } | undefined) =>
+            /**
+             * @param option.headers - access_tokenをheaderに挿入
+             */
+            $get: (option: {
+              headers: Methods_d7g2dv['get']['reqHeaders'];
+              config?: T | undefined;
+            }) =>
               fetch<Methods_d7g2dv['get']['resBody']>(
                 prefix,
                 `${prefix1}${PATH3}`,
@@ -105,14 +149,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
                 .then((r) => r.body),
             $path: () => `${prefix}${prefix1}${PATH3}`,
           },
-          get: (option?: { config?: T | undefined } | undefined) =>
+          /**
+           * @param option.headers - access_tokenをheaderに挿入
+           */
+          get: (option: {
+            headers: Methods_10xwc1i['get']['reqHeaders'];
+            config?: T | undefined;
+          }) =>
             fetch<Methods_10xwc1i['get']['resBody']>(
               prefix,
               prefix1,
               GET,
               option
             ).json(),
-          $get: (option?: { config?: T | undefined } | undefined) =>
+          /**
+           * @param option.headers - access_tokenをheaderに挿入
+           */
+          $get: (option: {
+            headers: Methods_10xwc1i['get']['reqHeaders'];
+            config?: T | undefined;
+          }) =>
             fetch<Methods_10xwc1i['get']['resBody']>(
               prefix,
               prefix1,
@@ -125,12 +181,20 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         };
       },
       draft: {
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         post: (option: {
           body: Methods_17tf88m['post']['reqBody'];
+          headers: Methods_17tf88m['post']['reqHeaders'];
           config?: T | undefined;
         }) => fetch(prefix, PATH4, POST, option).send(),
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         $post: (option: {
           body: Methods_17tf88m['post']['reqBody'];
+          headers: Methods_17tf88m['post']['reqHeaders'];
           config?: T | undefined;
         }) =>
           fetch(prefix, PATH4, POST, option)
@@ -139,12 +203,20 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         $path: () => `${prefix}${PATH4}`,
       },
       publish: {
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         post: (option: {
           body: Methods_1pk7vay['post']['reqBody'];
+          headers: Methods_1pk7vay['post']['reqHeaders'];
           config?: T | undefined;
         }) => fetch(prefix, PATH5, POST, option).send(),
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         $post: (option: {
           body: Methods_1pk7vay['post']['reqBody'];
+          headers: Methods_1pk7vay['post']['reqHeaders'];
           config?: T | undefined;
         }) =>
           fetch(prefix, PATH5, POST, option)
@@ -153,25 +225,45 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         $path: () => `${prefix}${PATH5}`,
       },
       tags: {
-        get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        get: (option: {
+          headers: Methods_iht77y['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_iht77y['get']['resBody']>(
             prefix,
             PATH6,
             GET,
             option
           ).json(),
-        $get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        $get: (option: {
+          headers: Methods_iht77y['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_iht77y['get']['resBody']>(prefix, PATH6, GET, option)
             .json()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH6}`,
       },
+      /**
+       * @param option.headers - access_tokenをheaderに挿入
+       */
       post: (option: {
         body: Methods_1rq3rau['post']['reqBody'];
+        headers: Methods_1rq3rau['post']['reqHeaders'];
         config?: T | undefined;
       }) => fetch(prefix, PATH0, POST, option).send(),
+      /**
+       * @param option.headers - access_tokenをheaderに挿入
+       */
       $post: (option: {
         body: Methods_1rq3rau['post']['reqBody'];
+        headers: Methods_1rq3rau['post']['reqHeaders'];
         config?: T | undefined;
       }) =>
         fetch(prefix, PATH0, POST, option)
@@ -181,36 +273,64 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     },
     events: {
       administrator: {
-        get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        get: (option: {
+          headers: Methods_9i3h59['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_9i3h59['get']['resBody']>(
             prefix,
             PATH7,
             GET,
             option
           ).json(),
-        $get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        $get: (option: {
+          headers: Methods_9i3h59['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_9i3h59['get']['resBody']>(prefix, PATH7, GET, option)
             .json()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH7}`,
       },
       participant: {
-        get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        get: (option: {
+          headers: Methods_hvrpot['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_hvrpot['get']['resBody']>(
             prefix,
             PATH8,
             GET,
             option
           ).json(),
-        $get: (option?: { config?: T | undefined } | undefined) =>
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
+        $get: (option: {
+          headers: Methods_hvrpot['get']['reqHeaders'];
+          config?: T | undefined;
+        }) =>
           fetch<Methods_hvrpot['get']['resBody']>(prefix, PATH8, GET, option)
             .json()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH8}`,
       },
       search: {
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         get: (option: {
           query: Methods_176zpos['get']['query'];
+          headers: Methods_176zpos['get']['reqHeaders'];
           config?: T | undefined;
         }) =>
           fetch<Methods_176zpos['get']['resBody']>(
@@ -219,8 +339,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
             GET,
             option
           ).json(),
+        /**
+         * @param option.headers - access_tokenをheaderに挿入
+         */
         $get: (option: {
           query: Methods_176zpos['get']['query'];
+          headers: Methods_176zpos['get']['reqHeaders'];
           config?: T | undefined;
         }) =>
           fetch<Methods_176zpos['get']['resBody']>(prefix, PATH9, GET, option)

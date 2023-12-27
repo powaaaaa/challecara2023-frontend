@@ -5,18 +5,22 @@ export const EventsParticipant: React.FC = () => {
   const {
     eventListItem,
     tagList,
-    changeEventTags,
-    changeKeyword,
-    handleSearchEvent,
+    changeEventTag,
+    eventKeyword,
+    setEventKeyword,
+    HandleSearchEvent,
+    onClickEventCard,
   } = useEventsParticipant();
   return (
     <div>
       <EventsParticipantPresentation
         eventListItem={eventListItem}
         tagList={tagList}
-        changeEventTags={changeEventTags}
-        changeKeyword={changeKeyword}
-        handleSearchEvent={handleSearchEvent}
+        changeEventTag={changeEventTag}
+        eventKeyword={eventKeyword}
+        setEventKeyword={setEventKeyword}
+        HandleSearchEvent={HandleSearchEvent}
+        onClickEventCard={onClickEventCard}
       />
     </div>
   );

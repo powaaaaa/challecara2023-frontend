@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 
 // import { useRouter } from 'next/navigation';
 
+import { useParams } from 'next/navigation';
+
 import type { ReceiptsResponse } from '@/api/@types';
 import type { Receipt } from '@/libs/@types';
+
+import { Axios } from '@/libs/apiClients';
 
 type IUseReceiptConfirm = {
   eventTitle: string;
@@ -12,28 +16,46 @@ type IUseReceiptConfirm = {
   ReceiptsData: Receipt[];
 };
 
-export const useReceiptConfirm = (): IUseReceiptConfirm => {
+export const useReceiptsConfirm = (): IUseReceiptConfirm => {
   // const router = useRouter();
-  const [fetchData, setFetchData] = useState<ReceiptsResponse | null>(null);
-  const [eventTitle] = useState<string>('');
+  const eventId = useParams<{ id: string }>().id;
+  const [fetchData, setFetchData] = useState<ReceiptsResponse>();
+  const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
   const [ReceiptsData, setReceiptsData] = useState<Receipt[]>([]);
 
+  // TODO useEffect
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('ReceiptsResponse');
+    const sessionData = sessionStorage.getItem('eventTitle');
     if (sessionData) {
       try {
-        const data = JSON.parse(sessionData) as ReceiptsResponse;
-        setFetchData(data);
+        setEventTitle(sessionData);
       } catch (error) {
         console.error('データのパースに失敗しました.', error);
       }
     }
   }, []);
 
+  const fetchReceipts = async (path: string): Promise<ReceiptsResponse> =>
+    // await apiClient.event._id(path).receipts.$get();
+    await Axios.get(`/event/${path}/receipts`);
+
   useEffect(() => {
-    if (fetchData === null || fetchData?.receipts === null) {
+    const abortController = new AbortController();
+    fetchReceipts(eventId)
+      .then((res) => {
+        console.log('受領情報の取得done');
+        setFetchData(res);
+      })
+      .catch((e) => console.error('fetchに失敗しました: ', e));
+    return () => {
+      abortController.abort();
+    };
+  });
+
+  useEffect(() => {
+    if (fetchData === undefined) {
       console.error('不正なデータです。');
       return;
     }
@@ -49,6 +71,8 @@ export const useReceiptConfirm = (): IUseReceiptConfirm => {
     setTopNumber(receiptsNumber);
     setBottomNumber(ReceiptsData.length);
   }, [fetchData, ReceiptsData.length]);
+
+  // NOTE EventDetailに戻るのは「戻る」任せでいいのかな～
 
   // useEffect(() => {
   //   if (!router.isReady) {

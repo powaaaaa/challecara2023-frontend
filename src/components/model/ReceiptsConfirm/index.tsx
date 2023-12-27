@@ -1,11 +1,11 @@
-import { useReceiptConfirm } from './hooks';
-import { ReceiptConfirmPresentation } from './presentations';
+import { useReceiptsConfirm } from './hooks';
+import { ReceiptsConfirmPresentation } from './presentations';
 
-export const ReceiptConfirm: React.FC = () => {
+export const ReceiptsConfirm: React.FC = () => {
   const { eventTitle, topNumber, bottomNumber, ReceiptsData } =
-    useReceiptConfirm();
+    useReceiptsConfirm();
   return (
-    <ReceiptConfirmPresentation
+    <ReceiptsConfirmPresentation
       eventTitle={eventTitle}
       topNumber={topNumber}
       bottomNumber={bottomNumber}

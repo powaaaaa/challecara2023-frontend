@@ -19,7 +19,7 @@ export const Button: React.FC<Props> = ({
   className,
   ...props
 }) => {
-  const buttonStyle = cva('px-8 py-4 rounded font-medium', {
+  const buttonStyle = cva(`${className} px-8 py-4 rounded font-medium`, {
     variants: {
       variant: {
         base: 'text-white bg-main hover:bg-accent',
@@ -36,7 +36,7 @@ export const Button: React.FC<Props> = ({
   return (
     <>
       <button
-        className={buttonStyle({ variant, disabled, className })}
+        className={buttonStyle({ variant, disabled })}
         {...props}
         disabled={disabled}
       >

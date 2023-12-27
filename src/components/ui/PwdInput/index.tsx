@@ -1,5 +1,7 @@
 import { useState, type ComponentPropsWithoutRef } from 'react';
 
+import { cva } from 'class-variance-authority';
+
 import type { IsLabelDisplay } from '@/libs/@types';
 
 type Props = {
@@ -8,11 +10,18 @@ type Props = {
   display: IsLabelDisplay;
 } & ComponentPropsWithoutRef<'input'>;
 
-const InputStyle =
-  'w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1';
-
-export const PwdInput: React.FC<Props> = ({ label, id, display, ...props }) => {
+export const PwdInput: React.FC<Props> = ({
+  label,
+  id,
+  display,
+  className,
+  ...props
+}) => {
   const [isShowPwd, setIsShowPassword] = useState(false);
+
+  const PwdInputStyle = cva(
+    `${className} w-[336px] h-14 bg-white rounded border-[1px] border-black-lighten-2 focus:ring-1 focus:ring-main focus:outline-none focus:border-main pl-4 text-black font-normal placeholder-black-lighten-1`
+  );
 
   const togglePwd = (): void => {
     setIsShowPassword((prevState) => !prevState);
@@ -25,7 +34,7 @@ export const PwdInput: React.FC<Props> = ({ label, id, display, ...props }) => {
       </label>
       <div className="relative">
         <input
-          className={InputStyle}
+          className={PwdInputStyle()}
           id={id}
           type={isShowPwd ? 'text' : 'password'}
           placeholder="password"

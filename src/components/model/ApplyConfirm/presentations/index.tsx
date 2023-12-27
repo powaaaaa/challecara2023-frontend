@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 
 type Props = {
-  image_url: string;
+  imageUrl: string;
   eventTitle: string;
   administratorName: string;
   administratorNote: string;
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const ApplyConfirmPresentation: React.FC<Props> = ({
-  image_url,
+  imageUrl,
   eventTitle,
   administratorName,
   administratorNote,
@@ -23,14 +23,14 @@ export const ApplyConfirmPresentation: React.FC<Props> = ({
     <div className="relative w-[400px] h-[225px] rounded-lg overflow-hidden justify-self-center">
       <Image
         className="z-10 object-fill blur-sm"
-        src={image_url}
+        src={imageUrl}
         alt="image_url"
         layout="fill"
         objectFit="fill"
       />
       <Image
         className="z-20 object-contain"
-        src={image_url}
+        src={imageUrl}
         alt="image_url"
         layout="fill"
         objectFit="contain"

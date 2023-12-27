@@ -3,6 +3,8 @@ import { z } from 'zod';
 
 export const env = createEnv({
   client: {
+    /** backend url */
+    NEXT_PUBLIC_BACKEND_URL: z.string().url(),
     /** firebase API Key */
     NEXT_PUBLIC_FIREBASE_API_KEY: z.string(),
     /** firebase Auth Domain */
@@ -20,6 +22,7 @@ export const env = createEnv({
   },
 
   experimental__runtimeEnv: {
+    NEXT_PUBLIC_BACKEND_URL: process.env['NEXT_PUBLIC_BACKEND_URL'],
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env['NEXT_PUBLIC_FIREBASE_API_KEY'],
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:
       process.env['NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN'],

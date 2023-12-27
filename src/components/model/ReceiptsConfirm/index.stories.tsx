@@ -1,9 +1,9 @@
-import { ReceiptConfirmPresentation } from './presentations';
+import { ReceiptsConfirmPresentation } from './presentations';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof ReceiptConfirmPresentation> = {
-  component: ReceiptConfirmPresentation,
+const meta: Meta<typeof ReceiptsConfirmPresentation> = {
+  component: ReceiptsConfirmPresentation,
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +12,7 @@ const meta: Meta<typeof ReceiptConfirmPresentation> = {
 
 export default meta;
 
-type Story = StoryObj<typeof ReceiptConfirmPresentation>;
+type Story = StoryObj<typeof ReceiptsConfirmPresentation>;
 
 export const Default: Story = {
   args: {
