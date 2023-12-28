@@ -18,7 +18,7 @@ type IUseEventReceipt = {
 
 export const useEventReceipt = (): IUseEventReceipt => {
   const router = useRouter();
-  const [fetchData, setFetchData] = useState<ReceiptResponse>();
+  const [fetchData, setFetchData] = useState<ReceiptResponse['data']>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [userAddress, setUserAddress] = useState<string>('');
   const eventId = useParams<{ id: string }>().id;
@@ -40,7 +40,7 @@ export const useEventReceipt = (): IUseEventReceipt => {
     fetchGetReceipt(eventId)
       .then((res) => {
         console.log('確認情報の取得done');
-        setFetchData(res);
+        setFetchData(res.data);
         if (fetchData) {
           setEventTitle(fetchData.title);
           setUserAddress(fetchData.address);

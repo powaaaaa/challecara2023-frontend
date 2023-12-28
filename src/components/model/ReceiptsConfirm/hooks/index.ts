@@ -21,7 +21,7 @@ type IUseReceiptConfirm = {
 export const useReceiptsConfirm = (): IUseReceiptConfirm => {
   // const router = useRouter();
   const eventId = useParams<{ id: string }>().id;
-  const [fetchData, setFetchData] = useState<ReceiptsResponse>();
+  const [fetchData, setFetchData] = useState<ReceiptsResponse['data']>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
@@ -48,7 +48,7 @@ export const useReceiptsConfirm = (): IUseReceiptConfirm => {
     fetchReceipts(eventId)
       .then((res) => {
         console.log('受領情報の取得done');
-        setFetchData(res);
+        setFetchData(res.data);
       })
       .catch((e) => console.error('fetchに失敗しました: ', e));
     return () => {

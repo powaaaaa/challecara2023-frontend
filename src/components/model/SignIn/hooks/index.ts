@@ -5,38 +5,38 @@ import { useState } from 'react';
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
- 
+
 import type { SignInPayload, SignInResponse } from '@/api/@types';
 
 import { BASE_URL } from '@/libs/baseUrl';
 
 type IUseSignIn = {
-  userEmail: string;
+  userId: string;
   userPassword: string;
-  setUserEmail: Dispatch<SetStateAction<string>>;
+  setUserId: Dispatch<SetStateAction<string>>;
   setUserPassword: Dispatch<SetStateAction<string>>;
   handleSignIn: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const useSignIn = (): IUseSignIn => {
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
 
   const Axios = axios.create({
     baseURL: BASE_URL,
     headers: {
-      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-    timeout: 2500,
   });
 
   const fetchSignIn = async (body: SignInPayload): Promise<SignInResponse> =>
     await Axios.post('/signin', body);
 
-  const handleSignIn = (): void => {
+  const handleSignIn = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
     const reqBody: SignInPayload = {
-      username: userEmail,
+      username: userId,
       password: userPassword,
     };
 
@@ -44,7 +44,7 @@ export const useSignIn = (): IUseSignIn => {
       .then((res) => {
         console.log('サインインdone');
         console.log('res: ', res);
-        window.localStorage.setItem('access_token', res.access_token);
+        window.localStorage.setItem('access_token', res.data.access_token);
         router.push(`/events/participant`);
       })
       .catch((error) => {
@@ -54,9 +54,9 @@ export const useSignIn = (): IUseSignIn => {
   };
 
   return {
-    userEmail,
+    userId,
     userPassword,
-    setUserEmail,
+    setUserId,
     setUserPassword,
     handleSignIn,
   };

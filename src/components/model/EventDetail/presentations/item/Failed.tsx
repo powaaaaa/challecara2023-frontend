@@ -7,7 +7,7 @@ import { EventDetailItem } from '.';
 import type { EventResponse } from '@/api/@types';
 
 type Props = {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 };
 
 export const FailedEventDetail: React.FC<Props> = ({ eventData }) => {

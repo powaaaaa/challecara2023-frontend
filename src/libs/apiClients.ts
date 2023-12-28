@@ -18,11 +18,10 @@ export const apiClient = api(
 export const Axios = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Accept: 'application/json',
-    Authorization:
+    'Content-Type': 'application/json',
+    'Authorization':
       typeof window !== 'undefined'
         ? `Bearer ${window.localStorage.getItem('access_token')}`
         : '',
   },
-  timeout: 2500,
 });

@@ -19,7 +19,7 @@ type IUseResultConfirm = {
 export const useResultConfirm = (): IUseResultConfirm => {
   // const router = useRouter();
   const eventId = useParams<{ id: string }>().id;
-  const [fetchData, setFetchData] = useState<ResultResponse>();
+  const [fetchData, setFetchData] = useState<ResultResponse['data']>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [resultData, setResultData] = useState<Result[]>([]);
 
@@ -45,7 +45,7 @@ export const useResultConfirm = (): IUseResultConfirm => {
     fetchResult(eventId)
       .then((res) => {
         console.log('結果取得done');
-        setFetchData(res);
+        setFetchData(res.data);
       })
       .catch((e) => console.error('fetchに失敗しました: ', e));
     return () => {

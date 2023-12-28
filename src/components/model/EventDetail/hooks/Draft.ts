@@ -14,7 +14,7 @@ type IUseDraftEventDetail = {
 export const useDraftEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 }): IUseDraftEventDetail => {
   const router = useRouter();
 

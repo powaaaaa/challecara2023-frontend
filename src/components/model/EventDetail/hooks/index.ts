@@ -9,12 +9,12 @@ import type { EventResponse } from '@/api/@types';
 import { Axios } from '@/libs/apiClients';
 
 type IUseEventDetail = {
-  eventData: EventResponse | undefined;
+  eventData: EventResponse['data'] | undefined;
 };
 
 export const useEventDetail = (): IUseEventDetail => {
   const params = useParams<{ id: string }>();
-  const [eventData, setEventData] = useState<EventResponse>();
+  const [eventData, setEventData] = useState<EventResponse['data']>();
 
   const fetchEventDetail = async (path: string): Promise<EventResponse> =>
     // await apiClient.event._id(path).$get({ headers: { Authorization: token } });
@@ -28,7 +28,7 @@ export const useEventDetail = (): IUseEventDetail => {
     fetchEventDetail(eventId)
       .then((res) => {
         console.log('イベント情報の取得done');
-        setEventData(res);
+        setEventData(res.data);
       })
       .catch((err) =>
         console.error('イベントデータの取得に失敗しました: ', err)

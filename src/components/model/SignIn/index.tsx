@@ -5,17 +5,17 @@ import { SignInPresentation } from './presentations';
 
 export const SignIn: React.FC = () => {
   const {
-    userEmail,
+    userId,
     userPassword,
-    setUserEmail,
+    setUserId,
     setUserPassword,
     handleSignIn,
   } = useSignIn();
   return (
     <SignInPresentation
-      userEmail={userEmail}
+      userId={userId}
       userPassword={userPassword}
-      setUserEmail={setUserEmail}
+      setUserId={setUserId}
       setUserPassword={setUserPassword}
       handleSignIn={handleSignIn}
     />

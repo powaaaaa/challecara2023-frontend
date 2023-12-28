@@ -15,7 +15,7 @@ type IUseWinningEventDetail = {
 export const useWinningEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 }): IUseWinningEventDetail => {
   const router = useRouter();
   const [eventId] = useState<string>(eventData.event.id);
