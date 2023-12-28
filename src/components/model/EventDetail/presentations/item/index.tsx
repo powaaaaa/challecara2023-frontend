@@ -7,7 +7,7 @@ import { EventContent } from '@/components/ui/EventContent';
 import { EventMeta } from '@/components/ui/EventMeta';
 
 type Props = {
-  fetchData: EventResponse;
+  fetchData: EventResponse['data'];
   stateText: string;
   label: string;
   subLabel: string;

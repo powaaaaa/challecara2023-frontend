@@ -63,7 +63,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
 
   const createTagList = async (): Promise<SelectTagItem[]> => {
     const tagsData = await fetchTags();
-    const List: SelectTagItem[] = tagsData.tags.map((item) => ({
+    const List: SelectTagItem[] = tagsData.data.tags.map((item) => ({
       id: item.uuid,
       label: item.name,
       selected: false,

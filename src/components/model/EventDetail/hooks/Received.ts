@@ -10,7 +10,7 @@ type IUseReceivedEventDetail = {
 export const useReceivedEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 }): IUseReceivedEventDetail => {
   const router = useRouter();
   const eventId = useParams<{ id: string }>().id;

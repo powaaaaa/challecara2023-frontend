@@ -25,7 +25,7 @@ export const EventCardList: React.FC<Props> = ({
 
   return (
     <div className="flex flex-nowrap flex-col gap-y-4">
-      {eventListItem.map((item) => (
+      {eventListItem?.map((item) => (
         <EventCard
           key={item.title}
           image_url={item.image_url}

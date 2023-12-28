@@ -6,30 +6,30 @@ import { Input } from '@/components/ui/Input';
 import { PwdInput } from '@/components/ui/PwdInput';
 
 type Props = {
-  userEmail: string;
+  userId: string;
   userPassword: string;
-  setUserEmail: Dispatch<SetStateAction<string>>;
+  setUserId: Dispatch<SetStateAction<string>>;
   setUserPassword: Dispatch<SetStateAction<string>>;
   handleSignIn: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const SignInPresentation: React.FC<Props> = ({
-  userEmail,
+  userId,
   userPassword,
-  setUserEmail,
+  setUserId,
   setUserPassword,
   handleSignIn,
 }) => (
   <form className="w-[577px] h-[411px] bg-basic drop-shadow-lg flex flex-col items-center justify-center">
     <Input
       className="mb-4"
-      type="email"
-      label="メールアドレス"
-      id="email"
+      type="text"
+      label="ユーザーID"
+      id="id"
       display="block"
-      value={userEmail}
+      value={userId}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-        setUserEmail(event.target.value)
+        setUserId(event.target.value)
       }
     />
     <PwdInput

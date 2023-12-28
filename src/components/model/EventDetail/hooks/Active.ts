@@ -11,7 +11,7 @@ type IUseActiveEventDetail = {
 export const useActiveEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 }): IUseActiveEventDetail => {
   const router = useRouter();
   const [eventId] = useState<string>(eventData.event.id);

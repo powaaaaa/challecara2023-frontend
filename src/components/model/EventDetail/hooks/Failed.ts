@@ -10,7 +10,7 @@ type IUseFailedEventDetail = {
 export const useFailedEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 }): IUseFailedEventDetail => {
   const router = useRouter();
   const eventId = useParams<{ id: string }>().id;

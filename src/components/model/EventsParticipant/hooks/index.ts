@@ -34,7 +34,9 @@ type IUseEventsParticipant = {
 export const useEventsParticipant = (): IUseEventsParticipant => {
   const router = useRouter();
   const [eventKeyword, setEventKeyword] = useState<string>('');
-  const [fetchData, setFetchData] = useState<EventParticipantResponse | null>();
+  const [fetchData, setFetchData] = useState<
+    EventParticipantResponse['data'] | null
+  >();
   const [eventListItem, setEventListItem] = useState<EventListItem[]>([]);
   const [tagList, setTagList] = useState<SelectTagItem[]>([]);
 
@@ -67,9 +69,11 @@ export const useEventsParticipant = (): IUseEventsParticipant => {
     // });
     fetchEventsList()
       .then((res) => {
-        console.log('イベントListの情報げと');
-        setFetchData(res);
+        console.log('fetch出来たよ');
+        console.log('res: ', res);
+        setFetchData(res.data);
         if (fetchData) {
+          console.log('イベントListの情報げと');
           setEventListItem(fetchData.events);
           const tags: SelectTagItem[] = fetchData.tags.map((tag) => ({
             id: tag.uuid,
@@ -115,7 +119,7 @@ export const useEventsParticipant = (): IUseEventsParticipant => {
       .then((res) => {
         console.log('検索情報げと');
         console.log('res: ', res);
-        setFetchData(res);
+        setFetchData(res.data);
 
         if (fetchData) {
           setEventListItem(fetchData.events);

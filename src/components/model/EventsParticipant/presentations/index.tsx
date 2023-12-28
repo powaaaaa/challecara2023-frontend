@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { Suspense, type Dispatch, type SetStateAction } from 'react';
 
 import { SearchCard } from './item/SearchCard';
 
@@ -44,12 +44,12 @@ export const EventsParticipantPresentation: React.FC<Props> = ({
     </div>
     <div>
       <p className="mb-4 font-medium text-2xl">開催中の抽選</p>
-      <div>
+      <Suspense fallback={<p>Loading...</p>}>
         <EventCardList
           eventListItem={eventListItem}
           onClickEventCard={onClickEventCard}
         />
-      </div>
+      </Suspense>
     </div>
   </div>
 );

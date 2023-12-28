@@ -20,7 +20,7 @@ type IUseApplyConfirm = {
 export const useApplyConfirm = (): IUseApplyConfirm => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const [fetchData, setFetchData] = useState<EventResponse>();
+  const [fetchData, setFetchData] = useState<EventResponse['data']>();
   const [imageUrl, setImageUrl] = useState<string>('');
   const [eventTitle, setEventTitle] = useState<string>('');
   const [administratorName, setAdministratorName] = useState<string>('');
@@ -31,7 +31,7 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
     const sessionData = sessionStorage.getItem('eventResponse');
     if (sessionData) {
       try {
-        const data = JSON.parse(sessionData) as EventResponse;
+        const data = JSON.parse(sessionData) as EventResponse['data'];
         if (data === null) {
           console.error('eventDataが取得出来ませんでした');
           return;

@@ -19,7 +19,7 @@ type Props = {
     | 'Received'
     | 'Winning'
     | 'Draft';
-  eventData: EventResponse;
+  eventData: EventResponse['data'];
 };
 
 export const EventDetailPresentation: React.FC<Props> = ({
