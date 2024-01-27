@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 
 import { useParams, useRouter } from 'next/navigation';
 
-import type { ReceiptPayload, ReceiptResponse } from '@/api/@types';
+import type { ReceiptPayload, ReceiptResponse } from '@/libs/@types/api';
 
-import { Axios } from '@/libs/apiClients';
+import { instance } from '@/hooks/api';
 
 type IUseEventReceipt = {
   eventTitle: string;
@@ -18,21 +18,21 @@ type IUseEventReceipt = {
 
 export const useEventReceipt = (): IUseEventReceipt => {
   const router = useRouter();
-  const [fetchData, setFetchData] = useState<ReceiptResponse['data']>();
+  const [fetchData, setFetchData] = useState<ReceiptResponse>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [userAddress, setUserAddress] = useState<string>('');
   const eventId = useParams<{ id: string }>().id;
 
   const fetchGetReceipt = async (path: string): Promise<ReceiptResponse> =>
     // await apiClient.event._id(path).receipt.$get();
-    await Axios.get(`/event/${path}/receipt`);
+    await instance.get(`/event/${path}/receipt`);
 
   const fetchPostReceipt = async (
     path: string,
     body: ReceiptPayload
   ): Promise<void> =>
     // await apiClient.event._id(path).receipt.$post({ body });
-    await Axios.post(`/event/${path}/receipt`, body);
+    await instance.post(`/event/${path}/receipt`, body);
 
   // TODO useEffect
   useEffect(() => {
@@ -40,7 +40,7 @@ export const useEventReceipt = (): IUseEventReceipt => {
     fetchGetReceipt(eventId)
       .then((res) => {
         console.log('確認情報の取得done');
-        setFetchData(res.data);
+        setFetchData(res);
         if (fetchData) {
           setEventTitle(fetchData.title);
           setUserAddress(fetchData.address);

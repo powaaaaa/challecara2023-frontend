@@ -6,17 +6,15 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import type {
-  EventListItem,
-  EventParticipantResponse,
-  SearchEventsQuery,
-} from '@/api/@types';
-import type { SelectTagItem } from '@/libs/@types';
+import { defaultQuery, useFetchEventList } from './fetcher';
 
-import { Axios } from '@/libs/apiClients';
+import type { SelectTagItem } from '@/libs/@types';
+import type * as Api from '@/libs/@types/api';
 
 type IUseEventsParticipant = {
-  eventListItem: EventListItem[];
+  // error: Error | undefined;
+  isLoading: boolean;
+  eventListItem: Api.EventListItem[];
   tagList: SelectTagItem[];
   changeEventTag: (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -27,75 +25,69 @@ type IUseEventsParticipant = {
   HandleSearchEvent: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickEventCard: (
     event: React.MouseEvent<HTMLButtonElement>,
-    tag: EventListItem
+    tag: Api.EventListItem
   ) => void;
 };
 
 export const useEventsParticipant = (): IUseEventsParticipant => {
   const router = useRouter();
+  const [query, setQuery] = useState<Api.SearchEventsQuery>(defaultQuery);
   const [eventKeyword, setEventKeyword] = useState<string>('');
-  const [fetchData, setFetchData] = useState<
-    EventParticipantResponse['data'] | null
-  >();
-  const [eventListItem, setEventListItem] = useState<EventListItem[]>([]);
-  const [tagList, setTagList] = useState<SelectTagItem[]>([]);
+  const { data, isLoading, mutate } = useFetchEventList(query);
 
-  type SearchEventsResponse = EventParticipantResponse;
+  const defaultEventItem = [
+    {
+      id: '',
+      title: '',
+      image_url: '',
+      administrator_id: '',
+      start_time: '',
+      end_time: '',
+    },
+  ];
 
-  const fetchEventsList = async (): Promise<EventParticipantResponse> =>
-    // await apiClient.events.participant.$get();
-    await Axios.get('/events/participant');
+  const defaultTagList = [
+    {
+      id: '',
+      label: '',
+      selected: false,
+    },
+  ];
 
-  const fetchSearchEvents = async (
-    query: SearchEventsQuery
-  ): Promise<SearchEventsResponse> =>
-    // await apiClient.events.search.$get({ query });
-    await Axios.get('/events/search', { params: query });
+  const [tagList, setTagList] = useState<SelectTagItem[]>(defaultTagList);
+  const [eventList, setEventList] =
+    useState<Api.EventListItem[]>(defaultEventItem);
 
-  // TODO 12/27 useEffect見直し
   useEffect(() => {
-    const abortController = new AbortController();
-    // const fetch = async (): Promise<void> => {
-    //   try {
-    //     const data = await fetchEventList();
-    //     setFetchData(data);
-    //   } catch (error) {
-    //     console.error('抽選リストの取得に失敗しました: ', error);
-    //     return;
-    //   }
-    // };
-    // fetch().catch((error) => {
-    //   console.error('fetch関数内でエラーが発生しました: ', error);
-    // });
-    fetchEventsList()
-      .then((res) => {
-        console.log('fetch出来たよ');
-        console.log('res: ', res);
-        setFetchData(res.data);
-        if (fetchData) {
-          console.log('イベントListの情報げと');
-          setEventListItem(fetchData.events);
-          const tags: SelectTagItem[] = fetchData.tags.map((tag) => ({
-            id: tag.uuid,
-            label: tag.name,
-            selected: false,
-          }));
-          setTagList(tags);
-        }
-      })
-      .catch((e) => console.error('fetchに失敗しました: ', e));
+    // dataが変更された場合の処理
+    if (data) {
+      const updatedEventList = data.events;
+      const updatedTagList = data.tags?.map((tag) => ({
+        id: tag.uuid,
+        label: tag.name,
+        selected: false,
+      }));
 
-    return () => {
-      abortController.abort();
-    };
-  });
+      setEventList(updatedEventList);
+      setTagList(updatedTagList);
+    }
+  }, [data]);
+
+  // const [tagList, setTagList] = useSWRTags(
+  //   data?.tags?.map((tag) => ({
+  //     id: tag.uuid,
+  //     label: tag.name,
+  //     selected: false,
+  //   }))
+  // );
+
+  // const [eventList, setEventList] = useSWREvents(data?.events);
 
   const changeEventTag = (
     event: React.MouseEvent<HTMLButtonElement>,
     item: SelectTagItem
   ): void => {
     event.preventDefault();
-
     // tagListから特定のtagItemを選択して、selectedをtrueに変更
     const updatedTagList = tagList?.map((tag) => {
       if (tag.id === item.id) {
@@ -103,51 +95,46 @@ export const useEventsParticipant = (): IUseEventsParticipant => {
       }
       return tag;
     });
-
     setTagList(updatedTagList);
   };
 
-  const HandleSearchEvent = (): void => {
-    const selectedTags = tagList.filter((tag) => tag.selected);
+  const HandleSearchEvent = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): void => {
+    event.preventDefault();
+    const selectedTags = tagList?.filter((tag) => tag.selected);
+    const tagsLabel = selectedTags?.map((tag) => tag.label);
 
-    const searchQuery: SearchEventsQuery = {
+    const searchQuery: Api.SearchEventsQuery = {
       keyword: eventKeyword,
-      tags: selectedTags.map((tag) => tag.label),
+      tags: tagsLabel,
     };
-
-    fetchSearchEvents(searchQuery)
-      .then((res) => {
-        console.log('検索情報げと');
-        console.log('res: ', res);
-        setFetchData(res.data);
-
-        if (fetchData) {
-          setEventListItem(fetchData.events);
-          const updateTags: SelectTagItem[] = fetchData.tags.map((tag) => ({
-            id: tag.uuid,
-            label: tag.name,
-            selected: selectedTags.some((sItem) => sItem.id === tag.uuid),
-          }));
-          setTagList(updateTags);
-        }
-      })
-      .catch((error) => {
-        console.log('Error: ', error);
-        alert('データの取得に失敗しました。');
-      });
+    setQuery(searchQuery);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    mutate();
+    // const { data } = useFetchEventList(query);
+    // setEventList(data?.events ?? defaultEventItem);
+    // const updateTags = data?.tags.map((tag) => ({
+    //   id: tag.uuid,
+    //   label: tag.name,
+    //   selected: selectedTags?.some((sItem) => sItem.id === tag.uuid),
+    // }));
+    // setTagList(updateTags ?? defaultTagList);
   };
 
   const onClickEventCard = (
     event: React.MouseEvent<HTMLButtonElement>,
-    item: EventListItem
+    item: Api.EventListItem
   ): void => {
     event.preventDefault();
     router.push(`/event/${item.id}`);
   };
 
   return {
-    eventListItem,
-    tagList,
+    // error,
+    isLoading,
+    eventListItem: eventList,
+    tagList: tagList,
     changeEventTag,
     eventKeyword,
     setEventKeyword,

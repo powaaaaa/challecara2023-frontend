@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react';
 import { getUnixTime } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
-import type * as Types from '@/api/@types';
-import type { SelectTagItem } from '@/libs/@types';
+import type * as Types from '@/libs/@types/api';
+import type { SelectTagItem } from '@/libs/@types/index';
 
+import { instance } from '@/hooks/api';
 import { getImageUrl, uploadImage } from '@/hooks/uploadImage';
-import { Axios } from '@/libs/apiClients';
 
 type WithRange = never;
 
@@ -59,11 +59,11 @@ export const useCreateEvent = (): IUseCreateEvent => {
 
   const fetchTags = async (): Promise<Types.TagsResponse> =>
     // await apiClient.event.tags.$get();
-    await Axios.get('/event/tags');
+    await instance.get('/event/tags');
 
   const createTagList = async (): Promise<SelectTagItem[]> => {
     const tagsData = await fetchTags();
-    const List: SelectTagItem[] = tagsData.data.tags.map((item) => ({
+    const List: SelectTagItem[] = tagsData.tags.map((item) => ({
       id: item.uuid,
       label: item.name,
       selected: false,
@@ -123,7 +123,7 @@ export const useCreateEvent = (): IUseCreateEvent => {
 
   const fetchEvent = async (body: Types.DraftEventPayload): Promise<void> =>
     // await apiClient.event.draft.$post({ body });
-    await Axios.post('/event/draft', body);
+    await instance.post('/event/draft', body);
 
   const fetchImage = async (
     file: File,

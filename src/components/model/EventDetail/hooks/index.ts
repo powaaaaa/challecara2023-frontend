@@ -4,21 +4,20 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
-import { Axios } from '@/libs/apiClients';
+import { instance } from '@/hooks/api';
 
 type IUseEventDetail = {
-  eventData: EventResponse['data'] | undefined;
+  eventData: EventResponse | undefined;
 };
 
 export const useEventDetail = (): IUseEventDetail => {
   const params = useParams<{ id: string }>();
-  const [eventData, setEventData] = useState<EventResponse['data']>();
+  const [eventData, setEventData] = useState<EventResponse>();
 
   const fetchEventDetail = async (path: string): Promise<EventResponse> =>
-    // await apiClient.event._id(path).$get({ headers: { Authorization: token } });
-    await Axios.get(`/event/${path}`);
+    await instance.get(`/event/${path}`);
 
   // TODO useEffect見直し
   useEffect(() => {
@@ -28,7 +27,7 @@ export const useEventDetail = (): IUseEventDetail => {
     fetchEventDetail(eventId)
       .then((res) => {
         console.log('イベント情報の取得done');
-        setEventData(res.data);
+        setEventData(res);
       })
       .catch((err) =>
         console.error('イベントデータの取得に失敗しました: ', err)

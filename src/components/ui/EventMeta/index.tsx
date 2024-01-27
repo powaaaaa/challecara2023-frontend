@@ -3,8 +3,8 @@ import type { ComponentPropsWithoutRef } from 'react';
 import { CustomButton } from '../CustomButton';
 import { MetaCard } from '../MetaCard';
 
-import type * as Types from '@/api/@types';
 import type { ButtonCustom } from '@/libs/@types';
+import type * as Types from '@/libs/@types/api';
 
 type Props = {
   administratorName: Types.AdministratorItem['administrator_display_name'];

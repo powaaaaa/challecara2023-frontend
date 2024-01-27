@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 
 import { useParams, useRouter } from 'next/navigation';
 
-import type { EventResponse, RegisterEventPayload } from '@/api/@types';
+import type { EventResponse, RegisterEventPayload } from '@/libs/@types/api';
 
-import { Axios } from '@/libs/apiClients';
+import { Axios } from '@/hooks/api';
 
 type IUseApplyConfirm = {
   imageUrl: string;
@@ -20,7 +20,7 @@ type IUseApplyConfirm = {
 export const useApplyConfirm = (): IUseApplyConfirm => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const [fetchData, setFetchData] = useState<EventResponse['data']>();
+  const [fetchData, setFetchData] = useState<EventResponse>();
   const [imageUrl, setImageUrl] = useState<string>('');
   const [eventTitle, setEventTitle] = useState<string>('');
   const [administratorName, setAdministratorName] = useState<string>('');
@@ -28,18 +28,13 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
 
   // TODO useEffect
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('eventResponse');
+    const sessionData = window.sessionStorage.getItem('eventResponse');
     if (sessionData) {
-      try {
-        const data = JSON.parse(sessionData) as EventResponse['data'];
-        if (data === null) {
-          console.error('eventDataが取得出来ませんでした');
-          return;
-        }
-        setFetchData(data);
-      } catch (error) {
-        console.error('データのパースに失敗しました。', error);
+      const data = JSON.parse(sessionData) as EventResponse;
+      if (data === null) {
+        throw new Error('sessionStorageの取得に失敗しました');
       }
+      setFetchData(data);
     }
   }, []);
 
@@ -59,6 +54,7 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
     body: RegisterEventPayload
   ): Promise<void> =>
     // await apiClient.event.$post({ body });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     await Axios.post(`/event`, body);
 
   // const updateFetchEvent = async (path: string): Promise<EventResponse> =>

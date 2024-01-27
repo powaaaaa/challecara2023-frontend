@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EventCard } from '../EventCard';
 
-import type { EventListItem } from '@/api/@types';
+import type { EventListItem } from '@/libs/@types/api';
 
 type Props = {
   eventListItem: EventListItem[];
@@ -27,7 +27,7 @@ export const EventCardList: React.FC<Props> = ({
     <div className="flex flex-nowrap flex-col gap-y-4">
       {eventListItem?.map((item) => (
         <EventCard
-          key={item.title}
+          key={item.id}
           image_url={item.image_url}
           title={item.title}
           administratorName={item.administrator_id}

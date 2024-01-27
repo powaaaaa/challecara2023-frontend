@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
-import type { ReceiptsResponse } from '@/api/@types';
-import type { Receipt } from '@/libs/@types';
+import type { ReceiptsResponse } from '@/libs/@types/api';
+import type { Receipt } from '@/libs/@types/index';
 
-import { Axios } from '@/libs/apiClients';
+import { instance } from '@/hooks/api';
 
 type IUseReceiptConfirm = {
   eventTitle: string;
@@ -21,7 +21,7 @@ type IUseReceiptConfirm = {
 export const useReceiptsConfirm = (): IUseReceiptConfirm => {
   // const router = useRouter();
   const eventId = useParams<{ id: string }>().id;
-  const [fetchData, setFetchData] = useState<ReceiptsResponse['data']>();
+  const [fetchData, setFetchData] = useState<ReceiptsResponse>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [topNumber, setTopNumber] = useState<number>(0);
   const [bottomNumber, setBottomNumber] = useState<number>(0);
@@ -41,14 +41,14 @@ export const useReceiptsConfirm = (): IUseReceiptConfirm => {
 
   const fetchReceipts = async (path: string): Promise<ReceiptsResponse> =>
     // await apiClient.event._id(path).receipts.$get();
-    await Axios.get(`/event/${path}/receipts`);
+    await instance.get(`/event/${path}/receipts`);
 
   useEffect(() => {
     const abortController = new AbortController();
     fetchReceipts(eventId)
       .then((res) => {
         console.log('受領情報の取得done');
-        setFetchData(res.data);
+        setFetchData(res);
       })
       .catch((e) => console.error('fetchに失敗しました: ', e));
     return () => {

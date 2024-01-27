@@ -2,8 +2,8 @@ import { Suspense, type Dispatch, type SetStateAction } from 'react';
 
 import { SearchCard } from './item/SearchCard';
 
-import type { EventListItem } from '@/api/@types';
 import type { SelectTagItem } from '@/libs/@types';
+import type { EventListItem } from '@/libs/@types/api';
 
 import { EventCardList } from '@/components/ui/EventCardList';
 

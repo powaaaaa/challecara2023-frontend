@@ -9,7 +9,7 @@ import { FailedEventDetail } from './item/Failed';
 import { ReceivedEventDetail } from './item/Received';
 import { WinningEventDetail } from './item/Winning';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type Props = {
   eventDetailState:
@@ -19,7 +19,7 @@ type Props = {
     | 'Received'
     | 'Winning'
     | 'Draft';
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 };
 
 export const EventDetailPresentation: React.FC<Props> = ({

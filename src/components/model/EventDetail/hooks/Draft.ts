@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
-import type { EventResponse, PublishEventPayload } from '@/api/@types';
+import type { EventResponse, PublishEventPayload } from '@/libs/@types/api';
 
-import { Axios } from '@/libs/apiClients';
+import { instance } from '@/hooks/api';
 
 type IUseDraftEventDetail = {
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -14,13 +14,13 @@ type IUseDraftEventDetail = {
 export const useDraftEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 }): IUseDraftEventDetail => {
   const router = useRouter();
 
   const fetchPublish = async (body: PublishEventPayload): Promise<void> =>
     // await apiClient.event.publish.$post({ body });
-    await Axios.post('/event/publish', body);
+    await instance.post('/event/publish', body);
 
   const FstOnClick = (): void => {
     const reqBody: PublishEventPayload = {

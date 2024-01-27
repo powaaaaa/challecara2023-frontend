@@ -1,4 +1,4 @@
-import type * as ApiTypes from '@/api/@types';
+import type * as ApiTypes from '@/libs/@types/api';
 
 // Input
 export type IsLabelDisplay = 'hidden' | 'block';
@@ -22,7 +22,7 @@ export type ButtonCustom = 'base' | 'disabled' | 'result' | 'draft';
 export type SelectTagItem = {
   id: ApiTypes.Tag['uuid'];
   label: ApiTypes.Tag['name'];
-  selected: boolean;
+  selected: boolean | undefined;
 };
 
 export type DisplayTagItem = {

@@ -2,8 +2,8 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { ResultContent } from '../ResultContent';
 
-import type * as Types from '@/api/@types';
 import type { DisplayTagItem } from '@/libs/@types';
+import type * as Types from '@/libs/@types/api';
 
 import { DisplayImage } from '@/components/ui/DisplayImage';
 import { EventDetailCard } from '@/components/ui/EventDetailCard';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type IUseActiveEventDetail = {
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -11,7 +11,7 @@ type IUseActiveEventDetail = {
 export const useActiveEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 }): IUseActiveEventDetail => {
   const router = useRouter();
   const [eventId] = useState<string>(eventData.event.id);

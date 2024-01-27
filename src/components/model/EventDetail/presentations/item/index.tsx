@@ -1,13 +1,13 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import React from 'react';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 import { EventContent } from '@/components/ui/EventContent';
 import { EventMeta } from '@/components/ui/EventMeta';
 
 type Props = {
-  fetchData: EventResponse['data'];
+  fetchData: EventResponse;
   stateText: string;
   label: string;
   subLabel: string;

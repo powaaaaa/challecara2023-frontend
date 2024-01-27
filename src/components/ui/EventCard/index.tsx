@@ -1,9 +1,9 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import Image from 'next/image';
 
-import type * as Types from '@/api/@types';
+import type * as Types from '@/libs/@types/api';
 
 type Props = {
   image_url: Types.EventItem['image_url'];
@@ -21,8 +21,15 @@ export const EventCard: React.FC<Props> = ({
   endTime,
   ...props
 }) => {
-  const start = format(parseISO(startTime), 'yyyy/MM/dd');
-  const end = format(parseISO(endTime), 'yyyy/MM/dd');
+  // invalid
+  const ds = startTime !== '' ? new Date(startTime) : new Date();
+  const de = endTime !== '' ? new Date(endTime) : new Date();
+  const start = format(ds, 'yyyy/MM/dd');
+  const end = format(de, 'yyyy/MM/dd');
+
+  // const imageLoader = ({ image_url }: { image_url: string }) =>
+  //   `${image_url}?w=448&q=75`;
+  console.log('imageUrl: ', image_url);
 
   return (
     <button
@@ -31,10 +38,12 @@ export const EventCard: React.FC<Props> = ({
     >
       <Image
         className="z-0 bg-origin-border object-cover object-center"
+        // loader={() => image_url + '?w=448&q=75'}
         src={image_url}
         alt="image_url"
         width={448}
         height={252}
+        layout="fixed"
       />
 
       <span>

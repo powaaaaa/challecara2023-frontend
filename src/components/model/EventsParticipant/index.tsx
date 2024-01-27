@@ -5,6 +5,8 @@ import { EventsParticipantPresentation } from './presentations';
 
 export const EventsParticipant: React.FC = () => {
   const {
+    error,
+    isLoading,
     eventListItem,
     tagList,
     changeEventTag,
@@ -13,6 +15,10 @@ export const EventsParticipant: React.FC = () => {
     HandleSearchEvent,
     onClickEventCard,
   } = useEventsParticipant();
+
+  if (error) <p>failed to load</p>;
+  if (isLoading) <p>Loading...</p>;
+
   return (
     <div>
       <EventsParticipantPresentation

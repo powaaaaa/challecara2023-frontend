@@ -2,10 +2,10 @@ import { useActiveEventDetail } from '../../hooks/Active';
 
 import { EventDetailItem } from '.';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type Props = {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 };
 
 export const ActiveEventDetail: React.FC<Props> = ({ eventData }) => {

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-import type { SignInPayload, SignInResponse } from '@/api/@types';
+import type { SignInPayload, SignInResponse } from '@/libs/@types/api';
 
 import { BASE_URL } from '@/libs/baseUrl';
 
@@ -44,7 +44,7 @@ export const useSignIn = (): IUseSignIn => {
       .then((res) => {
         console.log('サインインdone');
         console.log('res: ', res);
-        window.localStorage.setItem('access_token', res.data.access_token);
+        window.localStorage.setItem('access_token', res.access_token);
         router.push(`/events/participant`);
       })
       .catch((error) => {

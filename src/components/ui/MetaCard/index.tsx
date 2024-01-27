@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
-import type * as Types from '@/api/@types';
+import type * as Types from '@/libs/@types/api';
 
 type Props = {
   administratorName: Types.AdministratorItem['administrator_display_name'];

@@ -71,11 +71,9 @@ export type User = {
  *参加者向けに利用可能な全てのイベント一覧を取得するために使用されます。
  */
 export type EventParticipantResponse = {
-  data: {
-    user: User;
-    events: EventListItem[];
-    tags: Tag[];
-  };
+  user: User;
+  events: EventListItem[];
+  tags: Tag[];
 };
 
 /**
@@ -85,8 +83,9 @@ export type EventParticipantResponse = {
  */
 export type SearchEventsQuery = {
   keyword: string;
-  tags: Tag['name'][];
+  tags: Tag['name'][] | undefined;
 };
+
 /**
  * GET
  * /api/events/search
@@ -94,11 +93,9 @@ export type SearchEventsQuery = {
  *イベントをキーワードやタグを使用して絞り込み検索するために使用されます。
  */
 export type SearchEventsResponse = {
-  data: {
-    user: User;
-    events: EventListItem[];
-    tags: Tag[];
-  };
+  user: User;
+  events: EventListItem[];
+  tags: Tag[];
 };
 
 /**
@@ -108,11 +105,9 @@ export type SearchEventsResponse = {
  *指定されたイベントの詳細情報を取得するために使用されます。idパラメータによってイベントIDを指定します。
  */
 export type EventResponse = {
-  data: {
-    user: User;
-    event: EventItem;
-    administrator: AdministratorItem;
-  };
+  user: User;
+  event: EventItem;
+  administrator: AdministratorItem;
 };
 
 /**
@@ -133,10 +128,8 @@ export type RegisterEventPayload = {
  *指定されたイベントの抽選結果を取得するために使用されます。idパラメータによってイベントIDを指定します。
  */
 export type ResultResponse = {
-  data: {
-    user: User;
-    results: EventResultItem[];
-  };
+  user: User;
+  results: EventResultItem[];
 };
 
 /**
@@ -146,11 +139,9 @@ export type ResultResponse = {
  *指定されたイベントの参加者が受け取り確認するために使用されます。idパラメータによってイベントIDを指定します。
  */
 export type ReceiptResponse = {
-  data: {
-    user: User;
-    title: EventItem['title'];
-    address: string;
-  };
+  user: User;
+  title: EventItem['title'];
+  address: string;
 };
 
 /**
@@ -171,10 +162,8 @@ export type ReceiptPayload = {
  * 指定されたイベントの受領一覧を取得するために使用されます。idパラメータによってイベントIDを指定します。
  */
 export type ReceiptsResponse = {
-  data: {
-    user: User;
-    receipts: EventReceiptItem[];
-  };
+  user: User;
+  receipts: EventReceiptItem[];
 };
 
 /**
@@ -184,9 +173,8 @@ export type ReceiptsResponse = {
  * 利用可能なタグ一覧を取得するために使用されます。
  */
 export type TagsResponse = {
-  data: {
-    tags: Tag[];
-  };
+  uuid: string;
+  tags: Tag[];
 };
 
 /**
@@ -196,12 +184,10 @@ export type TagsResponse = {
  *主催者向けに利用可能な全てのイベント一覧を取得するために使用されます。
  */
 export type EventAdministratorResponse = {
-  data: {
-    user: User;
-    draft_events: EventListItem[];
-    active_events: EventListItem[];
-    finished_events: EventListItem[];
-  };
+  user: User;
+  draft_events: EventListItem[];
+  active_events: EventListItem[];
+  finished_events: EventListItem[];
 };
 
 /**
@@ -262,13 +248,12 @@ export type SignInPayload = {
   username: User['display_name'];
   password: User['password'];
 };
+
 /**
  * /api/signin
  *
  * response
  */
 export type SignInResponse = {
-  data: {
-    access_token: string;
-  };
+  access_token: string;
 };

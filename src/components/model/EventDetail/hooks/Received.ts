@@ -1,6 +1,6 @@
 import { useParams, useRouter } from 'next/navigation';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type IUseReceivedEventDetail = {
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -10,7 +10,7 @@ type IUseReceivedEventDetail = {
 export const useReceivedEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 }): IUseReceivedEventDetail => {
   const router = useRouter();
   const eventId = useParams<{ id: string }>().id;

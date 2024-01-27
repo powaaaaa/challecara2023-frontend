@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type IUseWinningEventDetail = {
   FstOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -15,7 +15,7 @@ type IUseWinningEventDetail = {
 export const useWinningEventDetail = ({
   eventData,
 }: {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 }): IUseWinningEventDetail => {
   const router = useRouter();
   const [eventId] = useState<string>(eventData.event.id);

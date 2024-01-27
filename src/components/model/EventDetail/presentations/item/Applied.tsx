@@ -2,10 +2,10 @@ import React from 'react';
 
 import { EventDetailItem } from '.';
 
-import type { EventResponse } from '@/api/@types';
+import type { EventResponse } from '@/libs/@types/api';
 
 type Props = {
-  eventData: EventResponse['data'];
+  eventData: EventResponse;
 };
 
 export const AppliedEventDetail: React.FC<Props> = ({ eventData }) => (

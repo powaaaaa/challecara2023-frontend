@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
-import type { ResultResponse } from '@/api/@types';
 import type { Result } from '@/libs/@types';
+import type { ResultResponse } from '@/libs/@types/api';
 
-import { Axios } from '@/libs/apiClients';
+import { instance } from '@/hooks/api';
 
 type IUseResultConfirm = {
   eventTitle: string;
@@ -19,7 +19,7 @@ type IUseResultConfirm = {
 export const useResultConfirm = (): IUseResultConfirm => {
   // const router = useRouter();
   const eventId = useParams<{ id: string }>().id;
-  const [fetchData, setFetchData] = useState<ResultResponse['data']>();
+  const [fetchData, setFetchData] = useState<ResultResponse>();
   const [eventTitle, setEventTitle] = useState<string>('');
   const [resultData, setResultData] = useState<Result[]>([]);
 
@@ -37,7 +37,7 @@ export const useResultConfirm = (): IUseResultConfirm => {
 
   const fetchResult = async (path: string): Promise<ResultResponse> =>
     // await apiClient.event._id(path).results.$get();
-    await Axios.get(`/event/${path}/result`);
+    await instance.get(`/event/${path}/result`);
 
   // NOTE consider to use AbortController and prune axios or fetch
   useEffect(() => {
@@ -45,7 +45,7 @@ export const useResultConfirm = (): IUseResultConfirm => {
     fetchResult(eventId)
       .then((res) => {
         console.log('結果取得done');
-        setFetchData(res.data);
+        setFetchData(res);
       })
       .catch((e) => console.error('fetchに失敗しました: ', e));
     return () => {
