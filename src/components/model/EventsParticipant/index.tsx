@@ -5,7 +5,7 @@ import { EventsParticipantPresentation } from './presentations';
 
 export const EventsParticipant: React.FC = () => {
   const {
-    error,
+    // error,
     isLoading,
     eventListItem,
     tagList,
@@ -16,7 +16,7 @@ export const EventsParticipant: React.FC = () => {
     onClickEventCard,
   } = useEventsParticipant();
 
-  if (error) <p>failed to load</p>;
+  // if (error) <p>failed to load</p>;
   if (isLoading) <p>Loading...</p>;
 
   return (
