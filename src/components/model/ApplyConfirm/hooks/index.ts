@@ -7,7 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import type { EventResponse, RegisterEventPayload } from '@/libs/@types/api';
 
-import { Axios } from '@/hooks/api';
+import { instance } from '@/hooks/api';
 
 type IUseApplyConfirm = {
   imageUrl: string;
@@ -54,8 +54,7 @@ export const useApplyConfirm = (): IUseApplyConfirm => {
     body: RegisterEventPayload
   ): Promise<void> =>
     // await apiClient.event.$post({ body });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    await Axios.post(`/event`, body);
+    await instance.post(`/event`, body);
 
   // const updateFetchEvent = async (path: string): Promise<EventResponse> =>
   //   await apiClient.event._id(path).$get();
