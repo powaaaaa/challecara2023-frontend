@@ -1,5 +1,5 @@
-import type * as Types from '@/api/@types';
-import type { DisplayTagItem } from '@/libs/@types';
+import type * as Types from '@/libs/@types/api';
+import type { DisplayTagItem } from '@/libs/@types/index';
 
 type Props = {
   title: Types.EventItem['title'];
